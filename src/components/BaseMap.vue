@@ -30,27 +30,70 @@ export default {
     map.addControl(nav, "top-right");
 
     map.on("load", function() {
-      map.addLayer({
-        id: "historical-places",
-        type: "circle",
-        source: {
-          type: "vector",
-          url: "mapbox://harpriyabagri.ab3jqtro",
-        },
-        "source-layer": "HPC_landmarks-9r0qec",
-        paint: {
-          "circle-radius": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            10,
-            ["/", ["-", 2017, ["number", ["get", "Constructi"], 2017]], 30],
-            13,
-            ["/", ["-", 2017, ["number", ["get", "Constructi"], 2017]], 10],
+      map.addSource("mypoints", {
+        type: "geojson",
+        data: {
+          type: "FeatureCollection",
+          features: [
+            {
+              type: "Feature",
+              properties: {
+                id: "marker-iv1r4bs18",
+                title: "Lincoln Park",
+                description:
+                  "A northside park that is home to the Lincoln Park Zoo",
+                "marker-size": "medium",
+                "marker-color": "#1087bf",
+                "marker-symbol": "marker-blue",
+              },
+              geometry: {
+                coordinates: [-123.637596, 49.940403],
+                type: "Point",
+              },
+              id: "7459e13bb6d8ecd1c797e2c168a6ad91",
+            },
+            {
+              type: "Feature",
+              properties: {
+                id: "marker-iv1qtkep5",
+                title: "Grant Park",
+                description:
+                  "A downtown park that is the site of many of Chicago's favorite festivals and events",
+                "marker-size": "medium",
+                "marker-color": "#1087bf",
+                "marker-symbol": "marker-orange",
+              },
+              geometry: {
+                coordinates: [-123.619185, 49.876367],
+                type: "Point",
+              },
+              id: "acba288f3abd79014145bc16e83fbc78",
+            },
+            {
+              type: "Feature",
+              properties: {
+                id: "marker-iv1r541d9",
+                title: "Millennium Park",
+                description:
+                  "A downtown park known for it's art installations and unique architecture",
+                "marker-size": "medium",
+                "marker-color": "#ffffff",
+                "marker-symbol": "marker-green",
+              },
+              geometry: {
+                coordinates: [-123.622554, 49.882534],
+                type: "Point",
+              },
+              id: "f919f7ec1e3bf88e776772311af3b151",
+            },
           ],
-          "circle-opacity": 0.8,
-          "circle-color": "rgb(171, 72, 33)",
         },
+      });
+
+      map.addLayer({
+        id: "layer-mypoints",
+        type: "circle",
+        source: "mypoints",
       });
     });
   },
