@@ -10,16 +10,18 @@ export default {
   data() {
     return {
       accessToken:
-        "pk.eyJ1IjoiaGFycHJpeWFiYWdyaSIsImEiOiJja2NxeHR6dWgwcjJnMnJtMXhreWN4MWoxIn0.wW12qOAMq730lfuLyXb9nw"
+        "pk.eyJ1IjoiaGFycHJpeWFiYWdyaSIsImEiOiJja2NxeHR6dWgwcjJnMnJtMXhreWN4MWoxIn0.wW12qOAMq730lfuLyXb9nw",
     };
   },
   methods: {
+    dashboardClicked() {},
+
     load() {
       mapboxgl.accessToken = this.accessToken;
       var map = new mapboxgl.Map({
         container: "mapContainer",
         style: "mapbox://styles/harpriyabagri/ckcs1ofh31ejn1iqxzmqwppj2",
-        zoom: 1.3
+        zoom: 1.3,
       });
 
       var nav = new mapboxgl.NavigationControl();
@@ -31,19 +33,19 @@ export default {
           //input the file name of the data you want to display
           //articles.json has one json object for each article
           //grouped.json has one json object for each news outlet
-          data: require("./articles.json")
+          data: require("./articles.json"),
         });
 
         map.addLayer({
           id: "layer-mypoints",
           type: "circle",
-          source: "mypoints"
+          source: "mypoints",
         });
 
         map.on("click", "layer-mypoints", function(e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
-          var outlet = e.features[0].properties.outlet;
-          var location = e.features[0].properties.location;
+          var title = e.features[0].properties.title;
+          var url = e.features[0].properties.url;
           // var title = e.features[0].properties.title;
 
           // Ensure that if the map is zoomed out such that multiple
@@ -55,7 +57,17 @@ export default {
 
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
-            .setHTML("<h3>" + outlet + "</h3><h3>" + location + "</h3>")
+            .setHTML(
+              "<div class=" +
+                "title" +
+                "> Some Topic </div><a href =" +
+                url +
+                " target=_" +
+                "blank" +
+                ">" +
+                title +
+                "</a>"
+            )
             .addTo(map);
         });
 
@@ -69,23 +81,29 @@ export default {
           map.getCanvas().style.cursor = "";
         });
       });
-    }
+    },
   },
   mounted() {
     this.load();
-  }
+  },
 };
 </script>
 
 <style>
 @import url("https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css");
 .basemap {
+  position: absolute;
   width: 100%;
   height: 100%;
 }
 .click-popup .mapboxgl-popup-content {
   background-color: #58585c;
   color: white;
+  padding: 10px;
+}
+.click-popup .mapboxgl-popup-content .title {
+  font-size: 24px;
+  margin: 5px 0px 15px 0px;
 }
 .click-popup .mapboxgl-popup-tip {
   border-top-color: #58585c;
@@ -103,6 +121,14 @@ export default {
 }
 
 .mapboxgl-popup-close-button {
+  font-size: 16px;
   color: white;
+}
+.mapboxgl-ctrl-group:not(:empty) {
+  box-shadow: 0 3px 6px #3535353b;
+}
+.mapboxgl-ctrl button{
+  transition: all;
+  transition-duration: 150ms;
 }
 </style>
