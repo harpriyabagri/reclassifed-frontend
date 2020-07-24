@@ -11,6 +11,17 @@ export default {
     return {
       accessToken:
         "pk.eyJ1IjoiaGFycHJpeWFiYWdyaSIsImEiOiJja2NxeHR6dWgwcjJnMnJtMXhreWN4MWoxIn0.wW12qOAMq730lfuLyXb9nw",
+      categories: [
+        { category: "COVID-19", color: "#f34c46" },
+        { category: "Politics", color: "#fa8d4f" },
+        { category: "Business", color: "#fdd742" },
+        { category: "Sports", color: "#a3e048" },
+        { category: "Arts & Media", color: "#49da9a" },
+        { category: "Science & Tech", color: "#50d4fe" },
+        { category: "Lifestyle", color: "#6073fd" },
+        { category: "Community", color: "#ff95d5" },
+        { category: "Crisis Updates", color: "#000000" },
+      ],
     };
   },
   methods: {
@@ -40,6 +51,22 @@ export default {
           id: "layer-mypoints",
           type: "circle",
           source: "mypoints",
+          paint: {
+            'circle-color': [
+              'match',
+              ['get', 'category'],
+              'covid-19', "#f34c46",
+              'politics', '#fa8d4f',
+              "business", "#fdd742",
+              "sports", "#a3e048",
+              "arts & entertainment", "#49da9a" ,
+              "science & tech", "#50d4fe",
+              "lifestyle", "#6073fd",
+              "local", "#ff95d5",
+              "Crisis Updates", "#000000",
+              /* other */ '#ccc'
+            ]
+          },
         });
 
         map.on("click", "layer-mypoints", function(e) {
@@ -64,7 +91,9 @@ export default {
                 " target=_" +
                 "blank" +
                 ">" +
+                '"' +
                 title +
+                '"' +
                 "</a>"
             )
             .addTo(map);
@@ -98,7 +127,7 @@ export default {
           // based on the feature found.
           popup
             .setLngLat(coordinates)
-            .setHTML("<div> some topic </div>")
+            .setHTML("<div> Some Topic </div>")
             .addTo(map);
         });
 
@@ -123,10 +152,11 @@ export default {
   width: 100%;
   height: 100%;
 }
-.hover-popup .mapboxgl-popup-content{
-  background-color: #58585c;
-  color: white;
-  padding: 0px 2px;
+.hover-popup .mapboxgl-popup-content {
+  font-size: 14px;
+  background-color: #242424;
+  color: rgb(228, 228, 228);
+  padding: 2px 8px;
 }
 
 .hover-popup .mapboxgl-popup-tip {
@@ -135,16 +165,17 @@ export default {
 }
 
 .click-popup .mapboxgl-popup-content {
-  background-color: #58585c;
-  color: white;
-  padding: 10px;
+  background-color: #242424;
+  color: rgb(228, 228, 228);
+  padding: 10px 15px;
+  border-radius: 5px;
 }
 .click-popup .mapboxgl-popup-content .title {
   font-size: 24px;
   margin: 5px 0px 15px 0px;
 }
 .click-popup .mapboxgl-popup-tip {
-  border-top-color: #58585c;
+  border-top-color: #242424;
   color: #58585c;
 }
 
@@ -154,7 +185,7 @@ export default {
 }
 
 .mapboxgl-popup-content a:hover {
-  text-decoration: none;
+  text-decoration: underline;
   color: #d0d0d9;
 }
 
