@@ -1,0 +1,99 @@
+<template>
+  <div class="UIOverlay">
+    <div class="top-right">
+      <div class="button">Dashboard</div>
+    </div>
+    <div class="bottom-left">
+      <div class="category" v-for="cat in categories" :key="cat.category">
+        <div class="circle" :style="{ backgroundColor: cat.color }"></div>
+        <div class="category-title">{{ cat.category }}</div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "UIOverlay",
+  data() {
+    return {
+      categories: [
+        { category: "COVID-19", color: "#f34c46" },
+        { category: "Politics", color: "#fa8d4f" },
+        { category: "Business", color: "#fdd742" },
+        { category: "Sports", color: "#a3e048" },
+        { category: "Arts & Media", color: "#49da9a" },
+        { category: "Lifestyle", color: "#50d4fe" },
+        { category: "Community", color: "#ff95d5" },
+      ],
+    };
+  },
+};
+</script>
+s
+
+<style scoped>
+.UIOverlay {
+  position: absolute;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
+.top-right {
+  pointer-events: auto;
+  position: absolute;
+  top: 10px;
+  right: 50px;
+}
+.bottom-left {
+  pointer-events: auto;
+  position: absolute;
+  bottom: 50px;
+  left: 10px;
+}
+.button {
+  letter-spacing: 0.4px;
+  background-color: none;
+  color: #414141;
+  box-shadow: 0 3px 6px #3535353b;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 12px;
+  user-select: none;
+  cursor: pointer;
+  transition: all;
+  transition-duration: 150ms;
+}
+.button:hover {
+  background-color: #f2f2f2;
+}
+
+.category {
+  letter-spacing: 0.4px;
+  background-color: none;
+  color: #414141;
+  box-shadow: 0 3px 6px #3535353b;
+  border-radius: 5px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 6px 12px;
+  user-select: none;
+  cursor: pointer;
+  transition: all;
+  transition-duration: 150ms;
+  margin-bottom: 5px;
+}
+.category:hover {
+  background-color: #f2f2f2;
+}
+.circle {
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+}
+
+</style>
