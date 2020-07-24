@@ -128,6 +128,7 @@ export default {
   box-shadow: 0 3px 6px #3535353b;
 }
 .mapboxgl-ctrl button{
+  /*background-color: white; */
   transition: all;
   transition-duration: 150ms;
 }
