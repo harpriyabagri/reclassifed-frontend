@@ -46,7 +46,6 @@ export default {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var title = e.features[0].properties.title;
           var url = e.features[0].properties.url;
-          // var title = e.features[0].properties.title;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -71,14 +70,42 @@ export default {
             .addTo(map);
         });
 
-        // Change the cursor to a pointer when the mouse is over the places layer.
-        map.on("mouseenter", "layer-mypoints", function() {
+        // // Change the cursor to a pointer when the mouse is over the places layer.
+        // map.on("mouseenter", "layer-mypoints", function() {
+        //   map.getCanvas().style.cursor = "pointer";
+        // });
+        // Create a popup, but don't add it to the map yet.
+        var popup = new mapboxgl.Popup({
+          className: "hover-popup",
+          closeButton: false,
+          closeOnClick: false,
+        });
+
+        map.on("mouseenter", "layer-mypoints", function(e) {
+          // Change the cursor style as a UI indicator.
           map.getCanvas().style.cursor = "pointer";
+
+          var coordinates = e.features[0].geometry.coordinates.slice();
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          // Populate the popup and set its coordinates
+          // based on the feature found.
+          popup
+            .setLngLat(coordinates)
+            .setHTML("<div> some topic </div>")
+            .addTo(map);
         });
 
         // Change it back to a pointer when it leaves.
         map.on("mouseleave", "layer-mypoints", function() {
           map.getCanvas().style.cursor = "";
+          popup.remove();
         });
       });
     },
@@ -96,6 +123,17 @@ export default {
   width: 100%;
   height: 100%;
 }
+.hover-popup .mapboxgl-popup-content{
+  background-color: #58585c;
+  color: white;
+  padding: 0px 2px;
+}
+
+.hover-popup .mapboxgl-popup-tip {
+  border-top-color: transparent;
+  color: transparent;
+}
+
 .click-popup .mapboxgl-popup-content {
   background-color: #58585c;
   color: white;
@@ -127,7 +165,7 @@ export default {
 .mapboxgl-ctrl-group:not(:empty) {
   box-shadow: 0 3px 6px #3535353b;
 }
-.mapboxgl-ctrl button{
+.mapboxgl-ctrl button {
   /*background-color: white; */
   transition: all;
   transition-duration: 150ms;

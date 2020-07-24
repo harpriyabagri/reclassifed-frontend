@@ -23,8 +23,10 @@ export default {
         { category: "Business", color: "#fdd742" },
         { category: "Sports", color: "#a3e048" },
         { category: "Arts & Media", color: "#49da9a" },
-        { category: "Lifestyle", color: "#50d4fe" },
+        { category: "Science & Tech", color: "#50d4fe" },
+        { category: "Lifestyle", color: "#6073fd" },
         { category: "Community", color: "#ff95d5" },
+        { category: "Crisis Updates", color: "#000000" },
       ],
     };
   },
