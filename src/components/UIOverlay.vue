@@ -9,6 +9,7 @@
         v-for="cat in categories"
         :key="cat.category"
         @click="filter(cat)"
+        :class="{ toggled: active_filters[cat.index] }"
       >
         <div class="circle" :style="{ backgroundColor: cat.color }"></div>
         <div class="category-title">{{ cat.category }}</div>
@@ -39,7 +40,7 @@ export default {
   methods: {
     filter(cat) {
       var i = cat.index;
-      this.active_filters[i] = !this.active_filters[i];
+      this.$set(this.active_filters, i, !this.active_filters[i])
       this.$emit("revaluate-filters", this.active_filters);
     },
   },
@@ -49,6 +50,9 @@ export default {
 s
 
 <style scoped>
+.toggled{
+  background-color: white;
+}
 .UIOverlay {
   position: absolute;
   pointer-events: none;
