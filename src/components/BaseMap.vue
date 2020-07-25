@@ -81,7 +81,8 @@ export default {
           },
         });
 
-        this.filter_state.addEventListener('change', function(e) {
+        this.active_filters.addEventListener('change', function(e) {
+          console.log(active_filters)
           console.log(e.target.value)
         })
 
@@ -156,6 +157,7 @@ export default {
     },
   },
   mounted() {
+    console.log(this.filter_state)
     this.load();
   },
 };
