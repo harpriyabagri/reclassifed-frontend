@@ -8,23 +8,24 @@ import mapboxgl from "mapbox-gl";
 export default {
   name: "BaseMap",
   props: {
-    active_filters: Array,
+    active_filters: Array
   },
   data() {
     return {
       accessToken:
         "pk.eyJ1IjoiaGFycHJpeWFiYWdyaSIsImEiOiJja2NxeHR6dWgwcjJnMnJtMXhreWN4MWoxIn0.wW12qOAMq730lfuLyXb9nw",
-      filter_state: [
-        { category: "COVID-19", color: "#f34c46", filter: this.active_filters[0]},
-        { category: "Politics", color: "#fa8d4f", filter: this.active_filters[1]},
-        { category: "Business", color: "#fdd742", filter: this.active_filters[2]},
-        { category: "Sports", color: "#a3e048", filter: this.active_filters[3]},
-        { category: "Arts & Media", color: "#49da9a", filter: this.active_filters[4]},
-        { category: "Science & Tech", color: "#50d4fe", filter: this.active_filters[5]},
-        { category: "Lifestyle", color: "#6073fd", filter: this.active_filters[6]},
-        { category: "Community", color: "#ff95d5", filter: this.active_filters[7]},
-        { category: "Crisis Updates", color: "#000000", filter: this.active_filters[8]},
-      ],
+      // filter_state: [
+      //   { category: "COVID-19", color: "#f34c46", filter: this.active_filters[0]},
+      //   { category: "Politics", color: "#fa8d4f", filter: this.active_filters[1]},
+      //   { category: "Business", color: "#fdd742", filter: this.active_filters[2]},
+      //   { category: "Sports", color: "#a3e048", filter: this.active_filters[3]},
+      //   { category: "Arts & Media", color: "#49da9a", filter: this.active_filters[4]},
+      //   { category: "Science & Tech", color: "#50d4fe", filter: this.active_filters[5]},
+      //   { category: "Lifestyle", color: "#6073fd", filter: this.active_filters[6]},
+      //   { category: "Community", color: "#ff95d5", filter: this.active_filters[7]},
+      //   { category: "Crisis Updates", color: "#000000", filter: this.active_filters[8]},
+      // ],
+      // filters: this.active_filters,
     };
   },
   methods: {
@@ -81,10 +82,10 @@ export default {
           },
         });
 
-        this.active_filters.addEventListener('change', function(e) {
-          console.log(active_filters)
-          console.log(e.target.value)
-        })
+        this.active_filters.addEventListener("change", function(e) {
+          //console.log(active_filters)
+          console.log(e.target.value);
+        });
 
         map.on("click", "layer-mypoints", function(e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
@@ -157,7 +158,9 @@ export default {
     },
   },
   mounted() {
-    console.log(this.filter_state)
+    //console.log(this.active_filters)
+    //console.log(this.filter_state)
+    //console.log(this.active_filters)
     this.load();
   },
 };
