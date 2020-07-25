@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <BaseMap />
-    <UIOverlay />
+    <BaseMap :active_filters="filters" />
+    <UIOverlay @revaluate-filters="filters = $event" />
   </div>
 </template>
 
@@ -14,6 +14,11 @@ export default {
   components: {
     BaseMap,
     UIOverlay,
+  },
+  data() {
+    return {
+      filters: [],
+    };
   },
 };
 </script>

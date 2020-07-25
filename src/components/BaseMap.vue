@@ -7,20 +7,23 @@ import mapboxgl from "mapbox-gl";
 
 export default {
   name: "BaseMap",
+  props: {
+    active_filters: Array,
+  },
   data() {
     return {
       accessToken:
         "pk.eyJ1IjoiaGFycHJpeWFiYWdyaSIsImEiOiJja2NxeHR6dWgwcjJnMnJtMXhreWN4MWoxIn0.wW12qOAMq730lfuLyXb9nw",
-      categories: [
-        { category: "COVID-19", color: "#f34c46" },
-        { category: "Politics", color: "#fa8d4f" },
-        { category: "Business", color: "#fdd742" },
-        { category: "Sports", color: "#a3e048" },
-        { category: "Arts & Media", color: "#49da9a" },
-        { category: "Science & Tech", color: "#50d4fe" },
-        { category: "Lifestyle", color: "#6073fd" },
-        { category: "Community", color: "#ff95d5" },
-        { category: "Crisis Updates", color: "#000000" },
+      filter_state: [
+        { category: "COVID-19", color: "#f34c46", filter: this.active_filters[0]},
+        { category: "Politics", color: "#fa8d4f", filter: this.active_filters[1]},
+        { category: "Business", color: "#fdd742", filter: this.active_filters[2]},
+        { category: "Sports", color: "#a3e048", filter: this.active_filters[3]},
+        { category: "Arts & Media", color: "#49da9a", filter: this.active_filters[4]},
+        { category: "Science & Tech", color: "#50d4fe", filter: this.active_filters[5]},
+        { category: "Lifestyle", color: "#6073fd", filter: this.active_filters[6]},
+        { category: "Community", color: "#ff95d5", filter: this.active_filters[7]},
+        { category: "Crisis Updates", color: "#000000", filter: this.active_filters[8]},
       ],
     };
   },
@@ -52,22 +55,35 @@ export default {
           type: "circle",
           source: "mypoints",
           paint: {
-            'circle-color': [
-              'match',
-              ['get', 'category'],
-              'covid-19', "#f34c46",
-              'politics', '#fa8d4f',
-              "business", "#fdd742",
-              "sports", "#a3e048",
-              "arts & entertainment", "#49da9a" ,
-              "science & tech", "#50d4fe",
-              "lifestyle", "#6073fd",
-              "local", "#ff95d5",
-              "Crisis Updates", "#000000",
-              /* other */ '#ccc'
-            ]
+            "circle-color": [
+              "match",
+              ["get", "category"],
+              "covid-19",
+              "#f34c46",
+              "politics",
+              "#fa8d4f",
+              "business",
+              "#fdd742",
+              "sports",
+              "#a3e048",
+              "arts & entertainment",
+              "#49da9a",
+              "science & tech",
+              "#50d4fe",
+              "lifestyle",
+              "#6073fd",
+              "local",
+              "#ff95d5",
+              "Crisis Updates",
+              "#000000",
+              /* other */ "#ccc",
+            ],
           },
         });
+
+        this.filter_state.addEventListener('change', function(e) {
+          console.log(e.target.value)
+        })
 
         map.on("click", "layer-mypoints", function(e) {
           var coordinates = e.features[0].geometry.coordinates.slice();

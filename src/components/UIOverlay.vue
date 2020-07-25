@@ -4,7 +4,12 @@
       <div class="button">Dashboard</div>
     </div>
     <div class="bottom-left">
-      <div class="category" v-for="cat in categories" :key="cat.category">
+      <div
+        class="category"
+        v-for="cat in categories"
+        :key="cat.category"
+        @click="filter(cat)"
+      >
         <div class="circle" :style="{ backgroundColor: cat.color }"></div>
         <div class="category-title">{{ cat.category }}</div>
       </div>
@@ -18,18 +23,27 @@ export default {
   data() {
     return {
       categories: [
-        { category: "COVID-19", color: "#f34c46" },
-        { category: "Politics", color: "#fa8d4f" },
-        { category: "Business", color: "#fdd742" },
-        { category: "Sports", color: "#a3e048" },
-        { category: "Arts & Media", color: "#49da9a" },
-        { category: "Science & Tech", color: "#50d4fe" },
-        { category: "Lifestyle", color: "#6073fd" },
-        { category: "Community", color: "#ff95d5" },
-        { category: "Crisis Updates", color: "#000000" },
+        { category: "COVID-19", color: "#f34c46", index: 0 },
+        { category: "Politics", color: "#fa8d4f", index: 1 },
+        { category: "Business", color: "#fdd742", index: 2 },
+        { category: "Sports", color: "#a3e048", index: 3 },
+        { category: "Arts & Media", color: "#49da9a", index: 4 },
+        { category: "Science & Tech", color: "#50d4fe", index: 5 },
+        { category: "Lifestyle", color: "#6073fd", index: 6 },
+        { category: "Community", color: "#ff95d5", index: 7 },
+        { category: "Crisis Updates", color: "#000000", index: 8 },
       ],
+      active_filters: [0, 0, 0, 0, 0, 0, 0, 0, 0],
     };
   },
+  methods: {
+    filter(cat) {
+      var i = cat.index;
+      this.active_filters[i] = !this.active_filters[i];
+      this.$emit("revaluate-filters", this.active_filters);
+    },
+  },
+  mounted() {},
 };
 </script>
 s
@@ -97,5 +111,4 @@ s
   height: 15px;
   margin-right: 10px;
 }
-
 </style>
