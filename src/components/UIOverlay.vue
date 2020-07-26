@@ -10,6 +10,7 @@
         :key="cat.category"
         @click="filter(cat)"
         :class="{ toggled: active_filters[cat.index] }"
+        :style="[ active_filters[cat.index] ? {backgroundColor: cat.color} : {backgroundColor:none}]"
       >
         <div class="circle" :style="{ backgroundColor: cat.color }"></div>
         <div class="category-title">{{ cat.category }}</div>
@@ -50,7 +51,7 @@ export default {
 
 
 <style scoped>
-.toggled{
+.toggled {
   background-color: white;
 }
 .UIOverlay {
