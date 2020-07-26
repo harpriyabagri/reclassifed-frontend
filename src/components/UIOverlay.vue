@@ -13,7 +13,7 @@
         v-for="cat in categories"
         :key="cat.category"
         @click="filter(cat)"
-        :style="[cat.include ? {backgroundColor: cat.color} : {backgroundColor: null}]"
+        :style="[ active_filters[cat.index] ? {backgroundColor: cat.bgColor} : {backgroundColor: 'transparent'} ]"
       >
         <div class="circle" :style="{ backgroundColor: cat.color }"></div>
         <div class="category-title">{{ cat.category }}</div>
@@ -47,7 +47,7 @@
       </modal>
       <div class="search">
         <form action>
-          <input type="text" placeholder="Search.." name="search" />
+          <input type="text" placeholder="Search..." name="search" />
           <!-- <button type="submit"></button> -->
         </form>
       </div>
@@ -147,9 +147,6 @@ export default {
 
 
 <style scoped>
-.toggled {
-  background-color: white;
-}
 .UIOverlay {
   position: absolute;
   pointer-events: none;
@@ -192,7 +189,6 @@ export default {
 .button:hover {
   background-color: #f2f2f2;
 }
-
 .category {
   letter-spacing: 0.4px;
   background-color: none;
@@ -212,6 +208,9 @@ export default {
 }
 .category:hover {
   background-color: #f2f2f2;
+}
+.category-title {
+  opacity: 1.0;
 }
 .circle {
   border-radius: 50%;
