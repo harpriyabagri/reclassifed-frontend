@@ -2,6 +2,7 @@
   <div class="UIOverlay">
     <div class="top-right">
       <div class="button">Dashboard</div>
+      <div class="button" id="aboutButton" @click="showAbout">About</div>
     </div>
     <div class="bottom-left">
       <div
@@ -13,6 +14,14 @@
       >
         <div class="circle" :style="{ backgroundColor: cat.color }"></div>
         <div class="category-title">{{ cat.category }}</div>
+      </div>
+    </div>
+    <div class="top-centre">
+      <div id="aboutModal" class="modal">
+        <div class="modal-content">
+          <span class="close" @click="close">&times;</span>
+          <p>all about our product :)</p>
+        </div>
       </div>
     </div>
   </div>
@@ -43,11 +52,20 @@ export default {
       this.$set(this.active_filters, i, !this.active_filters[i])
       this.$emit("revaluate-filters", this.active_filters);
     },
+    showAbout() {
+      var modal = document.getElementById("aboutModal")
+      modal.style.display = "block"
+    },
+    close() {
+      var modal = document.getElementById("aboutModal")
+      modal.style.display = "none"
+    }
   },
   mounted() {},
 };
+
 </script>
-s
+
 
 <style scoped>
 .toggled{
@@ -70,6 +88,12 @@ s
   position: absolute;
   bottom: 50px;
   left: 10px;
+}
+.top-centre{
+  pointer-events: auto;
+  position: absolute;
+  top: 10px;
+  right: 500px;
 }
 .button {
   letter-spacing: 0.4px;
@@ -114,5 +138,37 @@ s
   width: 15px;
   height: 15px;
   margin-right: 10px;
+}
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; 
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 </style>
