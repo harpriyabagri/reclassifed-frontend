@@ -13,14 +13,14 @@
         v-for="cat in categories"
         :key="cat.category"
         @click="filter(cat)"
-        :style="[active_filters[cat.index] ? {backgroundColor: cat.color} : {backgroundColor: white}]"
+        :style="[active_filters[cat.index] ? {backgroundColor: cat.color} : {backgroundColor: none}]"
       >
         <div class="circle" :style="{ backgroundColor: cat.color }"></div>
         <div class="category-title">{{ cat.category }}</div>
       </div>
     </div>
     <div class="top-centre">
-      <div id="aboutModal" class="modal">
+      <div id="aboutModal" class="modal" >
         <div class="modal-content">
           <span class="close" @click="close">&times;</span>
           <h2>about newsworthy.ml</h2>
@@ -78,6 +78,14 @@ export default {
       this.$set(this.active_filters, i, !this.active_filters[i])
       this.$emit("revaluate-filters", this.active_filters);
     },
+    showAbout() {
+      var modal = document.getElementById("aboutModal")
+      modal.style.display = "block"
+    },
+    close() {
+      var modal = document.getElementById("aboutModal")
+      modal.style.display = "none"
+    }
   },
   mounted() {},
 };
@@ -214,5 +222,9 @@ input[type='text'] {
 ::placeholder {
   color: #b0b0b0;
   font-family: "Times New Roman";
+}
+img {
+  width: 180px;
+  height: auto;
 }
 </style>
