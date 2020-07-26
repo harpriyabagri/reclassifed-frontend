@@ -211,6 +211,7 @@ export default {
   opacity: 1.0;
 }
 .circle {
+  border: 0.1px solid white;
   border-radius: 50%;
   width: 15px;
   height: 15px;
