@@ -22,19 +22,23 @@
           <span class="close" @click="close">&times;</span>
           <!-- will be replaced with actual text -->
           <h2>about newsworthy.ml</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute 
-            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
-            deserunt mollit anim id est laborum.
+          <p>Hey, thanks for checking out Newsworthy! This project is the brainchild of six fellows working at 
+            the Montreal-based AI4Good Lab. Following an intensive five-week curriculum of AI and machine learning, 
+            we had three weeks to implement Newsworthy as a working product. We hope you enjoy exploring Newsworthy 
+            as much as we enjoyed creating it!
             <br><br>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
-            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
-            mollit anim id est laborum.</p>
+            It feels now more than ever before, information literacy is crucial. Newsworthy provides analytics on users 
+            reading habits and provides suggestions on how users can diversify their news intake to reduce bias, and 
+            improve their information literacy. Did you know that nearly half of original news stories are first broken by 
+            local news outlets? Despite this, local newspapers are being eradicated by larger national outlets.  Newsworthy 
+            strives to provide an equal playing field for local newspapers, so they can get the attention they deserve.
+            We had three weeks to create Newsworthy, and think that if we had four, five, gosh forbid six weeks, we could 
+            do a lot more. 
+            <br><br>
+            Future implementations and ideas include _____ and ______.
+            <br><br>
+            Nobody is perfect, and we are no exception! We have identified several limitations of our project. 
+            (we can list these as a group and I can add it in.)</p>
         </div>
       </div>
       
