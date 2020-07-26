@@ -1,8 +1,8 @@
 <template>
   <div class="UIOverlay">
     <div class="top-right">
-      <div class="button">Dashboard</div>
       <div class="button" id="aboutButton" @click="showAbout">About</div>
+      <div class="button">Dashboard</div>
     </div>
     <div class="bottom-left">
       <div
@@ -21,7 +21,6 @@
       <div id="aboutModal" class="modal">
         <div class="modal-content">
           <span class="close" @click="close">&times;</span>
-          <!-- will be replaced with actual text -->
           <h2>about newsworthy.ml</h2>
           <p>Hey, thanks for checking out Newsworthy! This project is the brainchild of six fellows working at 
             the Montreal-based AI4Good Lab. Following an intensive five-week curriculum of AI and machine learning, 
@@ -181,8 +180,7 @@ export default {
   width: 100%;
   height: 100%; 
   overflow: auto; 
-  background-color: rgb(0,0,0); 
-  background-color: rgba(0,0,0,0.4); 
+  background-color: rgba(0,0,0,0.4);
 }
 .modal-content {
   background-color: #fefefe;
@@ -190,6 +188,8 @@ export default {
   padding: 20px;
   border: 1px solid #888;
   width: 80%; 
+  background-color: #242424;
+  color: rgb(228, 228, 228);
 }
 .close {
   color: #aaa;
