@@ -37,6 +37,15 @@
             mollit anim id est laborum.</p>
         </div>
       </div>
+      
+    </div>
+    <div class="top-left">
+      <div class="search">
+          <form action="">
+            <input type="text" placeholder="Search.." name="search">
+            <!-- <button type="submit"></button> -->
+          </form>
+        </div>
     </div>
   </div>
 </template>
@@ -103,11 +112,17 @@ export default {
   bottom: 50px;
   left: 10px;
 }
-.top-centre{
+.top-centre {
   pointer-events: auto;
   position: absolute;
+  left: 40%;
   top: 10px;
-  right: 50px;
+}
+.top-left {
+  pointer-events: auto;
+  position: absolute;
+  left: 10px;
+  top: 10px;
 }
 .button {
   letter-spacing: 0.4px;
@@ -127,7 +142,6 @@ export default {
 .button:hover {
   background-color: #f2f2f2;
 }
-
 .category {
   letter-spacing: 0.4px;
   background-color: none;
@@ -178,11 +192,40 @@ export default {
   font-size: 28px;
   font-weight: bold;
 }
-
 .close:hover,
 .close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+input[type='text'] { 
+  background: rgba(0, 0, 0, 0);
+  background-color: none;
+  color: #414141;
+  height: 30px;
+  width: 160px;
+  letter-spacing: 0.4px;
+  border-radius: 5px;
+  font-size: 16px; 
+  letter-spacing: 0.4px;
+  border-radius: 5px;
+  box-shadow: 0 3px 6px #3535353b;
+  outline: none;
+  border-width: 0px;
+  box-sizing: border-box;
+  font-family: "Times New Roman";
+  justify-content: flex-start;
+  padding: 0 5px;
+}
+input[type='text']:hover {
+  background-color: #f2f2f2;
+}
+input[type='text']:focus {
+  border: 1px solid grey;
+  border-radius: 5px;
+}
+::placeholder { 
+  color: #414141;
+  font-family: "Times New Roman";
 }
 </style>
