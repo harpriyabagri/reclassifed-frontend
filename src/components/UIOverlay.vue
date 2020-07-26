@@ -1,17 +1,19 @@
 <template>
   <div class="UIOverlay">
-    <div class="top-right">
+    <div class="top-right" >
       <div class="button" id="aboutButton" @click="showAbout">About</div>
       <div class="button">Dashboard</div>
     </div>
     <div class="bottom-left">
+      <div class="logo">
+        <img src="@/assets/Newsworthy.ml.png"/>
+      </div>
       <div
         class="category"
         v-for="cat in categories"
         :key="cat.category"
         @click="filter(cat)"
-        :class="{ toggled: active_filters[cat.index] }"
-        :style="[ active_filters[cat.index] ? {backgroundColor: cat.color} : {backgroundColor:none}]"
+        :style="[active_filters[cat.index] ? {backgroundColor: cat.color} : {backgroundColor: white}]"
       >
         <div class="circle" :style="{ backgroundColor: cat.color }"></div>
         <div class="category-title">{{ cat.category }}</div>
@@ -139,6 +141,7 @@ export default {
 }
 .category {
   letter-spacing: 0.4px;
+
   background-color: none;
   color: #414141;
   box-shadow: 0 3px 6px #3535353b;
@@ -152,6 +155,7 @@ export default {
   transition: all;
   transition-duration: 150ms;
   margin-bottom: 5px;
+  width: 100%;
 }
 .category:hover {
   background-color: #f2f2f2;
@@ -213,16 +217,14 @@ input[type='text'] {
   border: 0;
   outline: 0;
   border-bottom: 1px solid #242424;
+  margin: auto;
 }
-/* input[type='text']:hover {
-  background-color: #f2f2f2;
-} */
-/* input[type='text']:focus {
-  border: 1px solid grey;
-  border-radius: 5px;
-} */
 ::placeholder { 
   color: #b0b0b0;
   font-family: "Times New Roman";
+}
+img {
+  width: 186px; 
+  height: auto;
 }
 </style>
