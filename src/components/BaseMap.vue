@@ -26,6 +26,7 @@ export default {
         { category: "crisis-updates", color: "#000000", filter: 0 },
       ],
       map: null,
+      circleColor: ["match", ["get", "category"], "#ccc"],
     };
   },
   watch: {
@@ -39,26 +40,45 @@ export default {
   methods: {
     updateMap() {
       // console.log(this.active_filters);
-      var i;
-      for (i in this.filter_state) {
-        this.filter_state[i].filter = this.active_filters[i];
+      // var i;
+      // for (i in this.filter_state) {
+      //   this.filter_state[i].filter = this.active_filters[i];
+      // }
+      // //console.log(this.filter_state)
+      // this.map.setLayoutProperty("layer-mypoints", "visibility");
+
+      for (let i in this.active_filters) {
+        var temp = JSON.parse(JSON.stringify(this.circleColor));
+        if (this.active_filters[i].include) {
+          temp.pop();
+          temp.push(this.active_filters[i].realCategory);
+          temp.push(this.active_filters[i].color);
+          temp.push("#ccc");
+          console.log(temp);
+          let newLayer = {
+            id: this.active_filters[i].realCategory,
+            type: "circle",
+            source: "mypoints",
+            paint: {
+              "circle-color": temp,
+            },
+            filter: ["==", "category", this.active_filters[i].realCategory],
+          };
+          this.map.removeLayer(this.active_filters[i].realCategory);
+          this.map.addLayer(newLayer);
+        } else {
+          if (this.map.getLayer(this.active_filters[i].realCategory)) {
+            this.map.removeLayer(this.active_filters[i].realCategory);
+          }
+        }
       }
-      //console.log(this.filter_state)
-      // this.map.setLayoutProperty(
-      //   "layer-mypoints",
-      //   "visibility",
-      //   this.active_filters[i] ? "visible" : "none"
-      // );
     },
 
     load(map) {
-      // console.log(this.filter_state);
       var nav = new mapboxgl.NavigationControl();
       map.addControl(nav, "top-right");
 
-      // console.log(this.filter_state);
       map.on("load", function () {
-        // console.log(this.filter_state);
         map.addSource("mypoints", {
           type: "geojson",
           //input the file name of the data you want to display
@@ -67,57 +87,8 @@ export default {
           data: require("./articles.json"),
         });
 
-        // console.log("hi");
-        // console.log(this.filter_state);
-        // console.log(index);
-        for (state in this.filter_state) {
-          // console.log("ho");
-          var layerID = state.category + "-layer";
-          var color = state.color;
-          // console.log(color);
-
-          map.addLayer({
-            id: layerID,
-            type: "circle",
-            source: "mypoints",
-            paint: {
-              "circle-color": color,
-            },
-            filter: ["==", "category", state.category],
-          });
-        }
-        // map.addLayer({
-        //   id: "layer-mypoints",
-        //   type: "circle",
-        //   source: "mypoints",
-        //   paint: {
-        //     "circle-color": [
-        //       "match",
-        //       ["get", "category"],
-        //       "covid-19",
-        //       "#f34c46",
-        //       "politics",
-        //       "#fa8d4f",
-        //       "business",
-        //       "#fdd742",
-        //       "sports",
-        //       "#a3e048",
-        //       "arts & entertainment",
-        //       "#49da9a",
-        //       "science & tech",
-        //       "#50d4fe",
-        //       "lifestyle",
-        //       "#6073fd",
-        //       "local",
-        //       "#ff95d5",
-        //       "Crisis Updates",
-        //       "#000000",
-        //       /* other */ "#ccc",
-        //     ],
-        //   },
-        // });
-
-        map.on("click", "layer-mypoints", function (e) {
+        // need to duplicate this function so that it applies to every layer (not just covid) and change layer name for each copy
+        map.on("click", "covid-19", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var title = e.features[0].properties.title;
           var url = e.features[0].properties.url;
@@ -146,12 +117,41 @@ export default {
             )
             .addTo(map);
         });
+        map.on("click", "local", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var title = e.features[0].properties.title;
+          var url = e.features[0].properties.url;
 
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=" +
+                "title" +
+                "> Some Topic </div><a href =" +
+                url +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                title +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
         // // Change the cursor to a pointer when the mouse is over the places layer.
-        // map.on("mouseenter", "layer-mypoints", function() {
-        //   map.getCanvas().style.cursor = "pointer";
-        // });
+        map.on("mouseenter", "covid-19", function () {
+          map.getCanvas().style.cursor = "pointer";
+        });
         // Create a popup, but don't add it to the map yet.
+
         var popup = new mapboxgl.Popup({
           className: "hover-popup",
           closeButton: false,

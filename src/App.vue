@@ -17,7 +17,7 @@ export default {
   },
   data() {
     return {
-      filters: [0,0,0,0,0,0,0,0,0],
+      filters: null,
     };
   },
 };
