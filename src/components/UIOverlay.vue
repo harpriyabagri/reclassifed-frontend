@@ -14,7 +14,7 @@
     </div>
     <div class="bottom-left">
       <div class="logo">
-        <img src="@/assets/Newsworthy.ml.png" />
+        <img src="@/assets/Newsworthy.ml 3.png" />
       </div>
       <div
         class="category"
@@ -192,7 +192,7 @@ export default {
 .category {
   letter-spacing: 0.4px;
   background-color: none;
-  color: #414141;
+  color: #f2f2f2;
   box-shadow: 0 3px 6px #3535353b;
   border-radius: 5px;
   display: flex;
