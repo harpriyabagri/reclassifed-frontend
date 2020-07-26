@@ -65,65 +65,74 @@ export default {
           category: "COVID-19",
           color: "#f34c46",
           index: 0,
-          include: true,
+          include: false,
           realCategory: "covid-19",
-          bgColor: 'rgba(243,76,70,0.6)'},
+          bgColor: "rgba(243,76,70,0.6)",
+        },
         {
           category: "Politics",
           color: "#fa8d4f",
           index: 1,
-          include: true,
+          include: false,
           realCategory: "politics",
-          bgColor: 'rgba(251,141,79,0.6)' },
+          bgColor: "rgba(251,141,79,0.6)",
+        },
         {
           category: "Business",
           color: "#fdd742",
           index: 2,
-          include: true,
+          include: false,
           realCategory: "business",
-          bgColor: 'rgba(253,215,66,0.5)' },
+          bgColor: "rgba(253,215,66,0.5)",
+        },
         {
           category: "Sports",
           color: "#a3e048",
           index: 3,
-          include: true,
+          include: false,
           realCategory: "sports",
-          bgColor: 'rgba(163,224,72,0.6)' },
+          bgColor: "rgba(163,224,72,0.6)",
+        },
         {
           category: "Arts & Media",
           color: "#2EC582",
           index: 4,
-          include: true,
+          include: false,
           realCategory: "arts & entertainment",
-          bgColor: 'rgba(46,197,130,0.5)' },
+          bgColor: "rgba(46,197,130,0.5)",
+        },
         {
           category: "Science & Tech",
           color: "#50d4fe",
           index: 5,
-          include: true,
+          include: false,
           realCategory: "science",
-          bgColor: 'rgba(80,212,254,0.6' },
+          bgColor: "rgba(80,212,254,0.6",
+        },
         {
           category: "Lifestyle",
           color: "#6073fd",
           index: 6,
-          include: true,
+          include: false,
           realCategory: "lifestyle",
-          bgColor: 'rgba(96,115,253,0.5)' },
+          bgColor: "rgba(96,115,253,0.5)",
+        },
         {
           category: "Community",
           color: "#ff95d5",
           index: 7,
-          include: true,
+          include: false,
           realCategory: "local",
-          bgColor: 'rgba(255,149,213,0.5)' },
+          bgColor: "rgba(255,149,213,0.5)",
+        },
         {
           category: "Crisis Updates",
           color: "#000000",
           index: 8,
-          include: true,
+          include: false,
           realCategory: "crisis-updates",
-          bgColor: 'rgba(0,0,0,0.4)' },
+          bgColor: "rgba(0,0,0,0.4)",
+        },
       ],
       active_filters: [0, 0, 0, 0, 0, 0, 0, 0, 0],
       showAbout: false,
@@ -188,6 +197,7 @@ export default {
 }
 .button:hover {
   background-color: #f2f2f2;
+  opacity: 1;
 }
 .category {
   letter-spacing: 0.4px;
@@ -208,9 +218,10 @@ export default {
 }
 .category:hover {
   background-color: #f2f2f2;
+  opacity: 1;
 }
 .category-title {
-  opacity: 1.0;
+  opacity: 1;
 }
 .circle {
   border-radius: 50%;

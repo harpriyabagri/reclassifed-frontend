@@ -121,8 +121,154 @@ export default {
           },
         });
 
-        // need to duplicate this function so that it applies to every layer (not just covid) and change layer name for each copy
+        // right now if multiple layers (categories) have a data point in the same location they get stacked, and if you click on the data point it opens up a pop up for every layer that has data point in that location and they stack on top of each other - this should be fixed when we're pulling different data where data points won't be overlapping (hopefully)
         map.on("click", "covid-19", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var title = e.features[0].properties.title;
+          var url = e.features[0].properties.url;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=" +
+                "title" +
+                "> Some Topic </div><a href =" +
+                url +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                title +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+
+        map.on("click", "politics", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var title = e.features[0].properties.title;
+          var url = e.features[0].properties.url;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=" +
+                "title" +
+                "> Some Topic </div><a href =" +
+                url +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                title +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+        map.on("click", "business", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var title = e.features[0].properties.title;
+          var url = e.features[0].properties.url;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=" +
+                "title" +
+                "> Some Topic </div><a href =" +
+                url +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                title +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+        map.on("click", "sports", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var title = e.features[0].properties.title;
+          var url = e.features[0].properties.url;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=" +
+                "title" +
+                "> Some Topic </div><a href =" +
+                url +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                title +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+        map.on("click", "arts & entertainment", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var title = e.features[0].properties.title;
+          var url = e.features[0].properties.url;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=" +
+                "title" +
+                "> Some Topic </div><a href =" +
+                url +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                title +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+        map.on("click", "science", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var title = e.features[0].properties.title;
           var url = e.features[0].properties.url;
@@ -180,10 +326,69 @@ export default {
             )
             .addTo(map);
         });
-        // // Change the cursor to a pointer when the mouse is over the places layer.
-        map.on("mouseenter", "covid-19", function () {
-          map.getCanvas().style.cursor = "pointer";
+        map.on("click", "crisi-updates", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var title = e.features[0].properties.title;
+          var url = e.features[0].properties.url;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=" +
+                "title" +
+                "> Some Topic </div><a href =" +
+                url +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                title +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
         });
+        map.on("click", "initial-layer", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var title = e.features[0].properties.title;
+          var url = e.features[0].properties.url;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=" +
+                "title" +
+                "> Some Topic </div><a href =" +
+                url +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                title +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+
+        // // Change the cursor to a pointer when the mouse is over the places layer.
+        // map.on("mouseenter", "covid-19", function () {
+        //   map.getCanvas().style.cursor = "pointer";
+        // });
         // Create a popup, but don't add it to the map yet.
 
         var popup = new mapboxgl.Popup({
