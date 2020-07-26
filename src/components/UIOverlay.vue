@@ -12,8 +12,8 @@
 
     <div class='top-centre'>
       <modal v-if="showDash" id="dashModal" class="modal">
-        <div class="modalContent">
-        <span class="close" @click="showDash = false">&times;</span> 
+        <div class="modal-content">
+        <span class="close" @click="showDash=false">&times;</span> 
         <h2> Your newsworthy.ml Dashboard </h2>
 
         </div>
@@ -38,7 +38,7 @@ export default {
         { category: "Community", color: "#ff95d5" },
         { category: "Crisis Updates", color: "#000000" },
       ],
-      showDash=false
+      showDash: false,
     };
   },
 };
