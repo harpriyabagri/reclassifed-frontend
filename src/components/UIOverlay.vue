@@ -27,7 +27,7 @@
             we had three weeks to implement Newsworthy as a working product. We hope you enjoy exploring Newsworthy 
             as much as we enjoyed creating it!
             <br><br>
-            It feels now more than ever before, information literacy is crucial. Newsworthy provides analytics on users 
+            Now more than ever before, information literacy is crucial. Newsworthy provides analytics on users 
             reading habits and provides suggestions on how users can diversify their news intake to reduce bias, and 
             improve their information literacy. Did you know that nearly half of original news stories are first broken by 
             local news outlets? Despite this, local newspapers are being eradicated by larger national outlets.  Newsworthy 
