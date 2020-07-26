@@ -38,11 +38,13 @@ export default {
         { category: "Community", color: "#ff95d5" },
         { category: "Crisis Updates", color: "#000000" },
       ],
+      showDash=false
     };
   },
 };
 </script>
 s
+
 
 <style scoped>
 .UIOverlay {
@@ -63,6 +65,12 @@ s
   bottom: 50px;
   left: 10px;
 }
+.top-centre {
+  pointer-events: auto;
+  position: absolute;
+  left: 40%;
+  top: 10px;
+}
 .button {
   letter-spacing: 0.4px;
   background-color: none;
@@ -81,7 +89,6 @@ s
 .button:hover {
   background-color: #f2f2f2;
 }
-
 .category {
   letter-spacing: 0.4px;
   background-color: none;
@@ -97,11 +104,16 @@ s
   transition: all;
   transition-duration: 150ms;
   margin-bottom: 5px;
+  width: 100%;
 }
 .category:hover {
   background-color: #f2f2f2;
 }
+.category-title {
+  opacity: 1.0;
+}
 .circle {
+  border: 0.1px solid white;
   border-radius: 50%;
   width: 15px;
   height: 15px;
@@ -139,5 +151,32 @@ s
   text-decoration: none;
   cursor: pointer;
 }
-
+input[type="text"] {
+  background: rgba(0, 0, 0, 0);
+  background-color: none;
+  color: #414141;
+  height: 30px;
+  width: 200px;
+  letter-spacing: 0.4px;
+  /* border-radius: 5px; */
+  font-size: 16px;
+  letter-spacing: 0.4px;
+  outline: none;
+  box-sizing: border-box;
+  font-family: "Times New Roman";
+  justify-content: flex-start;
+  padding: 0 5px;
+  border: 0;
+  outline: 0;
+  border-bottom: 1px solid #242424;
+  margin: auto;
+}
+::placeholder {
+  color: #b0b0b0;
+  font-family: "Times New Roman";
+}
+img {
+  width: 180px;
+  height: auto;
+}
 </style>
