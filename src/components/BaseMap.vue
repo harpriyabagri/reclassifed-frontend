@@ -39,14 +39,6 @@ export default {
   },
   methods: {
     updateMap() {
-      // console.log(this.active_filters);
-      // var i;
-      // for (i in this.filter_state) {
-      //   this.filter_state[i].filter = this.active_filters[i];
-      // }
-      // //console.log(this.filter_state)
-      // this.map.setLayoutProperty("layer-mypoints", "visibility");
-
       for (let i in this.active_filters) {
         var temp = JSON.parse(JSON.stringify(this.circleColor));
         if (this.active_filters[i].include) {
@@ -126,6 +118,8 @@ export default {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var title = e.features[0].properties.title;
           var url = e.features[0].properties.url;
+          var topic = e.features[0].properties.topic;
+          var image = e.features[0].properties.image;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -134,12 +128,15 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
+          //this styling only applies to the covid layer, it needs to be copy/pasted to every other layer as well once you finalize the styling here
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
             .setHTML(
-              "<div class=" +
-                "title" +
-                "> Some Topic </div><a href =" +
+              "<div class=title>" +
+                topic +
+                "</div><img class='image' src=" +
+                image +
+                "><br><a href =" +
                 url +
                 " target=_" +
                 "blank" +
@@ -453,6 +450,10 @@ export default {
   padding: 2px 8px;
 }
 
+.image {
+  width: 50px;
+  height: 50px;
+}
 .hover-popup .mapboxgl-popup-tip {
   border-top-color: transparent;
   color: transparent;

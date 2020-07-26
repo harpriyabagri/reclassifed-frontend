@@ -218,7 +218,6 @@ export default {
 }
 .category:hover {
   background-color: #f2f2f2;
-  opacity: 1;
 }
 .category-title {
   opacity: 1;
