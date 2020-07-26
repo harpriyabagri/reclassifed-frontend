@@ -13,7 +13,7 @@
         v-for="cat in categories"
         :key="cat.category"
         @click="filter(cat)"
-        :style="[ active_filters[cat.index] ? {backgroundColor: cat.color} : {backgroundColor: 'transparent'} ]"
+        :style="[ active_filters[cat.index] ? {backgroundColor: cat.bgColor} : {backgroundColor: 'transparent'} ]"
       >
         <div class="circle" :style="{ backgroundColor: cat.color }"></div>
         <div class="category-title">{{ cat.category }}</div>
@@ -61,15 +61,15 @@ export default {
   data() {
     return {
       categories: [
-        { category: "COVID-19", color: "#f34c46", index: 0 },
-        { category: "Politics", color: "#fa8d4f", index: 1 },
-        { category: "Business", color: "#fdd742", index: 2 },
-        { category: "Sports", color: "#a3e048", index: 3 },
-        { category: "Arts & Media", color: "#49da9a", index: 4 },
-        { category: "Science & Tech", color: "#50d4fe", index: 5 },
-        { category: "Lifestyle", color: "#6073fd", index: 6 },
-        { category: "Community", color: "#ff95d5", index: 7 },
-        { category: "Crisis Updates", color: "#000000", index: 8 },
+        { category: "COVID-19", color: "#f34c46", index: 0, bgColor: 'rgba(243,76,70,0.4)'},
+        { category: "Politics", color: "#fa8d4f", index: 1, bgColor: 'rgba(251,141,79,0.4)' },
+        { category: "Business", color: "#fdd742", index: 2, bgColor: 'rgba(253,215,66,0.4)' },
+        { category: "Sports", color: "#a3e048", index: 3, bgColor: 'rgba(163,224,72,0.4)' },
+        { category: "Arts & Media", color: "#49da9a", index: 4, bgColor: 'rgba(73,218,154,0.4)' },
+        { category: "Science & Tech", color: "#50d4fe", index: 5, bgColor: 'rgba(80,212,254,0.4)' },
+        { category: "Lifestyle", color: "#6073fd", index: 6, bgColor: 'rgba(96,115,253,0.4)' },
+        { category: "Community", color: "#ff95d5", index: 7, bgColor: 'rgba(255,149,213,0.4)' },
+        { category: "Crisis Updates", color: "#000000", index: 8, bgColor: 'rgba(0,0,0,0.4)' },
       ],
       active_filters: [0, 0, 0, 0, 0, 0, 0, 0, 0],
       showAbout: false,
@@ -96,9 +96,6 @@ export default {
 
 
 <style scoped>
-.toggled {
-  /* opacity: 0.3; */
-}
 .UIOverlay {
   position: absolute;
   pointer-events: none;
