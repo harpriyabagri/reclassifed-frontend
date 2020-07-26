@@ -13,7 +13,7 @@
         v-for="cat in categories"
         :key="cat.category"
         @click="filter(cat)"
-        :style="[ active_filters[cat.index] ? {backgroundColor: cat.bgColor} : {backgroundColor: 'transparent'} ]"
+        :style="[cat.include ? {backgroundColor: cat.color} : {backgroundColor: null}]"
       >
         <div class="circle" :style="{ backgroundColor: cat.color }"></div>
         <div class="category-title">{{ cat.category }}</div>
