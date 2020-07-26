@@ -15,47 +15,43 @@ export default {
       accessToken:
         "pk.eyJ1IjoiaGFycHJpeWFiYWdyaSIsImEiOiJja2NxeHR6dWgwcjJnMnJtMXhreWN4MWoxIn0.wW12qOAMq730lfuLyXb9nw",
       filter_state: [
-        { category: "COVID-19", color: "#f34c46" },
-        { category: "Politics", color: "#fa8d4f" },
-        { category: "Business", color: "#fdd742" },
-        { category: "Sports", color: "#a3e048" },
-        { category: "Arts & Media", color: "#49da9a" },
-        { category: "Science & Tech", color: "#50d4fe" },
-        { category: "Lifestyle", color: "#6073fd" },
-        { category: "Community", color: "#ff95d5" },
-        { category: "Crisis Updates", color: "#000000" },
+        { category: "COVID-19", color: "#f34c46", filter: 0},
+        { category: "Politics", color: "#fa8d4f", filter: 0},
+        { category: "Business", color: "#fdd742", filter: 0},
+        { category: "Sports", color: "#a3e048", filter: 0},
+        { category: "Arts & Media", color: "#49da9a", filter: 0},
+        { category: "Science & Tech", color: "#50d4fe", filter: 0},
+        { category: "Lifestyle", color: "#6073fd", filter: 0},
+        { category: "Community", color: "#ff95d5", filter: 0},
+        { category: "Crisis Updates", color: "#000000", filter: 0},
       ],
       map: false,
-      // filters: this.active_filters,
     };
   },
   watch:{
     active_filters:{
       handler(){
-        updateMap()
+        this.updateMap()
       },
       deep: true,
     }
   },
   methods: {
     updateMap() {
-      map.setLayoutProperty(
+      console.log(this.active_filters)
+      var i;
+      for (i in this.filter_state){
+        this.filter_state[i].filter = this.active_filters[i];
+      }
+      console.log(this.filter_state)
+      this.map.setLayoutProperty(
         "layer-mypoints",
         "visibility",
-        active_filters[i] ? "visible" : "none"
+        this.active_filters[i] ? "visible" : "none"
       );
     },
-    dashboardClicked() {},
 
-    load() {
-      mapboxgl.accessToken = this.accessToken;
-      var map = new mapboxgl.Map({
-        container: "mapContainer",
-        style: "mapbox://styles/harpriyabagri/ckcs1ofh31ejn1iqxzmqwppj2",
-        zoom: 1.3,
-      });
-      this.map = map;
-
+    load(map) {
       var nav = new mapboxgl.NavigationControl();
       map.addControl(nav, "top-right");
 
@@ -169,9 +165,15 @@ export default {
       });
     },
   },
+
   mounted() {
-    console.log(this.active_filters);
-    this.load();
+    mapboxgl.accessToken = this.accessToken;
+    var map = new mapboxgl.Map({
+      container: "mapContainer",
+      style: "mapbox://styles/harpriyabagri/ckcs1ofh31ejn1iqxzmqwppj2",
+      zoom: 1.3,
+    });
+    this.load(map);
   },
 };
 </script>
