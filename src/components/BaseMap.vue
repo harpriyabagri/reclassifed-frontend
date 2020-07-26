@@ -192,7 +192,7 @@ export default {
     mapboxgl.accessToken = this.accessToken;
     this.map = new mapboxgl.Map({
       container: "mapContainer",
-      style: "mapbox://styles/harpriyabagri/ckcs1ofh31ejn1iqxzmqwppj2",
+      style: "mapbox://styles/harpriyabagri/ckd3fnkh600y21ilxksqkxuj7",
       zoom: 1.3,
     });
     this.load(this.map);
