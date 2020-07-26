@@ -20,7 +20,21 @@
       <div id="aboutModal" class="modal">
         <div class="modal-content">
           <span class="close" @click="close">&times;</span>
-          <p>all about our product :)</p>
+          <!-- will be replaced with actual text -->
+          <h2>about newsworthy.ml</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
+            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute 
+            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
+            deserunt mollit anim id est laborum.
+            <br><br>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
+            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
+            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
+            mollit anim id est laborum.</p>
         </div>
       </div>
     </div>
@@ -93,7 +107,7 @@ export default {
   pointer-events: auto;
   position: absolute;
   top: 10px;
-  right: 500px;
+  right: 50px;
 }
 .button {
   letter-spacing: 0.4px;
