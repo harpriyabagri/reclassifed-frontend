@@ -1,7 +1,7 @@
 <template>
   <div class="UIOverlay">
     <div class="top-right">
-      <div class="button">Dashboard</div>
+      <div class="button" id="dashboardButton" @click="showDash=true">Dashboard</div>
     </div>
     <div class="bottom-left">
       <div class="category" v-for="cat in categories" :key="cat.category">
@@ -9,6 +9,16 @@
         <div class="category-title">{{ cat.category }}</div>
       </div>
     </div>
+
+    <div class='top-centre'>
+      <modal v-if="showDash" id="dashModal" class="modal">
+        <div class="modalContent">
+        <span class="close" @click="showDash = false">&times;</span> 
+        <h2> Your newsworthy.ml Dashboard </h2>
+
+        </div>
+      </modal>
+    </div> 
   </div>
 </template>
 
