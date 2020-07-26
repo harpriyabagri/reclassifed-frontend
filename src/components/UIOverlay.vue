@@ -13,7 +13,7 @@
         v-for="cat in categories"
         :key="cat.category"
         @click="filter(cat)"
-        :style="[ active_filters[cat.index] ? {backgroundColor: cat.bgColor} : {backgroundColor: 'transparent'} ]"
+        :style="[cat.include ? {backgroundColor: cat.bgColor} : {backgroundColor: null}]"
       >
         <div class="circle" :style="{ backgroundColor: cat.color }"></div>
         <div class="category-title">{{ cat.category }}</div>
@@ -61,15 +61,69 @@ export default {
   data() {
     return {
       categories: [
-        { category: "COVID-19", color: "#f34c46", index: 0 },
-        { category: "Politics", color: "#fa8d4f", index: 1 },
-        { category: "Business", color: "#fdd742", index: 2 },
-        { category: "Sports", color: "#a3e048", index: 3 },
-        { category: "Arts & Media", color: "#49da9a", index: 4 },
-        { category: "Science & Tech", color: "#50d4fe", index: 5 },
-        { category: "Lifestyle", color: "#6073fd", index: 6 },
-        { category: "Community", color: "#ff95d5", index: 7 },
-        { category: "Crisis Updates", color: "#000000", index: 8 },
+        {
+          category: "COVID-19",
+          color: "#f34c46",
+          index: 0,
+          include: false,
+          realCategory: "covid-19",
+          bgColor: 'rgba(243,76,70,0.6)'},
+        {
+          category: "Politics",
+          color: "#fa8d4f",
+          index: 1,
+          include: false,
+          realCategory: "politics",
+          bgColor: 'rgba(251,141,79,0.6)' },
+        {
+          category: "Business",
+          color: "#fdd742",
+          index: 2,
+          include: false,
+          realCategory: "business",
+          bgColor: 'rgba(253,215,66,0.5)' },
+        {
+          category: "Sports",
+          color: "#a3e048",
+          index: 3,
+          include: false,
+          realCategory: "sports",
+          bgColor: 'rgba(163,224,72,0.6)' },
+        {
+          category: "Arts & Media",
+          color: "#2EC582",
+          index: 4,
+          include: false,
+          realCategory: "arts & entertainment",
+          bgColor: 'rgba(46,197,130,0.5)' },
+        {
+          category: "Science & Tech",
+          color: "#50d4fe",
+          index: 5,
+          include: false,
+          realCategory: "science",
+          bgColor: 'rgba(80,212,254,0.6' },
+        {
+          category: "Lifestyle",
+          color: "#6073fd",
+          index: 6,
+          include: false,
+          realCategory: "lifestyle",
+          bgColor: 'rgba(96,115,253,0.5)' },
+        {
+          category: "Community",
+          color: "#ff95d5",
+          index: 7,
+          include: false,
+          realCategory: "local",
+          bgColor: 'rgba(255,149,213,0.5)' },
+        {
+          category: "Crisis Updates",
+          color: "#000000",
+          index: 8,
+          include: false,
+          realCategory: "crisis-updates",
+          bgColor: 'rgba(0,0,0,0.4)' },
       ],
       active_filters: [0, 0, 0, 0, 0, 0, 0, 0, 0],
       showAbout: false,
@@ -77,17 +131,12 @@ export default {
   },
   methods: {
     filter(cat) {
-      var i = cat.index;
-      this.$set(this.active_filters, i, !this.active_filters[i]);
-      this.$emit("revaluate-filters", this.active_filters);
-    },
-    showAbout() {
-      var modal = document.getElementById("aboutModal");
-      modal.style.display = "block";
-    },
-    close() {
-      var modal = document.getElementById("aboutModal");
-      modal.style.display = "none";
+      for (let i in this.categories) {
+        if (cat.category === this.categories[i].category) {
+          this.categories[i].include = !this.categories[i].include;
+        }
+      }
+      this.$emit("revaluate-filters", this.categories);
     },
   },
   mounted() {},
