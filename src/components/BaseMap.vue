@@ -15,35 +15,35 @@ export default {
       accessToken:
         "pk.eyJ1IjoiaGFycHJpeWFiYWdyaSIsImEiOiJja2NxeHR6dWgwcjJnMnJtMXhreWN4MWoxIn0.wW12qOAMq730lfuLyXb9nw",
       filter_state: [
-        { category: "covid-19", color: "#f34c46", filter: 0},
-        { category: "politics", color: "#fa8d4f", filter: 0},
-        { category: "business", color: "#fdd742", filter: 0},
-        { category: "sports", color: "#a3e048", filter: 0},
-        { category: "arts", color: "#49da9a", filter: 0},
-        { category: "science", color: "#50d4fe", filter: 0},
-        { category: "lifestyle", color: "#6073fd", filter: 0},
-        { category: "local", color: "#ff95d5", filter: 0},
-        { category: "crisis-updates", color: "#000000", filter: 0},
+        { category: "covid-19", color: "#f34c46", filter: 0 },
+        { category: "politics", color: "#fa8d4f", filter: 0 },
+        { category: "business", color: "#fdd742", filter: 0 },
+        { category: "sports", color: "#a3e048", filter: 0 },
+        { category: "arts", color: "#49da9a", filter: 0 },
+        { category: "science", color: "#50d4fe", filter: 0 },
+        { category: "lifestyle", color: "#6073fd", filter: 0 },
+        { category: "local", color: "#ff95d5", filter: 0 },
+        { category: "crisis-updates", color: "#000000", filter: 0 },
       ],
-      map: false,
+      map: null,
     };
   },
-  watch:{
-    active_filters:{
-      handler(){
-        this.updateMap()
+  watch: {
+    active_filters: {
+      handler() {
+        this.updateMap();
       },
       deep: true,
-    }
+    },
   },
   methods: {
     updateMap() {
-      console.log(this.active_filters)
+      // console.log(this.active_filters);
       var i;
-      for (i in this.filter_state){
+      for (i in this.filter_state) {
         this.filter_state[i].filter = this.active_filters[i];
       }
-      console.log(this.filter_state)
+      // console.log(this.filter_state);
       this.map.setLayoutProperty(
         "layer-mypoints",
         "visibility",
@@ -52,14 +52,14 @@ export default {
     },
 
     load(map) {
-      console.log(this.filter_state)
+      // console.log(this.filter_state);
       var nav = new mapboxgl.NavigationControl();
       map.addControl(nav, "top-right");
 
-      console.log(this.filter_state)
-      map.on("load", function() {
-        console.log(this.filter_state)
-        map.addSource('mypoints', {
+      // console.log(this.filter_state);
+      map.on("load", function () {
+        // console.log(this.filter_state);
+        map.addSource("mypoints", {
           type: "geojson",
           //input the file name of the data you want to display
           //articles.json has one json object for each article
@@ -67,25 +67,24 @@ export default {
           data: require("./articles.json"),
         });
 
-        console.log("hi");
-        var index = 0;
-        console.log(this.filter_state);
-        console.log(index)
-        for(index in this.filter_state){
-          console.log("ho")
-          var layerID = index.category + "-layer";
-          var color = index.color;
-          console.log(color);
+        // console.log("hi");
+        // console.log(this.filter_state);
+        // console.log(index);
+        for (state in this.filter_state) {
+          // console.log("ho");
+          var layerID = state.category + "-layer";
+          var color = state.color;
+          // console.log(color);
 
           map.addLayer({
-            'id': layerID,
-            'type': 'circle',
-            'source': 'mypoints',
-            'paint': {
-              'circle-color': color
+            id: layerID,
+            type: "circle",
+            source: "mypoints",
+            paint: {
+              "circle-color": color,
             },
-            'filter': ['==', 'category', index.category]
-          })
+            filter: ["==", "category", state.category],
+          });
         }
         // map.addLayer({
         //   id: "layer-mypoints",
@@ -118,7 +117,7 @@ export default {
         //   },
         // });
 
-        map.on("click", "layer-mypoints", function(e) {
+        map.on("click", "layer-mypoints", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var title = e.features[0].properties.title;
           var url = e.features[0].properties.url;
@@ -159,7 +158,7 @@ export default {
           closeOnClick: false,
         });
 
-        map.on("mouseenter", "layer-mypoints", function(e) {
+        map.on("mouseenter", "layer-mypoints", function (e) {
           // Change the cursor style as a UI indicator.
           map.getCanvas().style.cursor = "pointer";
 
@@ -181,7 +180,7 @@ export default {
         });
 
         // Change it back to a pointer when it leaves.
-        map.on("mouseleave", "layer-mypoints", function() {
+        map.on("mouseleave", "layer-mypoints", function () {
           map.getCanvas().style.cursor = "";
           popup.remove();
         });
@@ -191,12 +190,12 @@ export default {
 
   mounted() {
     mapboxgl.accessToken = this.accessToken;
-    var map = new mapboxgl.Map({
+    this.map = new mapboxgl.Map({
       container: "mapContainer",
       style: "mapbox://styles/harpriyabagri/ckcs1ofh31ejn1iqxzmqwppj2",
       zoom: 1.3,
     });
-    this.load(map);
+    this.load(this.map);
   },
 };
 </script>
