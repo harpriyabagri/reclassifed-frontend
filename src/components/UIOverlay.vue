@@ -61,84 +61,33 @@ export default {
   data() {
     return {
       categories: [
-        {
-          category: "COVID-19",
-          color: "#f34c46",
-          index: 0,
-          include: false,
-          realCategory: "covid-19",
-        },
-        {
-          category: "Politics",
-          color: "#fa8d4f",
-          index: 1,
-          include: false,
-          realCategory: "politics",
-        },
-        {
-          category: "Business",
-          color: "#fdd742",
-          index: 2,
-          include: false,
-          realCategory: "business",
-        },
-        {
-          category: "Sports",
-          color: "#a3e048",
-          index: 3,
-          include: false,
-          realCategory: "sports",
-        },
-        {
-          category: "Arts & Media",
-          color: "#49da9a",
-          index: 4,
-          include: false,
-          realCategory: "arts & entertainment",
-        },
-        {
-          category: "Science & Tech",
-          color: "#50d4fe",
-          index: 5,
-          include: false,
-          realCategory: "science",
-        },
-        {
-          category: "Lifestyle",
-          color: "#6073fd",
-          index: 6,
-          include: false,
-          realCategory: "lifestyle",
-        },
-        {
-          category: "Community",
-          color: "#ff95d5",
-          index: 7,
-          include: false,
-          realCategory: "local",
-        },
-        {
-          category: "Crisis Updates",
-          color: "#000000",
-          index: 8,
-          include: false,
-          realCategory: "crisis-updates",
-        },
+        { category: "COVID-19", color: "#f34c46", index: 0 },
+        { category: "Politics", color: "#fa8d4f", index: 1 },
+        { category: "Business", color: "#fdd742", index: 2 },
+        { category: "Sports", color: "#a3e048", index: 3 },
+        { category: "Arts & Media", color: "#49da9a", index: 4 },
+        { category: "Science & Tech", color: "#50d4fe", index: 5 },
+        { category: "Lifestyle", color: "#6073fd", index: 6 },
+        { category: "Community", color: "#ff95d5", index: 7 },
+        { category: "Crisis Updates", color: "#000000", index: 8 },
       ],
+      active_filters: [0, 0, 0, 0, 0, 0, 0, 0, 0],
       showAbout: false,
     };
   },
   methods: {
     filter(cat) {
-      for (let i in this.categories) {
-        if (cat.category === this.categories[i].category) {
-          this.categories[i].include = !this.categories[i].include;
-        }
-      }
-
-      // var i = cat.index;
-      // this.$set(this.active_filters, i, !this.active_filters[i]);
-      this.$emit("revaluate-filters", this.categories);
+      var i = cat.index;
+      this.$set(this.active_filters, i, !this.active_filters[i]);
+      this.$emit("revaluate-filters", this.active_filters);
+    },
+    showAbout() {
+      var modal = document.getElementById("aboutModal");
+      modal.style.display = "block";
+    },
+    close() {
+      var modal = document.getElementById("aboutModal");
+      modal.style.display = "none";
     },
   },
   mounted() {},
