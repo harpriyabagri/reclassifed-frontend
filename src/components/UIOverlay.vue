@@ -13,7 +13,7 @@
         v-for="cat in categories"
         :key="cat.category"
         @click="filter(cat)"
-        :style="[active_filters[cat.index] ? {backgroundColor: cat.color} : {backgroundColor: none}]"
+        :style="[ active_filters[cat.index] ? {backgroundColor: cat.color} : {backgroundColor: 'transparent'} ]"
       >
         <div class="circle" :style="{ backgroundColor: cat.color }"></div>
         <div class="category-title">{{ cat.category }}</div>
@@ -45,7 +45,7 @@
       </div>
       <div class="search">
           <form action="">
-            <input type="text" placeholder="Search.." name="search">
+            <input type="text" placeholder="Search..." name="search">
             <!-- <button type="submit"></button> -->
           </form>
         </div>
@@ -75,7 +75,7 @@ export default {
   methods: {
     filter(cat) {
       var i = cat.index;
-      this.$set(this.active_filters, i, !this.active_filters[i])
+      this.$set(this.active_filters, i, !this.active_filters[i]);
       this.$emit("revaluate-filters", this.active_filters);
     },
     showAbout() {
@@ -94,7 +94,7 @@ export default {
 
 <style scoped>
 .toggled {
-  background-color: white;
+  /* opacity: 0.3; */
 }
 .UIOverlay {
   position: absolute;
@@ -138,10 +138,8 @@ export default {
 .button:hover {
   background-color: #f2f2f2;
 }
-
 .category {
   letter-spacing: 0.4px;
-
   background-color: none;
   color: #414141;
   box-shadow: 0 3px 6px #3535353b;
@@ -159,6 +157,9 @@ export default {
 }
 .category:hover {
   background-color: #f2f2f2;
+}
+.category-title {
+  opacity: 1.0;
 }
 .circle {
   border-radius: 50%;
