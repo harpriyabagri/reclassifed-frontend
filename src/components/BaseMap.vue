@@ -44,11 +44,11 @@ export default {
         this.filter_state[i].filter = this.active_filters[i];
       }
       console.log(this.filter_state)
-      this.map.setLayoutProperty(
-        "layer-mypoints",
-        "visibility",
-        this.active_filters[i] ? "visible" : "none"
-      );
+      // this.map.setLayoutProperty(
+      //   "layer-mypoints",
+      //   "visibility",
+      //   this.active_filters[i] ? "visible" : "none"
+      // );
     },
 
     load(map) {
@@ -71,6 +71,7 @@ export default {
         var index = 0;
         console.log(this.filter_state);
         console.log(index)
+        
         for(index in this.filter_state){
           console.log("ho")
           var layerID = index.category + "-layer";
@@ -85,7 +86,7 @@ export default {
               'circle-color': color
             },
             'filter': ['==', 'category', index.category]
-          })
+          });
         }
         // map.addLayer({
         //   id: "layer-mypoints",
