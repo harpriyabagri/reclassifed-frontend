@@ -43,12 +43,12 @@ export default {
       for (i in this.filter_state) {
         this.filter_state[i].filter = this.active_filters[i];
       }
-      // console.log(this.filter_state);
-      this.map.setLayoutProperty(
-        "layer-mypoints",
-        "visibility",
-        this.active_filters[i] ? "visible" : "none"
-      );
+      //console.log(this.filter_state)
+      // this.map.setLayoutProperty(
+      //   "layer-mypoints",
+      //   "visibility",
+      //   this.active_filters[i] ? "visible" : "none"
+      // );
     },
 
     load(map) {
