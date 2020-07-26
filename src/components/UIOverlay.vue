@@ -41,9 +41,6 @@
             (we can list these as a group and I can add it in.)</p>
         </div>
       </div>
-      
-    </div>
-    <div class="top-left">
       <div class="search">
           <form action="">
             <input type="text" placeholder="Search.." name="search">
@@ -122,12 +119,6 @@ export default {
   left: 40%;
   top: 10px;
 }
-.top-left {
-  pointer-events: auto;
-  position: absolute;
-  left: 10px;
-  top: 10px;
-}
 .button {
   letter-spacing: 0.4px;
   background-color: none;
@@ -190,6 +181,7 @@ export default {
   width: 80%; 
   background-color: #242424;
   color: rgb(228, 228, 228);
+  border-radius: 8px;
 }
 .close {
   color: #aaa;
@@ -208,29 +200,29 @@ input[type='text'] {
   background-color: none;
   color: #414141;
   height: 30px;
-  width: 160px;
+  width: 200px;
   letter-spacing: 0.4px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   font-size: 16px; 
   letter-spacing: 0.4px;
-  border-radius: 5px;
-  box-shadow: 0 3px 6px #3535353b;
   outline: none;
-  border-width: 0px;
   box-sizing: border-box;
   font-family: "Times New Roman";
   justify-content: flex-start;
   padding: 0 5px;
+  border: 0;
+  outline: 0;
+  border-bottom: 1px solid #242424;
 }
-input[type='text']:hover {
+/* input[type='text']:hover {
   background-color: #f2f2f2;
-}
-input[type='text']:focus {
+} */
+/* input[type='text']:focus {
   border: 1px solid grey;
   border-radius: 5px;
-}
+} */
 ::placeholder { 
-  color: #414141;
+  color: #b0b0b0;
   font-family: "Times New Roman";
 }
 </style>
