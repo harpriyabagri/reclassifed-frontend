@@ -5,13 +5,15 @@
       <div class="button">Dashboard</div>
     </div>
     <div class="bottom-left">
+      <div class="logo">
+        <img src="@/assets/Newsworthy.ml.png" />
+      </div>
       <div
         class="category"
         v-for="cat in categories"
         :key="cat.category"
         @click="filter(cat)"
-        :class="{ toggled: active_filters[cat.index] }"
-        :style="[ active_filters[cat.index] ? {backgroundColor: cat.color} : {backgroundColor:none}]"
+        :style="[active_filters[cat.index] ? {backgroundColor: cat.color} : {backgroundColor: none}]"
       >
         <div class="circle" :style="{ backgroundColor: cat.color }"></div>
         <div class="category-title">{{ cat.category }}</div>
@@ -78,6 +80,14 @@ export default {
       var i = cat.index;
       this.$set(this.active_filters, i, !this.active_filters[i]);
       this.$emit("revaluate-filters", this.active_filters);
+    },
+    showAbout() {
+      var modal = document.getElementById("aboutModal");
+      modal.style.display = "block";
+    },
+    close() {
+      var modal = document.getElementById("aboutModal");
+      modal.style.display = "none";
     },
   },
   mounted() {},
@@ -147,6 +157,7 @@ export default {
   transition: all;
   transition-duration: 150ms;
   margin-bottom: 5px;
+  width: 100%;
 }
 .category:hover {
   background-color: #f2f2f2;
@@ -207,16 +218,14 @@ input[type="text"] {
   border: 0;
   outline: 0;
   border-bottom: 1px solid #242424;
+  margin: auto;
 }
-/* input[type='text']:hover {
-  background-color: #f2f2f2;
-} */
-/* input[type='text']:focus {
-  border: 1px solid grey;
-  border-radius: 5px;
-} */
 ::placeholder {
   color: #b0b0b0;
   font-family: "Times New Roman";
+}
+img {
+  width: 180px;
+  height: auto;
 }
 </style>

@@ -15,15 +15,15 @@ export default {
       accessToken:
         "pk.eyJ1IjoiaGFycHJpeWFiYWdyaSIsImEiOiJja2NxeHR6dWgwcjJnMnJtMXhreWN4MWoxIn0.wW12qOAMq730lfuLyXb9nw",
       filter_state: [
-        { category: "COVID-19", color: "#f34c46", filter: 0},
-        { category: "Politics", color: "#fa8d4f", filter: 0},
-        { category: "Business", color: "#fdd742", filter: 0},
-        { category: "Sports", color: "#a3e048", filter: 0},
-        { category: "Arts & Media", color: "#49da9a", filter: 0},
-        { category: "Science & Tech", color: "#50d4fe", filter: 0},
-        { category: "Lifestyle", color: "#6073fd", filter: 0},
-        { category: "Community", color: "#ff95d5", filter: 0},
-        { category: "Crisis Updates", color: "#000000", filter: 0},
+        { category: "covid-19", color: "#f34c46", filter: 0},
+        { category: "politics", color: "#fa8d4f", filter: 0},
+        { category: "business", color: "#fdd742", filter: 0},
+        { category: "sports", color: "#a3e048", filter: 0},
+        { category: "arts", color: "#49da9a", filter: 0},
+        { category: "science", color: "#50d4fe", filter: 0},
+        { category: "lifestyle", color: "#6073fd", filter: 0},
+        { category: "local", color: "#ff95d5", filter: 0},
+        { category: "crisis-updates", color: "#000000", filter: 0},
       ],
       map: false,
     };
@@ -52,11 +52,14 @@ export default {
     },
 
     load(map) {
+      console.log(this.filter_state)
       var nav = new mapboxgl.NavigationControl();
       map.addControl(nav, "top-right");
 
+      console.log(this.filter_state)
       map.on("load", function() {
-        map.addSource("mypoints", {
+        console.log(this.filter_state)
+        map.addSource('mypoints', {
           type: "geojson",
           //input the file name of the data you want to display
           //articles.json has one json object for each article
@@ -64,36 +67,56 @@ export default {
           data: require("./articles.json"),
         });
 
-        map.addLayer({
-          id: "layer-mypoints",
-          type: "circle",
-          source: "mypoints",
-          paint: {
-            "circle-color": [
-              "match",
-              ["get", "category"],
-              "covid-19",
-              "#f34c46",
-              "politics",
-              "#fa8d4f",
-              "business",
-              "#fdd742",
-              "sports",
-              "#a3e048",
-              "arts & entertainment",
-              "#49da9a",
-              "science & tech",
-              "#50d4fe",
-              "lifestyle",
-              "#6073fd",
-              "local",
-              "#ff95d5",
-              "Crisis Updates",
-              "#000000",
-              /* other */ "#ccc",
-            ],
-          },
-        });
+        console.log("hi");
+        var index = 0;
+        console.log(this.filter_state);
+        console.log(index)
+        for(index in this.filter_state){
+          console.log("ho")
+          var layerID = index.category + "-layer";
+          var color = index.color;
+          console.log(color);
+
+          map.addLayer({
+            'id': layerID,
+            'type': 'circle',
+            'source': 'mypoints',
+            'paint': {
+              'circle-color': color
+            },
+            'filter': ['==', 'category', index.category]
+          })
+        }
+        // map.addLayer({
+        //   id: "layer-mypoints",
+        //   type: "circle",
+        //   source: "mypoints",
+        //   paint: {
+        //     "circle-color": [
+        //       "match",
+        //       ["get", "category"],
+        //       "covid-19",
+        //       "#f34c46",
+        //       "politics",
+        //       "#fa8d4f",
+        //       "business",
+        //       "#fdd742",
+        //       "sports",
+        //       "#a3e048",
+        //       "arts & entertainment",
+        //       "#49da9a",
+        //       "science & tech",
+        //       "#50d4fe",
+        //       "lifestyle",
+        //       "#6073fd",
+        //       "local",
+        //       "#ff95d5",
+        //       "Crisis Updates",
+        //       "#000000",
+        //       /* other */ "#ccc",
+        //     ],
+        //   },
+        // });
 
         map.on("click", "layer-mypoints", function(e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
