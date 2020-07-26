@@ -64,6 +64,9 @@ export default {
             },
             filter: ["==", "category", this.active_filters[i].realCategory],
           };
+          if (this.map.getLayer("initial-layer")) {
+            this.map.removeLayer("initial-layer");
+          }
           this.map.removeLayer(this.active_filters[i].realCategory);
           this.map.addLayer(newLayer);
         } else {
@@ -85,6 +88,37 @@ export default {
           //articles.json has one json object for each article
           //grouped.json has one json object for each news outlet
           data: require("./articles.json"),
+        });
+
+        map.addLayer({
+          id: "initial-layer",
+          type: "circle",
+          source: "mypoints",
+          paint: {
+            "circle-color": [
+              "match",
+              ["get", "category"],
+              "covid-19",
+              "#f34c46",
+              "politics",
+              "#fa8d4f",
+              "business",
+              "#fdd742",
+              "sports",
+              "#a3e048",
+              "arts & entertainment",
+              "#49da9a",
+              "science & tech",
+              "#50d4fe",
+              "lifestyle",
+              "#6073fd",
+              "local",
+              "#ff95d5",
+              "Crisis Updates",
+              "#000000",
+              /* other */ "#ccc",
+            ],
+          },
         });
 
         // need to duplicate this function so that it applies to every layer (not just covid) and change layer name for each copy

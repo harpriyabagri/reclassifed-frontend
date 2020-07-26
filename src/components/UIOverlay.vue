@@ -65,63 +65,63 @@ export default {
           category: "COVID-19",
           color: "#f34c46",
           index: 0,
-          include: false,
+          include: true,
           realCategory: "covid-19",
         },
         {
           category: "Politics",
           color: "#fa8d4f",
           index: 1,
-          include: false,
+          include: true,
           realCategory: "politics",
         },
         {
           category: "Business",
           color: "#fdd742",
           index: 2,
-          include: false,
+          include: true,
           realCategory: "business",
         },
         {
           category: "Sports",
           color: "#a3e048",
           index: 3,
-          include: false,
+          include: true,
           realCategory: "sports",
         },
         {
           category: "Arts & Media",
           color: "#49da9a",
           index: 4,
-          include: false,
+          include: true,
           realCategory: "arts & entertainment",
         },
         {
           category: "Science & Tech",
           color: "#50d4fe",
           index: 5,
-          include: false,
+          include: true,
           realCategory: "science",
         },
         {
           category: "Lifestyle",
           color: "#6073fd",
           index: 6,
-          include: false,
+          include: true,
           realCategory: "lifestyle",
         },
         {
           category: "Community",
           color: "#ff95d5",
           index: 7,
-          include: false,
+          include: true,
           realCategory: "local",
         },
         {
           category: "Crisis Updates",
           color: "#000000",
           index: 8,
-          include: false,
+          include: true,
           realCategory: "crisis-updates",
         },
       ],
@@ -141,7 +141,9 @@ export default {
       this.$emit("revaluate-filters", this.categories);
     },
   },
-  mounted() {},
+  mounted() {
+    this.$emit("revaluate-filters", this.categories);
+  },
 };
 </script>
 
