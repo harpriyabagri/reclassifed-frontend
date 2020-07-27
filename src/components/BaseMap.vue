@@ -963,12 +963,12 @@ export default {
             var middlestr = "";
 
             for (var i = 0; i < titles_array.length; i++) {
-              if ((i == 0) && (typeof titles_array[i] != 'undefined') && (typeof images_array[i] != 'undefined') && (typeof urls_array[i] != 'undefined')) {
+              if ((i == 0) && (titles_array[i] != null) && (images_array[i] != null) && (urls_array[i] != null)) {
                 titles_array[i] = titles_array[i].replace("[", "");
                 images_array[i] = images_array[i].replace("[", "");
                 urls_array[i] = urls_array[i].replace("[", "");
               }
-              if ((i == titles_array.length - 1) && (typeof titles_array[i] != 'undefined') && (typeof images_array[i] != 'undefined') && (typeof urls_array[i] != 'undefined')) {
+              if ((i == titles_array.length - 1) && (titles_array[i] != null) && (images_array[i] != null) && (urls_array[i] != null)) {
                 titles_array[i] = titles_array[i].replace("]", "");
                 images_array[i] = images_array[i].replace("]", "");
                 urls_array[i] = urls_array[i].replace("]", "");
