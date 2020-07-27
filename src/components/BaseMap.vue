@@ -1102,8 +1102,8 @@ export default {
 .hover-popup .mapboxgl-popup-content {
   font-size: 13px;
   font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
-  background-color: #6e8494;
-  color: rgb(228, 228, 228);
+  background-color: #CBD5DC;
+  color: #3F4B55;
   padding: 6px 8px;
   font-weight: bold;
   text-align: center;
@@ -1143,7 +1143,7 @@ export default {
 .mapboxgl-popup-content a:hover {
   text-decoration: underline;
   /* color: #d0d0d9; */
-  color: #cbd5dc;
+  /* color: #cbd5dc; */
 }
 
 .mapboxgl-popup-close-button {
