@@ -15,6 +15,8 @@
         <div class="modal-content">
         <span class="close" @click="showDash=false">&times;</span> 
         <h2> Your newsworthy.ml Dashboard </h2>
+          <img src= url(src/assets/dashboard.png) />
+          
 
         </div>
       </modal>
