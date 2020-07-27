@@ -176,24 +176,36 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
-          //this styling only applies to the covid layer, it needs to be copy/pasted to every other layer as well once you finalize the styling here
+          function jsonToHtml(titles, image, urls) {
+            var titles_array = titles.split(",");
+            var images_array = image.split(",");
+            var urls_array = urls.split(",");
+
+            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper'>";
+            var middlestr = '';
+
+            for(var i = 0; i < titles_array.length; i++){
+              if(i == 0){
+                titles_array[i] = titles_array[i].replace("[", "");
+                images_array[i] = images_array[i].replace("[", "");
+                urls_array[i] = urls_array[i].replace("[", "");
+              }
+              if(i == titles_array.length - 1){
+                titles_array[i] = titles_array[i].replace("]", "");
+                images_array[i] = images_array[i].replace("]", "");
+                urls_array[i] = urls_array[i].replace("]", "");
+              }
+              middlestr =  middlestr + "<div class='article'><img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a></div>";
+            }
+            var endstr = "</div>";
+            return beginningstr + middlestr + endstr;
+          }
+
+          var htmlString = jsonToHtml(titles, image, urls);
+
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
-            .setHTML(
-              "<div class=title>" +
-                topic +
-                "</div><img class='image' src=" +
-                image +
-                "><br><a href =" +
-                urls +
-                " target=_" +
-                "blank" +
-                ">" +
-                '"' +
-                titles +
-                '"' +
-                "</a>"
-            )
+            .setHTML(htmlString)
             .addTo(map);
         });
 
@@ -239,23 +251,36 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
+          function jsonToHtml(titles, image, urls) {
+            var titles_array = titles.split(",");
+            var images_array = image.split(",");
+            var urls_array = urls.split(",");
+
+            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper'>";
+            var middlestr = '';
+
+            for(var i = 0; i < titles_array.length; i++){
+              if(i == 0){
+                titles_array[i] = titles_array[i].replace("[", "");
+                images_array[i] = images_array[i].replace("[", "");
+                urls_array[i] = urls_array[i].replace("[", "");
+              }
+              if(i == titles_array.length - 1){
+                titles_array[i] = titles_array[i].replace("]", "");
+                images_array[i] = images_array[i].replace("]", "");
+                urls_array[i] = urls_array[i].replace("]", "");
+              }
+              middlestr =  middlestr + "<div class='article'><img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a></div>";
+            }
+            var endstr = "</div>";
+            return beginningstr + middlestr + endstr;
+          }
+
+          var htmlString = jsonToHtml(titles, image, urls);
+
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
-            .setHTML(
-              "<div class=title>" +
-                topic +
-                "</div><img class='image' src=" +
-                image +
-                "><br><a href =" +
-                urls +
-                " target=_" +
-                "blank" +
-                ">" +
-                '"' +
-                titles +
-                '"' +
-                "</a>"
-            )
+            .setHTML(htmlString)
             .addTo(map);
         });
 
@@ -301,23 +326,36 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
+          function jsonToHtml(titles, image, urls) {
+            var titles_array = titles.split(",");
+            var images_array = image.split(",");
+            var urls_array = urls.split(",");
+
+            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper'>";
+            var middlestr = '';
+
+            for(var i = 0; i < titles_array.length; i++){
+              if(i == 0){
+                titles_array[i] = titles_array[i].replace("[", "");
+                images_array[i] = images_array[i].replace("[", "");
+                urls_array[i] = urls_array[i].replace("[", "");
+              }
+              if(i == titles_array.length - 1){
+                titles_array[i] = titles_array[i].replace("]", "");
+                images_array[i] = images_array[i].replace("]", "");
+                urls_array[i] = urls_array[i].replace("]", "");
+              }
+              middlestr =  middlestr + "<div class='article'><img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a></div>";
+            }
+            var endstr = "</div>";
+            return beginningstr + middlestr + endstr;
+          }
+
+          var htmlString = jsonToHtml(titles, image, urls);
+
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
-            .setHTML(
-              "<div class=title>" +
-                topic +
-                "</div><img class='image' src=" +
-                image +
-                "><br><a href =" +
-                urls +
-                " target=_" +
-                "blank" +
-                ">" +
-                '"' +
-                titles +
-                '"' +
-                "</a>"
-            )
+            .setHTML(htmlString)
             .addTo(map);
         });
 
@@ -363,23 +401,36 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
+          function jsonToHtml(titles, image, urls) {
+            var titles_array = titles.split(",");
+            var images_array = image.split(",");
+            var urls_array = urls.split(",");
+
+            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper'>";
+            var middlestr = '';
+
+            for(var i = 0; i < titles_array.length; i++){
+              if(i == 0){
+                titles_array[i] = titles_array[i].replace("[", "");
+                images_array[i] = images_array[i].replace("[", "");
+                urls_array[i] = urls_array[i].replace("[", "");
+              }
+              if(i == titles_array.length - 1){
+                titles_array[i] = titles_array[i].replace("]", "");
+                images_array[i] = images_array[i].replace("]", "");
+                urls_array[i] = urls_array[i].replace("]", "");
+              }
+              middlestr =  middlestr + "<div class='article'><img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a></div>";
+            }
+            var endstr = "</div>";
+            return beginningstr + middlestr + endstr;
+          }
+
+          var htmlString = jsonToHtml(titles, image, urls);
+
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
-            .setHTML(
-              "<div class=title>" +
-                topic +
-                "</div><img class='image' src=" +
-                image +
-                "><br><a href =" +
-                urls +
-                " target=_" +
-                "blank" +
-                ">" +
-                '"' +
-                titles +
-                '"' +
-                "</a>"
-            )
+            .setHTML(htmlString)
             .addTo(map);
         });
 
@@ -425,23 +476,36 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
+          function jsonToHtml(titles, image, urls) {
+            var titles_array = titles.split(",");
+            var images_array = image.split(",");
+            var urls_array = urls.split(",");
+
+            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper'>";
+            var middlestr = '';
+
+            for(var i = 0; i < titles_array.length; i++){
+              if(i == 0){
+                titles_array[i] = titles_array[i].replace("[", "");
+                images_array[i] = images_array[i].replace("[", "");
+                urls_array[i] = urls_array[i].replace("[", "");
+              }
+              if(i == titles_array.length - 1){
+                titles_array[i] = titles_array[i].replace("]", "");
+                images_array[i] = images_array[i].replace("]", "");
+                urls_array[i] = urls_array[i].replace("]", "");
+              }
+              middlestr =  middlestr + "<div class='article'><img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a></div>";
+            }
+            var endstr = "</div>";
+            return beginningstr + middlestr + endstr;
+          }
+
+          var htmlString = jsonToHtml(titles, image, urls);
+
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
-            .setHTML(
-              "<div class=title>" +
-                topic +
-                "</div><img class='image' src=" +
-                image +
-                "><br><a href =" +
-                urls +
-                " target=_" +
-                "blank" +
-                ">" +
-                '"' +
-                titles +
-                '"' +
-                "</a>"
-            )
+            .setHTML(htmlString)
             .addTo(map);
         });
 
@@ -487,23 +551,36 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
+          function jsonToHtml(titles, image, urls) {
+            var titles_array = titles.split(",");
+            var images_array = image.split(",");
+            var urls_array = urls.split(",");
+
+            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper'>";
+            var middlestr = '';
+
+            for(var i = 0; i < titles_array.length; i++){
+              if(i == 0){
+                titles_array[i] = titles_array[i].replace("[", "");
+                images_array[i] = images_array[i].replace("[", "");
+                urls_array[i] = urls_array[i].replace("[", "");
+              }
+              if(i == titles_array.length - 1){
+                titles_array[i] = titles_array[i].replace("]", "");
+                images_array[i] = images_array[i].replace("]", "");
+                urls_array[i] = urls_array[i].replace("]", "");
+              }
+              middlestr =  middlestr + "<div class='article'><img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a></div>";
+            }
+            var endstr = "</div>";
+            return beginningstr + middlestr + endstr;
+          }
+
+          var htmlString = jsonToHtml(titles, image, urls);
+
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
-            .setHTML(
-              "<div class=title>" +
-                topic +
-                "</div><img class='image' src=" +
-                image +
-                "><br><a href =" +
-                urls +
-                " target=_" +
-                "blank" +
-                ">" +
-                '"' +
-                titles +
-                '"' +
-                "</a>"
-            )
+            .setHTML(htmlString)
             .addTo(map);
         });
 
@@ -549,23 +626,36 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
+          function jsonToHtml(titles, image, urls) {
+            var titles_array = titles.split(",");
+            var images_array = image.split(",");
+            var urls_array = urls.split(",");
+
+            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper'>";
+            var middlestr = '';
+
+            for(var i = 0; i < titles_array.length; i++){
+              if(i == 0){
+                titles_array[i] = titles_array[i].replace("[", "");
+                images_array[i] = images_array[i].replace("[", "");
+                urls_array[i] = urls_array[i].replace("[", "");
+              }
+              if(i == titles_array.length - 1){
+                titles_array[i] = titles_array[i].replace("]", "");
+                images_array[i] = images_array[i].replace("]", "");
+                urls_array[i] = urls_array[i].replace("]", "");
+              }
+              middlestr =  middlestr + "<div class='article'><img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a></div>";
+            }
+            var endstr = "</div>";
+            return beginningstr + middlestr + endstr;
+          }
+
+          var htmlString = jsonToHtml(titles, image, urls);
+
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
-            .setHTML(
-              "<div class=title>" +
-                topic +
-                "</div><img class='image' src=" +
-                image +
-                "><br><a href =" +
-                urls +
-                " target=_" +
-                "blank" +
-                ">" +
-                '"' +
-                titles +
-                '"' +
-                "</a>"
-            )
+            .setHTML(htmlString)
             .addTo(map);
         });
 
@@ -611,23 +701,36 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
+          function jsonToHtml(titles, image, urls) {
+            var titles_array = titles.split(",");
+            var images_array = image.split(",");
+            var urls_array = urls.split(",");
+
+            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper'>";
+            var middlestr = '';
+
+            for(var i = 0; i < titles_array.length; i++){
+              if(i == 0){
+                titles_array[i] = titles_array[i].replace("[", "");
+                images_array[i] = images_array[i].replace("[", "");
+                urls_array[i] = urls_array[i].replace("[", "");
+              }
+              if(i == titles_array.length - 1){
+                titles_array[i] = titles_array[i].replace("]", "");
+                images_array[i] = images_array[i].replace("]", "");
+                urls_array[i] = urls_array[i].replace("]", "");
+              }
+              middlestr =  middlestr + "<div class='article'><img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a></div>";
+            }
+            var endstr = "</div>";
+            return beginningstr + middlestr + endstr;
+          }
+
+          var htmlString = jsonToHtml(titles, image, urls);
+
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
-            .setHTML(
-              "<div class=title>" +
-                topic +
-                "</div><img class='image' src=" +
-                image +
-                "><br><a href =" +
-                urls +
-                " target=_" +
-                "blank" +
-                ">" +
-                '"' +
-                titles +
-                '"' +
-                "</a>"
-            )
+            .setHTML(htmlString)
             .addTo(map);
         });
 
@@ -672,24 +775,37 @@ export default {
           while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
+            
+          function jsonToHtml(titles, image, urls) {
+            var titles_array = titles.split(",");
+            var images_array = image.split(",");
+            var urls_array = urls.split(",");
+
+            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper'>";
+            var middlestr = '';
+
+            for(var i = 0; i < titles_array.length; i++){
+              if(i == 0){
+                titles_array[i] = titles_array[i].replace("[", "");
+                images_array[i] = images_array[i].replace("[", "");
+                urls_array[i] = urls_array[i].replace("[", "");
+              }
+              if(i == titles_array.length - 1){
+                titles_array[i] = titles_array[i].replace("]", "");
+                images_array[i] = images_array[i].replace("]", "");
+                urls_array[i] = urls_array[i].replace("]", "");
+              }
+              middlestr =  middlestr + "<div class='article'><img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a></div>";
+            }
+            var endstr = "</div>";
+            return beginningstr + middlestr + endstr;
+          }
+
+          var htmlString = jsonToHtml(titles, image, urls);
 
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
-            .setHTML(
-              "<div class=title>" +
-                topic +
-                "</div><img class='image' src=" +
-                image +
-                "><br><a href =" +
-                urls +
-                " target=_" +
-                "blank" +
-                ">" +
-                '"' +
-                titles +
-                '"' +
-                "</a>"
-            )
+            .setHTML(htmlString)
             .addTo(map);
         });
 
