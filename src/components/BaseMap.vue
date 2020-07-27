@@ -59,12 +59,56 @@ export default {
           if (this.map.getLayer("initial-layer")) {
             this.map.removeLayer("initial-layer");
           }
-          this.map.removeLayer(this.active_filters[i].realCategory);
+          if (this.map.getLayer(this.active_filters[i].realCategory)) {
+            this.map.removeLayer(this.active_filters[i].realCategory);
+          }
           this.map.addLayer(newLayer);
         } else {
           if (this.map.getLayer(this.active_filters[i].realCategory)) {
             this.map.removeLayer(this.active_filters[i].realCategory);
           }
+        }
+      }
+      var actives = false;
+      for (let j in this.active_filters) {
+        if (this.active_filters[j].include) {
+          actives = true;
+        } 
+      }
+      if (!actives) {
+        console.log('all empty')
+        if (this.map.isStyleLoaded()) {
+          console.log('style loaded'); 
+          this.map.addLayer({
+            id: "initial-layer",
+            type: "circle",
+            source: "mypoints",
+            paint: {
+              "circle-color": [
+                "match",
+                ["get", "category"],
+                "covid-19",
+                "#f34c46",
+                "politics",
+                "#fa8d4f",
+                "business",
+                "#fdd742",
+                "sports",
+                "#a3e048",
+                "arts & entertainment",
+                "#49da9a",
+                "science & tech",
+                "#50d4fe",
+                "lifestyle",
+                "#6073fd",
+                "local",
+                "#ff95d5",
+                "Crisis Updates",
+                "#000000",
+                /* other */ "#ccc",
+              ],
+            },
+          });
         }
       }
     },
