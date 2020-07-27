@@ -740,7 +740,7 @@ export default {
             var images_array = image.split(",");
             var urls_array = urls.split(",");
 
-            var beginningstr = "<div class='topic'>" + topic + "</div> <div class='headline-wrapper'>";
+            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper>";
             var middlestr = '';
 
             for(var i = 0; i < titles_array.length; i++){
@@ -754,8 +754,7 @@ export default {
                 images_array[i] = images_array[i].replace("]", "");
                 urls_array[i] = urls_array[i].replace("]", "");
               }
-              middlestr = middlestr + "<img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a>";
-              console.log(middlestr);
+              middlestr =  middlestr + "<div class='article'><img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a></div>";
             }
             var endstr = "</div>";
             return beginningstr + middlestr + endstr;
@@ -825,6 +824,18 @@ export default {
   width: 100%;
   height: 100%;
 }
+.headline-wrapper {
+  float: left;
+}
+.article {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.image {
+  width: 30px;
+  height: 30px;
+}
 .hover-popup .mapboxgl-popup-content {
   font-size: 13px;
   font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
@@ -834,11 +845,6 @@ export default {
   font-weight: bold;
   text-align: center;
   border: 0.1px solid #8DA9BF;
-}
-
-.image {
-  width: 50px;
-  height: 50px;
 }
 .hover-popup .mapboxgl-popup-tip {
   border-top-color: transparent;
