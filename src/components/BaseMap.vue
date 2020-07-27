@@ -7,38 +7,73 @@ import mapboxgl from "mapbox-gl";
 
 export default {
   name: "BaseMap",
+  props: {
+    active_filters: Array,
+  },
   data() {
     return {
       accessToken:
         "pk.eyJ1IjoiaGFycHJpeWFiYWdyaSIsImEiOiJja2NxeHR6dWgwcjJnMnJtMXhreWN4MWoxIn0.wW12qOAMq730lfuLyXb9nw",
-      categories: [
-        { category: "COVID-19", color: "#f34c46" },
-        { category: "Politics", color: "#fa8d4f" },
-        { category: "Business", color: "#fdd742" },
-        { category: "Sports", color: "#a3e048" },
-        { category: "Arts & Media", color: "#49da9a" },
-        { category: "Science & Tech", color: "#50d4fe" },
-        { category: "Lifestyle", color: "#6073fd" },
-        { category: "Community", color: "#ff95d5" },
-        { category: "Crisis Updates", color: "#000000" },
+      filter_state: [
+        { category: "covid-19", color: "#f34c46", filter: 0 },
+        { category: "politics", color: "#fa8d4f", filter: 0 },
+        { category: "business", color: "#fdd742", filter: 0 },
+        { category: "sports", color: "#a3e048", filter: 0 },
+        { category: "arts", color: "#49da9a", filter: 0 },
+        { category: "science", color: "#50d4fe", filter: 0 },
+        { category: "lifestyle", color: "#6073fd", filter: 0 },
+        { category: "local", color: "#ff95d5", filter: 0 },
+        { category: "crisis-updates", color: "#000000", filter: 0 },
       ],
+      map: null,
+      circleColor: ["match", ["get", "category"], "#ccc"],
     };
   },
+  watch: {
+    active_filters: {
+      handler() {
+        this.updateMap();
+      },
+      deep: true,
+    },
+  },
   methods: {
-    dashboardClicked() {},
+    updateMap() {
+      for (let i in this.active_filters) {
+        var temp = JSON.parse(JSON.stringify(this.circleColor));
+        if (this.active_filters[i].include) {
+          temp.pop();
+          temp.push(this.active_filters[i].realCategory);
+          temp.push(this.active_filters[i].color);
+          temp.push("#ccc");
+          console.log(temp);
+          let newLayer = {
+            id: this.active_filters[i].realCategory,
+            type: "circle",
+            source: "mypoints",
+            paint: {
+              "circle-color": temp,
+            },
+            filter: ["==", "category", this.active_filters[i].realCategory],
+          };
+          if (this.map.getLayer("initial-layer")) {
+            this.map.removeLayer("initial-layer");
+          }
+          this.map.removeLayer(this.active_filters[i].realCategory);
+          this.map.addLayer(newLayer);
+        } else {
+          if (this.map.getLayer(this.active_filters[i].realCategory)) {
+            this.map.removeLayer(this.active_filters[i].realCategory);
+          }
+        }
+      }
+    },
 
-    load() {
-      mapboxgl.accessToken = this.accessToken;
-      var map = new mapboxgl.Map({
-        container: "mapContainer",
-        style: "mapbox://styles/harpriyabagri/ckcs1ofh31ejn1iqxzmqwppj2",
-        zoom: 1.3,
-      });
-
+    load(map) {
       var nav = new mapboxgl.NavigationControl();
       map.addControl(nav, "top-right");
 
-      map.on("load", function() {
+      map.on("load", function () {
         map.addSource("mypoints", {
           type: "geojson",
           //input the file name of the data you want to display
@@ -48,28 +83,276 @@ export default {
         });
 
         map.addLayer({
-          id: "layer-mypoints",
+          id: "initial-layer",
           type: "circle",
           source: "mypoints",
           paint: {
-            'circle-color': [
-              'match',
-              ['get', 'category'],
-              'covid-19', "#f34c46",
-              'politics', '#fa8d4f',
-              "business", "#fdd742",
-              "sports", "#a3e048",
-              "arts & entertainment", "#49da9a" ,
-              "science & tech", "#50d4fe",
-              "lifestyle", "#6073fd",
-              "local", "#ff95d5",
-              "Crisis Updates", "#000000",
-              /* other */ '#ccc'
-            ]
+            "circle-color": [
+              "match",
+              ["get", "category"],
+              "covid-19",
+              "#f34c46",
+              "politics",
+              "#fa8d4f",
+              "business",
+              "#fdd742",
+              "sports",
+              "#a3e048",
+              "arts & entertainment",
+              "#49da9a",
+              "science & tech",
+              "#50d4fe",
+              "lifestyle",
+              "#6073fd",
+              "local",
+              "#ff95d5",
+              "Crisis Updates",
+              "#000000",
+              /* other */ "#ccc",
+            ],
           },
         });
 
-        map.on("click", "layer-mypoints", function(e) {
+        // right now if multiple layers (categories) have a data point in the same location they get stacked, and if you click on the data point it opens up a pop up for every layer that has data point in that location and they stack on top of each other - this should be fixed when we're pulling different data where data points won't be overlapping (hopefully)
+        map.on("click", "covid-19", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var title = e.features[0].properties.title;
+          var url = e.features[0].properties.url;
+          var topic = e.features[0].properties.topic;
+          var image = e.features[0].properties.image;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          //this styling only applies to the covid layer, it needs to be copy/pasted to every other layer as well once you finalize the styling here
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=title>" +
+                topic +
+                "</div><img class='image' src=" +
+                image +
+                "><br><a href =" +
+                url +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                title +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+
+        map.on("click", "politics", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var title = e.features[0].properties.title;
+          var url = e.features[0].properties.url;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=" +
+                "title" +
+                "> Some Topic </div><a href =" +
+                url +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                title +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+        map.on("click", "business", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var title = e.features[0].properties.title;
+          var url = e.features[0].properties.url;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=" +
+                "title" +
+                "> Some Topic </div><a href =" +
+                url +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                title +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+        map.on("click", "sports", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var title = e.features[0].properties.title;
+          var url = e.features[0].properties.url;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=" +
+                "title" +
+                "> Some Topic </div><a href =" +
+                url +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                title +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+        map.on("click", "arts & entertainment", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var title = e.features[0].properties.title;
+          var url = e.features[0].properties.url;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=" +
+                "title" +
+                "> Some Topic </div><a href =" +
+                url +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                title +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+        map.on("click", "science", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var title = e.features[0].properties.title;
+          var url = e.features[0].properties.url;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=" +
+                "title" +
+                "> Some Topic </div><a href =" +
+                url +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                title +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+        map.on("click", "local", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var title = e.features[0].properties.title;
+          var url = e.features[0].properties.url;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=" +
+                "title" +
+                "> Some Topic </div><a href =" +
+                url +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                title +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+        map.on("click", "crisi-updates", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var title = e.features[0].properties.title;
+          var url = e.features[0].properties.url;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=" +
+                "title" +
+                "> Some Topic </div><a href =" +
+                url +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                title +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+        map.on("click", "initial-layer", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var title = e.features[0].properties.title;
           var url = e.features[0].properties.url;
@@ -100,17 +383,18 @@ export default {
         });
 
         // // Change the cursor to a pointer when the mouse is over the places layer.
-        // map.on("mouseenter", "layer-mypoints", function() {
+        // map.on("mouseenter", "covid-19", function () {
         //   map.getCanvas().style.cursor = "pointer";
         // });
         // Create a popup, but don't add it to the map yet.
+
         var popup = new mapboxgl.Popup({
           className: "hover-popup",
           closeButton: false,
           closeOnClick: false,
         });
 
-        map.on("mouseenter", "layer-mypoints", function(e) {
+        map.on("mouseenter", "layer-mypoints", function (e) {
           // Change the cursor style as a UI indicator.
           map.getCanvas().style.cursor = "pointer";
 
@@ -132,15 +416,22 @@ export default {
         });
 
         // Change it back to a pointer when it leaves.
-        map.on("mouseleave", "layer-mypoints", function() {
+        map.on("mouseleave", "layer-mypoints", function () {
           map.getCanvas().style.cursor = "";
           popup.remove();
         });
       });
     },
   },
+
   mounted() {
-    this.load();
+    mapboxgl.accessToken = this.accessToken;
+    this.map = new mapboxgl.Map({
+      container: "mapContainer",
+      style: "mapbox://styles/harpriyabagri/ckd3ksxv805z81lmifjlp8cu1",
+      zoom: 1.3,
+    });
+    this.load(this.map);
   },
 };
 </script>
@@ -159,6 +450,10 @@ export default {
   padding: 2px 8px;
 }
 
+.image {
+  width: 50px;
+  height: 50px;
+}
 .hover-popup .mapboxgl-popup-tip {
   border-top-color: transparent;
   color: transparent;
@@ -194,10 +489,13 @@ export default {
   color: white;
 }
 .mapboxgl-ctrl-group:not(:empty) {
-  box-shadow: 0 3px 6px #3535353b;
+  background-color: #CBD5DC;
+  border: 1px solid #8DA9BF;
+  border-radius: 5px;
 }
 .mapboxgl-ctrl button {
   /*background-color: white; */
+  color: white;
   transition: all;
   transition-duration: 150ms;
 }
