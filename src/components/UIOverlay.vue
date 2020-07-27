@@ -30,7 +30,9 @@
       <modal v-if="showDash" id="dashModal" class="modal">
         <div class="modal-content">
         <span class="close" @click="showDash=false">&times;</span> 
-        <h2> Your newsworthy.ml Dashboard </h2>
+          <img src= "@/assets/dashboard.png" />
+          <img src= "@/assets/ourtake.png" />
+          
 
         </div>
       </modal>
@@ -277,6 +279,10 @@ export default {
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
 }
+.modal-content img{ 
+  width:100%;
+  }
+
 .modal-content {
   background-color: #fefefe;
   margin: 15% auto;
@@ -286,6 +292,7 @@ export default {
   background-color: #242424;
   color: rgb(228, 228, 228);
   border-radius: 8px;
+
 }
 .close {
   color: #aaa;
