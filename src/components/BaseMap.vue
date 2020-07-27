@@ -856,9 +856,10 @@ export default {
   font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
   background-color: #6E8494;
   color: #CBD5DC;
-  /*padding: 10px 15px;*/
+  padding: 10px 15px;
   border-radius: 5px;
   border: 0.1px solid #8DA9BF;
+  width: 300px;
 }
 .click-popup .mapboxgl-popup-content .title {
   font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
