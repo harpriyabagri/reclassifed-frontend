@@ -53,6 +53,17 @@ export default {
             source: "mypoints",
             paint: {
               "circle-color": temp,
+              "circle-radius": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                2,
+                ["ln", ["get", "int_sc"]],
+                6,
+                ["/", ["get", "nat_sc"], 8],
+                12,
+                ["/", ["get", "prov_sc"], 5],
+              ],
             },
             filter: ["==", "category", this.active_filters[i].realCategory],
           };
@@ -105,6 +116,17 @@ export default {
                 "#000000",
                 /* other */ "#ccc",
               ],
+              "circle-radius": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+                2,
+                ["ln", ["get", "int_sc"]],
+                6,
+                ["/", ["get", "nat_sc"], 8],
+                12,
+                ["/", ["get", "prov_sc"], 8],
+              ],
             },
           });
         }
@@ -115,7 +137,7 @@ export default {
       var nav = new mapboxgl.NavigationControl();
       map.addControl(nav, "top-right");
 
-      map.on("load", function () {
+      map.on("load", function (e) {
         map.addSource("mypoints", {
           type: "geojson",
           //input the file name of the data you want to display
@@ -152,9 +174,18 @@ export default {
               "#000000",
               /* other */ "#ccc",
             ],
-            "circle-radius":
-              //currently returns 3 everytime (the default) ince the scores in the geojson are strings and it can't read them
-              ["number", ["get", "worldwide_sc"], 3],
+
+            "circle-radius": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              2,
+              ["ln", ["get", "int_sc"]],
+              6,
+              ["/", ["get", "nat_sc"], 8],
+              12,
+              ["/", ["get", "prov_sc"], 8],
+            ],
           },
         });
 
