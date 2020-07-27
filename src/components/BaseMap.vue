@@ -115,13 +115,13 @@ export default {
       var nav = new mapboxgl.NavigationControl();
       map.addControl(nav, "top-right");
 
-      map.on("load", function () {
+      map.on("load", function() {
         map.addSource("mypoints", {
           type: "geojson",
           //input the file name of the data you want to display
           //articles.json has one json object for each article
           //grouped.json has one json object for each news outlet
-          data: require("./grouped_by_X.json"),
+          data: require("./grouped_by_X_2.json"),
         });
 
         map.addLayer({
@@ -162,12 +162,12 @@ export default {
         });
 
         // right now if multiple layers (categories) have a data point in the same location they get stacked, and if you click on the data point it opens up a pop up for every layer that has data point in that location and they stack on top of each other - this should be fixed when we're pulling different data where data points won't be overlapping (hopefully)
-        map.on("click", "covid-19", function (e) {
+        map.on("click", "covid-19", function(e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
-          var image = e.features[0].properties.image;
-          var titles = e.features[0].properties.titles;
-          var urls = e.features[0].properties.urls;
+          var images = e.features[0].properties.image;
+          var titles = e.features[0].properties.title;
+          var urls = e.features[0].properties.url;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -176,40 +176,52 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
-          function jsonToHtml(titles, image, urls) {
+          function jsonToHtml(titles, images, urls) {
             var titles_array = titles.split(",");
-            var images_array = image.split(",");
+            var images_array = images.split(",");
             var urls_array = urls.split(",");
 
-            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper'>";
-            var middlestr = '';
+            var beginningstr =
+              "<div class='topic'>" +
+              topic +
+              "</div><div class='headline-wrapper'>";
+            var middlestr = "";
 
-            for(var i = 0; i < titles_array.length; i++){
-              if(i == 0){
+            for (var i = 0; i < titles_array.length; i++) {
+              if (i == 0) {
                 titles_array[i] = titles_array[i].replace("[", "");
                 images_array[i] = images_array[i].replace("[", "");
                 urls_array[i] = urls_array[i].replace("[", "");
               }
-              if(i == titles_array.length - 1){
+              if (i == titles_array.length - 1) {
                 titles_array[i] = titles_array[i].replace("]", "");
                 images_array[i] = images_array[i].replace("]", "");
                 urls_array[i] = urls_array[i].replace("]", "");
               }
-              middlestr =  middlestr + "<div class='article'><img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a></div>";
+              middlestr =
+                middlestr +
+                "<div class='article'><img class='image' src=" +
+                images_array[i] +
+                "> <br> <a href=" +
+                urls_array[i] +
+                "target='_blank'>" +
+                titles_array[i] +
+                "</a></div>";
             }
             var endstr = "</div>";
             return beginningstr + middlestr + endstr;
           }
 
-          var htmlString = jsonToHtml(titles, image, urls);
+          var htmlString = jsonToHtml(titles, images, urls);
 
+          //this styling only applies to the covid layer, it needs to be copy/pasted to every other layer as well once you finalize the styling here
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
             .setHTML(htmlString)
             .addTo(map);
         });
 
-        map.on("mouseenter", "covid-19", function (e) {
+        map.on("mouseenter", "covid-19", function(e) {
           // Change the cursor style as a UI indicator.
           map.getCanvas().style.cursor = "pointer";
 
@@ -232,17 +244,17 @@ export default {
         });
 
         // Change it back to a pointer when it leaves.
-        map.on("mouseleave", "covid-19", function () {
+        map.on("mouseleave", "covid-19", function() {
           map.getCanvas().style.cursor = "";
           popup.remove();
         });
 
-        map.on("click", "politics", function (e) {
+        map.on("click", "politics", function(e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
-          var image = e.features[0].properties.image;
-          var titles = e.features[0].properties.titles;
-          var urls = e.features[0].properties.urls;
+          var images = e.features[0].properties.image;
+          var titles = e.features[0].properties.title;
+          var urls = e.features[0].properties.url;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -251,32 +263,43 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
-          function jsonToHtml(titles, image, urls) {
+          function jsonToHtml(titles, images, urls) {
             var titles_array = titles.split(",");
-            var images_array = image.split(",");
+            var images_array = images.split(",");
             var urls_array = urls.split(",");
 
-            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper'>";
-            var middlestr = '';
+            var beginningstr =
+              "<div class='topic'>" +
+              topic +
+              "</div><div class='headline-wrapper'>";
+            var middlestr = "";
 
-            for(var i = 0; i < titles_array.length; i++){
-              if(i == 0){
+            for (var i = 0; i < titles_array.length; i++) {
+              if (i == 0) {
                 titles_array[i] = titles_array[i].replace("[", "");
                 images_array[i] = images_array[i].replace("[", "");
                 urls_array[i] = urls_array[i].replace("[", "");
               }
-              if(i == titles_array.length - 1){
+              if (i == titles_array.length - 1) {
                 titles_array[i] = titles_array[i].replace("]", "");
                 images_array[i] = images_array[i].replace("]", "");
                 urls_array[i] = urls_array[i].replace("]", "");
               }
-              middlestr =  middlestr + "<div class='article'><img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a></div>";
+              middlestr =
+                middlestr +
+                "<div class='article'><img class='image' src=" +
+                images_array[i] +
+                "> <br> <a href=" +
+                urls_array[i] +
+                "target='_blank'>" +
+                titles_array[i] +
+                "</a></div>";
             }
             var endstr = "</div>";
             return beginningstr + middlestr + endstr;
           }
 
-          var htmlString = jsonToHtml(titles, image, urls);
+          var htmlString = jsonToHtml(titles, images, urls);
 
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
@@ -284,7 +307,7 @@ export default {
             .addTo(map);
         });
 
-        map.on("mouseenter", "politics", function (e) {
+        map.on("mouseenter", "politics", function(e) {
           // Change the cursor style as a UI indicator.
           map.getCanvas().style.cursor = "pointer";
 
@@ -307,17 +330,17 @@ export default {
         });
 
         // Change it back to a pointer when it leaves.
-        map.on("mouseleave", "politics", function () {
+        map.on("mouseleave", "politics", function() {
           map.getCanvas().style.cursor = "";
           popup.remove();
         });
 
-        map.on("click", "business", function (e) {
+        map.on("click", "business", function(e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
-          var image = e.features[0].properties.image;
-          var titles = e.features[0].properties.titles;
-          var urls = e.features[0].properties.urls;
+          var images = e.features[0].properties.image;
+          var titles = e.features[0].properties.title;
+          var urls = e.features[0].properties.url;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -326,32 +349,43 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
-          function jsonToHtml(titles, image, urls) {
+          function jsonToHtml(titles, images, urls) {
             var titles_array = titles.split(",");
-            var images_array = image.split(",");
+            var images_array = images.split(",");
             var urls_array = urls.split(",");
 
-            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper'>";
-            var middlestr = '';
+            var beginningstr =
+              "<div class='topic'>" +
+              topic +
+              "</div><div class='headline-wrapper'>";
+            var middlestr = "";
 
-            for(var i = 0; i < titles_array.length; i++){
-              if(i == 0){
+            for (var i = 0; i < titles_array.length; i++) {
+              if (i == 0) {
                 titles_array[i] = titles_array[i].replace("[", "");
                 images_array[i] = images_array[i].replace("[", "");
                 urls_array[i] = urls_array[i].replace("[", "");
               }
-              if(i == titles_array.length - 1){
+              if (i == titles_array.length - 1) {
                 titles_array[i] = titles_array[i].replace("]", "");
                 images_array[i] = images_array[i].replace("]", "");
                 urls_array[i] = urls_array[i].replace("]", "");
               }
-              middlestr =  middlestr + "<div class='article'><img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a></div>";
+              middlestr =
+                middlestr +
+                "<div class='article'><img class='image' src=" +
+                images_array[i] +
+                "> <br> <a href=" +
+                urls_array[i] +
+                "target='_blank'>" +
+                titles_array[i] +
+                "</a></div>";
             }
             var endstr = "</div>";
             return beginningstr + middlestr + endstr;
           }
 
-          var htmlString = jsonToHtml(titles, image, urls);
+          var htmlString = jsonToHtml(titles, images, urls);
 
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
@@ -359,7 +393,7 @@ export default {
             .addTo(map);
         });
 
-        map.on("mouseenter", "business", function (e) {
+        map.on("mouseenter", "business", function(e) {
           // Change the cursor style as a UI indicator.
           map.getCanvas().style.cursor = "pointer";
 
@@ -382,17 +416,17 @@ export default {
         });
 
         // Change it back to a pointer when it leaves.
-        map.on("mouseleave", "business", function () {
+        map.on("mouseleave", "business", function() {
           map.getCanvas().style.cursor = "";
           popup.remove();
         });
 
-        map.on("click", "sports", function (e) {
+        map.on("click", "sports", function(e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
-          var image = e.features[0].properties.image;
-          var titles = e.features[0].properties.titles;
-          var urls = e.features[0].properties.urls;
+          var images = e.features[0].properties.image;
+          var titles = e.features[0].properties.title;
+          var urls = e.features[0].properties.url;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -401,32 +435,43 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
-          function jsonToHtml(titles, image, urls) {
+          function jsonToHtml(titles, images, urls) {
             var titles_array = titles.split(",");
-            var images_array = image.split(",");
+            var images_array = images.split(",");
             var urls_array = urls.split(",");
 
-            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper'>";
-            var middlestr = '';
+            var beginningstr =
+              "<div class='topic'>" +
+              topic +
+              "</div><div class='headline-wrapper'>";
+            var middlestr = "";
 
-            for(var i = 0; i < titles_array.length; i++){
-              if(i == 0){
+            for (var i = 0; i < titles_array.length; i++) {
+              if (i == 0) {
                 titles_array[i] = titles_array[i].replace("[", "");
                 images_array[i] = images_array[i].replace("[", "");
                 urls_array[i] = urls_array[i].replace("[", "");
               }
-              if(i == titles_array.length - 1){
+              if (i == titles_array.length - 1) {
                 titles_array[i] = titles_array[i].replace("]", "");
                 images_array[i] = images_array[i].replace("]", "");
                 urls_array[i] = urls_array[i].replace("]", "");
               }
-              middlestr =  middlestr + "<div class='article'><img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a></div>";
+              middlestr =
+                middlestr +
+                "<div class='article'><img class='image' src=" +
+                images_array[i] +
+                "> <br> <a href=" +
+                urls_array[i] +
+                "target='_blank'>" +
+                titles_array[i] +
+                "</a></div>";
             }
             var endstr = "</div>";
             return beginningstr + middlestr + endstr;
           }
 
-          var htmlString = jsonToHtml(titles, image, urls);
+          var htmlString = jsonToHtml(titles, images, urls);
 
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
@@ -434,7 +479,7 @@ export default {
             .addTo(map);
         });
 
-        map.on("mouseenter", "sports", function (e) {
+        map.on("mouseenter", "sports", function(e) {
           // Change the cursor style as a UI indicator.
           map.getCanvas().style.cursor = "pointer";
 
@@ -457,17 +502,17 @@ export default {
         });
 
         // Change it back to a pointer when it leaves.
-        map.on("mouseleave", "sports", function () {
+        map.on("mouseleave", "sports", function() {
           map.getCanvas().style.cursor = "";
           popup.remove();
         });
 
-        map.on("click", "arts & entertainment", function (e) {
+        map.on("click", "arts & entertainment", function(e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
-          var image = e.features[0].properties.image;
-          var titles = e.features[0].properties.titles;
-          var urls = e.features[0].properties.urls;
+          var images = e.features[0].properties.image;
+          var titles = e.features[0].properties.title;
+          var urls = e.features[0].properties.url;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -476,32 +521,43 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
-          function jsonToHtml(titles, image, urls) {
+          function jsonToHtml(titles, images, urls) {
             var titles_array = titles.split(",");
-            var images_array = image.split(",");
+            var images_array = images.split(",");
             var urls_array = urls.split(",");
 
-            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper'>";
-            var middlestr = '';
+            var beginningstr =
+              "<div class='topic'>" +
+              topic +
+              "</div><div class='headline-wrapper'>";
+            var middlestr = "";
 
-            for(var i = 0; i < titles_array.length; i++){
-              if(i == 0){
+            for (var i = 0; i < titles_array.length; i++) {
+              if (i == 0) {
                 titles_array[i] = titles_array[i].replace("[", "");
                 images_array[i] = images_array[i].replace("[", "");
                 urls_array[i] = urls_array[i].replace("[", "");
               }
-              if(i == titles_array.length - 1){
+              if (i == titles_array.length - 1) {
                 titles_array[i] = titles_array[i].replace("]", "");
                 images_array[i] = images_array[i].replace("]", "");
                 urls_array[i] = urls_array[i].replace("]", "");
               }
-              middlestr =  middlestr + "<div class='article'><img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a></div>";
+              middlestr =
+                middlestr +
+                "<div class='article'><img class='image' src=" +
+                images_array[i] +
+                "> <br> <a href=" +
+                urls_array[i] +
+                "target='_blank'>" +
+                titles_array[i] +
+                "</a></div>";
             }
             var endstr = "</div>";
             return beginningstr + middlestr + endstr;
           }
 
-          var htmlString = jsonToHtml(titles, image, urls);
+          var htmlString = jsonToHtml(titles, images, urls);
 
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
@@ -509,7 +565,7 @@ export default {
             .addTo(map);
         });
 
-        map.on("mouseenter", "arts & entertainment", function (e) {
+        map.on("mouseenter", "arts & entertainment", function(e) {
           // Change the cursor style as a UI indicator.
           map.getCanvas().style.cursor = "pointer";
 
@@ -532,17 +588,17 @@ export default {
         });
 
         // Change it back to a pointer when it leaves.
-        map.on("mouseleave", "arts & entertainment", function () {
+        map.on("mouseleave", "arts & entertainment", function() {
           map.getCanvas().style.cursor = "";
           popup.remove();
         });
 
-        map.on("click", "science", function (e) {
+        map.on("click", "science", function(e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
-          var image = e.features[0].properties.image;
-          var titles = e.features[0].properties.titles;
-          var urls = e.features[0].properties.urls;
+          var images = e.features[0].properties.image;
+          var titles = e.features[0].properties.title;
+          var urls = e.features[0].properties.url;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -551,32 +607,43 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
-          function jsonToHtml(titles, image, urls) {
+          function jsonToHtml(titles, images, urls) {
             var titles_array = titles.split(",");
-            var images_array = image.split(",");
+            var images_array = images.split(",");
             var urls_array = urls.split(",");
 
-            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper'>";
-            var middlestr = '';
+            var beginningstr =
+              "<div class='topic'>" +
+              topic +
+              "</div><div class='headline-wrapper'>";
+            var middlestr = "";
 
-            for(var i = 0; i < titles_array.length; i++){
-              if(i == 0){
+            for (var i = 0; i < titles_array.length; i++) {
+              if (i == 0) {
                 titles_array[i] = titles_array[i].replace("[", "");
                 images_array[i] = images_array[i].replace("[", "");
                 urls_array[i] = urls_array[i].replace("[", "");
               }
-              if(i == titles_array.length - 1){
+              if (i == titles_array.length - 1) {
                 titles_array[i] = titles_array[i].replace("]", "");
                 images_array[i] = images_array[i].replace("]", "");
                 urls_array[i] = urls_array[i].replace("]", "");
               }
-              middlestr =  middlestr + "<div class='article'><img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a></div>";
+              middlestr =
+                middlestr +
+                "<div class='article'><img class='image' src=" +
+                images_array[i] +
+                "> <br> <a href=" +
+                urls_array[i] +
+                "target='_blank'>" +
+                titles_array[i] +
+                "</a></div>";
             }
             var endstr = "</div>";
             return beginningstr + middlestr + endstr;
           }
 
-          var htmlString = jsonToHtml(titles, image, urls);
+          var htmlString = jsonToHtml(titles, images, urls);
 
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
@@ -584,7 +651,7 @@ export default {
             .addTo(map);
         });
 
-        map.on("mouseenter", "science", function (e) {
+        map.on("mouseenter", "science", function(e) {
           // Change the cursor style as a UI indicator.
           map.getCanvas().style.cursor = "pointer";
 
@@ -607,17 +674,17 @@ export default {
         });
 
         // Change it back to a pointer when it leaves.
-        map.on("mouseleave", "science", function () {
+        map.on("mouseleave", "science", function() {
           map.getCanvas().style.cursor = "";
           popup.remove();
         });
 
-        map.on("click", "lifestyle", function (e) {
+        map.on("click", "lifestyle", function(e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
-          var image = e.features[0].properties.image;
-          var titles = e.features[0].properties.titles;
-          var urls = e.features[0].properties.urls;
+          var images = e.features[0].properties.image;
+          var titles = e.features[0].properties.title;
+          var urls = e.features[0].properties.url;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -626,32 +693,43 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
-          function jsonToHtml(titles, image, urls) {
+          function jsonToHtml(titles, images, urls) {
             var titles_array = titles.split(",");
-            var images_array = image.split(",");
+            var images_array = images.split(",");
             var urls_array = urls.split(",");
 
-            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper'>";
-            var middlestr = '';
+            var beginningstr =
+              "<div class='topic'>" +
+              topic +
+              "</div><div class='headline-wrapper'>";
+            var middlestr = "";
 
-            for(var i = 0; i < titles_array.length; i++){
-              if(i == 0){
+            for (var i = 0; i < titles_array.length; i++) {
+              if (i == 0) {
                 titles_array[i] = titles_array[i].replace("[", "");
                 images_array[i] = images_array[i].replace("[", "");
                 urls_array[i] = urls_array[i].replace("[", "");
               }
-              if(i == titles_array.length - 1){
+              if (i == titles_array.length - 1) {
                 titles_array[i] = titles_array[i].replace("]", "");
                 images_array[i] = images_array[i].replace("]", "");
                 urls_array[i] = urls_array[i].replace("]", "");
               }
-              middlestr =  middlestr + "<div class='article'><img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a></div>";
+              middlestr =
+                middlestr +
+                "<div class='article'><img class='image' src=" +
+                images_array[i] +
+                "> <br> <a href=" +
+                urls_array[i] +
+                "target='_blank'>" +
+                titles_array[i] +
+                "</a></div>";
             }
             var endstr = "</div>";
             return beginningstr + middlestr + endstr;
           }
 
-          var htmlString = jsonToHtml(titles, image, urls);
+          var htmlString = jsonToHtml(titles, images, urls);
 
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
@@ -659,7 +737,7 @@ export default {
             .addTo(map);
         });
 
-        map.on("mouseenter", "lifestyle", function (e) {
+        map.on("mouseenter", "lifestyle", function(e) {
           // Change the cursor style as a UI indicator.
           map.getCanvas().style.cursor = "pointer";
 
@@ -682,17 +760,17 @@ export default {
         });
 
         // Change it back to a pointer when it leaves.
-        map.on("mouseleave", "lifestyle", function () {
+        map.on("mouseleave", "lifestyle", function() {
           map.getCanvas().style.cursor = "";
           popup.remove();
         });
 
-        map.on("click", "local", function (e) {
+        map.on("click", "local", function(e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
-          var image = e.features[0].properties.image;
-          var titles = e.features[0].properties.titles;
-          var urls = e.features[0].properties.urls;
+          var images = e.features[0].properties.image;
+          var titles = e.features[0].properties.title;
+          var urls = e.features[0].properties.url;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -701,32 +779,43 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
-          function jsonToHtml(titles, image, urls) {
+          function jsonToHtml(titles, images, urls) {
             var titles_array = titles.split(",");
-            var images_array = image.split(",");
+            var images_array = images.split(",");
             var urls_array = urls.split(",");
 
-            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper'>";
-            var middlestr = '';
+            var beginningstr =
+              "<div class='topic'>" +
+              topic +
+              "</div><div class='headline-wrapper'>";
+            var middlestr = "";
 
-            for(var i = 0; i < titles_array.length; i++){
-              if(i == 0){
+            for (var i = 0; i < titles_array.length; i++) {
+              if (i == 0) {
                 titles_array[i] = titles_array[i].replace("[", "");
                 images_array[i] = images_array[i].replace("[", "");
                 urls_array[i] = urls_array[i].replace("[", "");
               }
-              if(i == titles_array.length - 1){
+              if (i == titles_array.length - 1) {
                 titles_array[i] = titles_array[i].replace("]", "");
                 images_array[i] = images_array[i].replace("]", "");
                 urls_array[i] = urls_array[i].replace("]", "");
               }
-              middlestr =  middlestr + "<div class='article'><img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a></div>";
+              middlestr =
+                middlestr +
+                "<div class='article'><img class='image' src=" +
+                images_array[i] +
+                "> <br> <a href=" +
+                urls_array[i] +
+                "target='_blank'>" +
+                titles_array[i] +
+                "</a></div>";
             }
             var endstr = "</div>";
             return beginningstr + middlestr + endstr;
           }
 
-          var htmlString = jsonToHtml(titles, image, urls);
+          var htmlString = jsonToHtml(titles, images, urls);
 
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
@@ -734,7 +823,7 @@ export default {
             .addTo(map);
         });
 
-        map.on("mouseenter", "local", function (e) {
+        map.on("mouseenter", "local", function(e) {
           // Change the cursor style as a UI indicator.
           map.getCanvas().style.cursor = "pointer";
 
@@ -757,17 +846,17 @@ export default {
         });
 
         // Change it back to a pointer when it leaves.
-        map.on("mouseleave", "local", function () {
+        map.on("mouseleave", "local", function() {
           map.getCanvas().style.cursor = "";
           popup.remove();
         });
 
-        map.on("click", "crisis-updates", function (e) {
+        map.on("click", "crisis-updates", function(e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
-          var image = e.features[0].properties.image;
-          var titles = e.features[0].properties.titles;
-          var urls = e.features[0].properties.urls;
+          var images = e.features[0].properties.image;
+          var titles = e.features[0].properties.title;
+          var urls = e.features[0].properties.url;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -803,13 +892,51 @@ export default {
 
           var htmlString = jsonToHtml(titles, image, urls);
 
+          function jsonToHtml(titles, images, urls) {
+            var titles_array = titles.split(",");
+            var images_array = images.split(",");
+            var urls_array = urls.split(",");
+
+            var beginningstr =
+              "<div class='topic'>" +
+              topic +
+              "</div><div class='headline-wrapper'>";
+            var middlestr = "";
+
+            for (var i = 0; i < titles_array.length; i++) {
+              if (i == 0) {
+                titles_array[i] = titles_array[i].replace("[", "");
+                images_array[i] = images_array[i].replace("[", "");
+                urls_array[i] = urls_array[i].replace("[", "");
+              }
+              if (i == titles_array.length - 1) {
+                titles_array[i] = titles_array[i].replace("]", "");
+                images_array[i] = images_array[i].replace("]", "");
+                urls_array[i] = urls_array[i].replace("]", "");
+              }
+              middlestr =
+                middlestr +
+                "<div class='article'><img class='image' src=" +
+                images_array[i] +
+                "> <br> <a href=" +
+                urls_array[i] +
+                "target='_blank'>" +
+                titles_array[i] +
+                "</a></div>";
+            }
+            var endstr = "</div>";
+            return beginningstr + middlestr + endstr;
+          }
+
+          var htmlString = jsonToHtml(titles, images, urls);
+
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
             .setHTML(htmlString)
             .addTo(map);
         });
 
-        map.on("mouseenter", "crisis-updates", function (e) {
+        map.on("mouseenter", "crisis-updates", function(e) {
           // Change the cursor style as a UI indicator.
           map.getCanvas().style.cursor = "pointer";
 
@@ -832,17 +959,17 @@ export default {
         });
 
         // Change it back to a pointer when it leaves.
-        map.on("mouseleave", "crisis-updates", function () {
+        map.on("mouseleave", "crisis-updates", function() {
           map.getCanvas().style.cursor = "";
           popup.remove();
         });
 
-        map.on("click", "initial-layer", function (e) {
+        map.on("click", "initial-layer", function(e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
-          var image = e.features[0].properties.image;
-          var titles = e.features[0].properties.titles;
-          var urls = e.features[0].properties.urls;
+          var images = e.features[0].properties.image;
+          var titles = e.features[0].properties.title;
+          var urls = e.features[0].properties.url;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -851,32 +978,43 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
-          function jsonToHtml(titles, image, urls) {
+          function jsonToHtml(titles, images, urls) {
             var titles_array = titles.split(",");
-            var images_array = image.split(",");
+            var images_array = images.split(",");
             var urls_array = urls.split(",");
 
-            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper'>";
-            var middlestr = '';
+            var beginningstr =
+              "<div class='topic'>" +
+              topic +
+              "</div><div class='headline-wrapper'>";
+            var middlestr = "";
 
-            for(var i = 0; i < titles_array.length; i++){
-              if(i == 0){
+            for (var i = 0; i < titles_array.length; i++) {
+              if (i == 0) {
                 titles_array[i] = titles_array[i].replace("[", "");
                 images_array[i] = images_array[i].replace("[", "");
                 urls_array[i] = urls_array[i].replace("[", "");
               }
-              if(i == titles_array.length - 1){
+              if (i == titles_array.length - 1) {
                 titles_array[i] = titles_array[i].replace("]", "");
                 images_array[i] = images_array[i].replace("]", "");
                 urls_array[i] = urls_array[i].replace("]", "");
               }
-              middlestr =  middlestr + "<div class='article'><img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a></div>";
+              middlestr =
+                middlestr +
+                "<div class='article'><img class='image' src=" +
+                images_array[i] +
+                "> <br> <a href=" +
+                urls_array[i] +
+                "target='_blank'>" +
+                titles_array[i] +
+                "</a></div>";
             }
             var endstr = "</div>";
             return beginningstr + middlestr + endstr;
           }
 
-          var htmlString = jsonToHtml(titles, image, urls);
+          var htmlString = jsonToHtml(titles, images, urls);
 
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
@@ -890,7 +1028,7 @@ export default {
         // });
         // Create a popup, but don't add it to the map yet.
 
-        map.on("mouseenter", "initial-layer", function (e) {
+        map.on("mouseenter", "initial-layer", function(e) {
           // Change the cursor style as a UI indicator.
           map.getCanvas().style.cursor = "pointer";
 
@@ -913,7 +1051,7 @@ export default {
         });
 
         // Change it back to a pointer when it leaves.
-        map.on("mouseleave", "initial-layer", function () {
+        map.on("mouseleave", "initial-layer", function() {
           map.getCanvas().style.cursor = "";
           popup.remove();
         });
@@ -941,7 +1079,7 @@ export default {
   height: 100%;
 }
 .headline-wrapper {
-  margin: 10px;;
+  margin: 10px;
   float: left;
 }
 .article {
@@ -956,12 +1094,12 @@ export default {
 .hover-popup .mapboxgl-popup-content {
   font-size: 13px;
   font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
-  background-color: #6E8494;
+  background-color: #6e8494;
   color: rgb(228, 228, 228);
   padding: 6px 8px;
   font-weight: bold;
   text-align: center;
-  border: 0.1px solid #8DA9BF;
+  border: 0.1px solid #8da9bf;
 }
 .hover-popup .mapboxgl-popup-tip {
   border-top-color: transparent;
@@ -970,11 +1108,11 @@ export default {
 
 .click-popup .mapboxgl-popup-content {
   font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
-  background-color: #6E8494;
-  color: #CBD5DC;
+  background-color: #6e8494;
+  color: #cbd5dc;
   padding: 10px 15px;
   border-radius: 5px;
-  border: 0.1px solid #8DA9BF;
+  border: 0.1px solid #8da9bf;
   width: 300px;
 }
 .click-popup .mapboxgl-popup-content .title {
@@ -990,14 +1128,14 @@ export default {
 .mapboxgl-popup-content a {
   font: "Avenir";
   text-decoration: none;
-  color: #CBD5DC;
-   margin: 5px 5px;
+  color: #cbd5dc;
+  margin: 5px 5px;
 }
 
 .mapboxgl-popup-content a:hover {
   text-decoration: underline;
   /* color: #d0d0d9; */
-  color: #CBD5DC;
+  color: #cbd5dc;
 }
 
 .mapboxgl-popup-close-button {
@@ -1015,9 +1153,9 @@ export default {
   transition: all;
   transition-duration: 150ms;
 }
-.topic {  
+.topic {
   font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
-  color: #CBD5DC;
+  color: #cbd5dc;
   text-align: center;
   font-size: 15px;
   font-weight: bold;
