@@ -825,6 +825,7 @@ export default {
   height: 100%;
 }
 .headline-wrapper {
+  margin: 10px;;
   float: left;
 }
 .article {
@@ -833,8 +834,8 @@ export default {
   align-items: center;
 }
 .image {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
 }
 .hover-popup .mapboxgl-popup-content {
   font-size: 13px;
@@ -855,15 +856,14 @@ export default {
   font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
   background-color: #6E8494;
   color: #CBD5DC;
-  padding: 10px 15px;
+  /*padding: 10px 15px;*/
   border-radius: 5px;
-  font-weight: bold;
   border: 0.1px solid #8DA9BF;
 }
 .click-popup .mapboxgl-popup-content .title {
   font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
   font-size: 24px;
-  margin: 5px 0px 15px 0px;
+  /*margin: 5px 0px 15px 0px;*/
 }
 .click-popup .mapboxgl-popup-tip {
   border-top-color: #242424;
@@ -874,6 +874,7 @@ export default {
   font: "Avenir";
   text-decoration: none;
   color: #CBD5DC;
+   margin: 5px 5px;
 }
 
 .mapboxgl-popup-content a:hover {
