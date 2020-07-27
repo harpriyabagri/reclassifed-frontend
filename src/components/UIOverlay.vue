@@ -4,7 +4,6 @@
       <div class="button" id="dashboardButton" @click="showDash=true">Dashboard</div>
       
       <div class="button" id="aboutButton" @click="showAbout = true">About</div>
-      <div class="button">Dashboard</div>
     </div>
     <div class="bottom-left">
       <div class="logo">
