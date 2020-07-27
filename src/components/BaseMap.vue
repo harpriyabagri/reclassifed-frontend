@@ -740,7 +740,7 @@ export default {
             var images_array = image.split(",");
             var urls_array = urls.split(",");
 
-            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper>";
+            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper'>";
             var middlestr = '';
 
             for(var i = 0; i < titles_array.length; i++){
