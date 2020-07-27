@@ -1,9 +1,8 @@
 <template>
   <div class="UIOverlay">
     <div class="top-right">
-      <div class="button" id="dashboardButton" @click="showDash=true">Dashboard</div>
-      
       <div class="button" id="aboutButton" @click="showAbout = true">About</div>
+      <div class="button" id="dashboardButton" @click="showDash=true">Dashboard</div>
     </div>
     <div class="bottom-left">
       <div class="logo">
@@ -25,8 +24,8 @@
       <modal v-if="showDash" id="dashModal" class="modal" >
         <div class="modal-content">
         <span class="close" @click="showDash=false">&times;</span> 
-          <img src= "@/assets/dashboard.png"/>
-          <img src= "@/assets/ourtake.png"/>
+          <img class="dashboard" src= "@/assets/dashboard.png"/>
+          <img class="dashboard" src= "@/assets/ourtake.png"/>
 
         </div>
       </modal>
@@ -35,7 +34,7 @@
       <modal v-if="showAbout" id="aboutModal" class="modal">
         <div class="modal-content">
           <span class="close" @click="showAbout = false">&times;</span>
-          <h2 style="text-align: center">about newsworthy.ml</h2>
+          <h2>about newsworthy.ml</h2>
           <p>
             Hey, thanks for checking out Newsworthy! This project is the brainchild of six fellows working at
             the Montreal-based AI4Good Lab. Following an intensive five-week curriculum of AI and machine learning,
@@ -264,16 +263,19 @@ export default {
 .modal-content {
   background-color: #fefefe;
   margin: 15% auto;
-  padding: 20px;
+  padding: 20px 40px;
   border: 1px solid #888;
-  width: 80%;
+  width: 60%;
   background-color: #6E8494;
   color: #CBD5DC;
   border-radius: 8px;
+  border: 0.1px solid #CBD5DC;
 }
 .modal-content img{
+  width: 25%;
+}
+.modal-content .dashboard {
   width: 100%;
-
 }
 .close {
   color: #aaa;
@@ -334,5 +336,9 @@ img {
   top: 8px;
   right: 7px;
   font-size: 15px;
+}
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
 }
 </style>
