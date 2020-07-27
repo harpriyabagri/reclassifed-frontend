@@ -169,9 +169,10 @@ export default {
   top: 10px;
 }
 .button {
+  border: 0.1px solid #8DA9BF;
   letter-spacing: 0.4px;
-  background-color: none;
-  color: #414141;
+  background-color: rgba(255,255,255,0.05);
+  color: #CBD5DC;
   box-shadow: 0 3px 6px #3535353b;
   border-radius: 5px;
   display: flex;
@@ -180,16 +181,19 @@ export default {
   padding: 6px 12px;
   user-select: none;
   cursor: pointer;
+  margin-bottom: 5px;
   transition: all;
   transition-duration: 150ms;
 }
 .button:hover {
-  background-color: #f2f2f2;
+  background-color: #CBD5DC;
+  color: #414141;
 }
 .category {
+  border: 0.1px solid #8DA9BF;
   letter-spacing: 0.4px;
-  background-color: none;
-  color: #f2f2f2;
+  background-color: rgba(255,255,255,0.05);
+  color: #CBD5DC;
   box-shadow: 0 3px 6px #3535353b;
   border-radius: 5px;
   display: flex;
@@ -201,16 +205,17 @@ export default {
   transition: all;
   transition-duration: 150ms;
   margin-bottom: 5px;
-  width: 100%;
+  width: 80%;
 }
 .category:hover {
-  background-color: #f2f2f2;
+  background-color: #CBD5DC;
+  color: #414141;
 }
 .category-title {
   opacity: 1.0;
 }
 .circle {
-  border: 0.1px solid white;
+  border: 0.1px solid #CBD5DC;
   border-radius: 50%;
   width: 15px;
   height: 15px;

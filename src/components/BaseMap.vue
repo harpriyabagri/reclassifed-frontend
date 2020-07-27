@@ -249,10 +249,13 @@ export default {
   color: white;
 }
 .mapboxgl-ctrl-group:not(:empty) {
-  box-shadow: 0 3px 6px #3535353b;
+  background-color: #CBD5DC;
+  border: 1px solid #8DA9BF;
+  border-radius: 5px;
 }
 .mapboxgl-ctrl button {
   /*background-color: white; */
+  color: white;
   transition: all;
   transition-duration: 150ms;
 }
