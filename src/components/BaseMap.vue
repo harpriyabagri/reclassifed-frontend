@@ -120,8 +120,6 @@ export default {
           var image = e.features[0].properties.image;
           var titles = e.features[0].properties.titles;
           var urls = e.features[0].properties.urls;
-          console.log(coordinate);
-          console.log(topic);
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -428,11 +426,12 @@ export default {
           closeOnClick: false,
         });
 
-        map.on("mouseenter", "layer-mypoints", function (e) {
+        map.on("mouseenter", "initial-layer", function (e) {
           // Change the cursor style as a UI indicator.
           map.getCanvas().style.cursor = "pointer";
 
           var coordinates = e.features[0].geometry.coordinates.slice();
+          var topic = e.features[0].properties.topic;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -445,12 +444,12 @@ export default {
           // based on the feature found.
           popup
             .setLngLat(coordinates)
-            .setHTML("<div> Some Topic </div>")
+            .setHTML("<div>" + topic + "</div>")
             .addTo(map);
         });
 
         // Change it back to a pointer when it leaves.
-        map.on("mouseleave", "layer-mypoints", function () {
+        map.on("mouseleave", "initial-layer", function () {
           map.getCanvas().style.cursor = "";
           popup.remove();
         });
@@ -494,12 +493,14 @@ export default {
 }
 
 .click-popup .mapboxgl-popup-content {
+  font: "Avenir";
   background-color: #242424;
   color: rgb(228, 228, 228);
   padding: 10px 15px;
   border-radius: 5px;
 }
 .click-popup .mapboxgl-popup-content .title {
+  font: "Avenir";
   font-size: 24px;
   margin: 5px 0px 15px 0px;
 }
@@ -509,6 +510,7 @@ export default {
 }
 
 .mapboxgl-popup-content a {
+  font: "Avenir";
   text-decoration: none;
   color: #b1b1b5;
 }
