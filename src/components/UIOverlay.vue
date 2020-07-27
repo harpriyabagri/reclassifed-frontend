@@ -1,13 +1,10 @@
 <template>
   <div class="UIOverlay">
     <div class="top-right">
-<<<<<<< HEAD
       <div class="button" id="dashboardButton" @click="showDash=true">Dashboard</div>
-=======
       
       <div class="button" id="aboutButton" @click="showAbout = true">About</div>
       <div class="button">Dashboard</div>
->>>>>>> 3cf287f7e9ea7384eec0898bc01bcdbaeeeb5972
     </div>
     <div class="bottom-left">
       <div class="logo">
@@ -24,20 +21,18 @@
         <div class="category-title">{{ cat.category }}</div>
       </div>
     </div>
-<<<<<<< HEAD
 
     <div class='top-centre'>
-      <modal v-if="showDash" id="dashModal" class="modal">
+      <modal v-if="showDash" id="dashModal" class="modal" >
         <div class="modal-content">
         <span class="close" @click="showDash=false">&times;</span> 
-          <img src= "@/assets/dashboard.png" />
-          <img src= "@/assets/ourtake.png" />
-          
+        <h2> Your newsworthy.ml Dashboard </h2>
+          <img src= "@/assets/dashboard.png"/>
+          <img src= "@/assets/ourtake.png"/>
 
         </div>
       </modal>
     </div> 
-=======
     <div class="top-centre">
       <modal v-if="showAbout" id="aboutModal" class="modal">
         <div class="modal-content">
@@ -66,7 +61,6 @@
       </modal>
       
     </div>
->>>>>>> 3cf287f7e9ea7384eec0898bc01bcdbaeeeb5972
   </div>
 </template>
 
@@ -149,12 +143,9 @@ export default {
           bgColor: "rgba(0,0,0,0.4)",
         },
       ],
-<<<<<<< HEAD
       showDash: false,
-=======
       active_filters: [0, 0, 0, 0, 0, 0, 0, 0, 0],
       showAbout: false,
->>>>>>> 3cf287f7e9ea7384eec0898bc01bcdbaeeeb5972
     };
   },
   methods: {
@@ -218,13 +209,10 @@ export default {
   transition-duration: 150ms;
 }
 .button:hover {
-<<<<<<< HEAD
   background-color: #f2f2f2;
-=======
   background-color: #CBD5DC;
   color: #414141;
 
->>>>>>> 3cf287f7e9ea7384eec0898bc01bcdbaeeeb5972
 }
 .category {
   border: 0.1px solid #8DA9BF;
@@ -242,11 +230,7 @@ export default {
   transition: all;
   transition-duration: 150ms;
   margin-bottom: 5px;
-<<<<<<< HEAD
-  width: 100%;
-=======
   width: 80%;
->>>>>>> 3cf287f7e9ea7384eec0898bc01bcdbaeeeb5972
 }
 .category:hover {
   background-color: #CBD5DC;
@@ -259,11 +243,7 @@ export default {
   opacity: 1.0;
 }
 .circle {
-<<<<<<< HEAD
-  border: 0.1px solid white;
-=======
   border: 0.1px solid #CBD5DC;
->>>>>>> 3cf287f7e9ea7384eec0898bc01bcdbaeeeb5972
   border-radius: 50%;
   width: 15px;
   height: 15px;
@@ -279,10 +259,6 @@ export default {
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
 }
-.modal-content img{ 
-  width:100%;
-  }
-
 .modal-content {
   background-color: #fefefe;
   margin: 15% auto;
@@ -292,6 +268,9 @@ export default {
   background-color: #242424;
   color: rgb(228, 228, 228);
   border-radius: 8px;
+}
+.modal-content img{
+  width: 100%;
 
 }
 .close {
@@ -306,31 +285,6 @@ export default {
   text-decoration: none;
   cursor: pointer;
 }
-<<<<<<< HEAD
-input[type="text"] {
-  background: rgba(0, 0, 0, 0);
-  background-color: none;
-  color: #414141;
-  height: 30px;
-  width: 200px;
-  letter-spacing: 0.4px;
-  /* border-radius: 5px; */
-  font-size: 16px;
-  letter-spacing: 0.4px;
-  outline: none;
-  box-sizing: border-box;
-  font-family: "Times New Roman";
-  justify-content: flex-start;
-  padding: 0 5px;
-  border: 0;
-  outline: 0;
-  border-bottom: 1px solid #242424;
-  margin: auto;
-}
-::placeholder {
-  color: #b0b0b0;
-  font-family: "Times New Roman";
-=======
 input[type=text] {
   border: none;
   box-shadow: none;
@@ -364,14 +318,12 @@ input[type=text]:focus {
   color: #414141;
   font-size: 16px;
   text-align: left;
->>>>>>> 3cf287f7e9ea7384eec0898bc01bcdbaeeeb5972
 }
+
 img {
   width: 180px;
   height: auto;
 }
-<<<<<<< HEAD
-=======
 @import url("//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
 .search { position: relative; }
 .search input { text-indent: 0px;}
@@ -381,5 +333,4 @@ img {
   right: 7px;
   font-size: 15px;
 }
->>>>>>> 3cf287f7e9ea7384eec0898bc01bcdbaeeeb5972
 </style>
