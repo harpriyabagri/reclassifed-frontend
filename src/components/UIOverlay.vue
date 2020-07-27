@@ -2,14 +2,7 @@
   <div class="UIOverlay">
     <div class="top-right">
       <div class="button" id="aboutButton" @click="showAbout = true">About</div>
-      <div class="button">Dashboard</div>
-      <div class="search" @click="showSearch">
-        <form action>
-          <span class="fa fa-search"></span>
-          <input type="text" placeholder="Search..." />
-          <!-- <button type="submit"></button> -->
-        </form>
-      </div>
+      <div class="button" id="dashboardButton" @click="showDash=true">Dashboard</div>
     </div>
     <div class="bottom-left">
       <div class="logo">
@@ -25,6 +18,16 @@
         <div class="circle" :style="{ backgroundColor: cat.color }"></div>
         <div class="category-title">{{ cat.category }}</div>
       </div>
+    </div>
+
+    <div class="top-centre">
+      <modal v-if="showDash" id="dashModal" class="modal">
+        <div class="modal-content">
+          <span class="close" @click="showDash=false">&times;</span>
+          <img class="dashboard" src="@/assets/dashboard.png" />
+          <img class="dashboard" src="@/assets/ourtake.png" />
+        </div>
+      </modal>
     </div>
     <div class="top-centre">
       <modal v-if="showAbout" id="aboutModal" class="modal">
@@ -50,6 +53,9 @@
             <br />Nobody is perfect, and we are no exception! We have identified several limitations of our project.
             (we can list these as a group and I can add it in.)
           </p>
+          <div class="logo" style="text-align:center">
+            <img src="@/assets/Newsworthy.ml 3.png" />
+          </div>
         </div>
       </modal>
     </div>
@@ -135,6 +141,7 @@ export default {
           bgColor: "rgba(0,0,0,0.4)",
         },
       ],
+      showDash: false,
       active_filters: [0, 0, 0, 0, 0, 0, 0, 0, 0],
       showAbout: false,
       showSearch: true,
@@ -155,6 +162,7 @@ export default {
   },
 };
 </script>
+
 
 
 <style scoped>
@@ -200,6 +208,7 @@ export default {
   transition-duration: 150ms;
 }
 .button:hover {
+  background-color: #f2f2f2;
   background-color: #cbd5dc;
   color: #414141;
 }
@@ -228,6 +237,9 @@ export default {
 .category-title {
   opacity: 1;
 }
+.category-title {
+  opacity: 1;
+}
 .circle {
   border: 0.1px solid #cbd5dc;
   border-radius: 50%;
@@ -244,16 +256,24 @@ export default {
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
+  border: 0.1px solid #8da9bf;
 }
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
+  margin: 7% auto;
+  padding: 20px 40px;
   border: 1px solid #888;
-  width: 80%;
-  background-color: #242424;
-  color: rgb(228, 228, 228);
+  width: 60%;
+  background-color: #6e8494;
+  color: #cbd5dc;
   border-radius: 8px;
+  border: 0.1px solid #cbd5dc;
+}
+.modal-content img {
+  width: 25%;
+}
+.modal-content .dashboard {
+  width: 100%;
 }
 .close {
   color: #aaa;
@@ -301,6 +321,7 @@ input[type="text"]:focus {
   font-size: 16px;
   text-align: left;
 }
+
 img {
   width: 180px;
   height: auto;
@@ -317,5 +338,9 @@ img {
   top: 8px;
   right: 7px;
   font-size: 15px;
+}
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
 }
 </style>
