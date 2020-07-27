@@ -4,13 +4,6 @@
       
       <div class="button" id="aboutButton" @click="showAbout = true">About</div>
       <div class="button">Dashboard</div>
-      <div class="search" @click="showSearch">
-        <form action>
-          <span class="fa fa-search" ></span>
-          <input type="text" placeholder="Search..."/>
-          <!-- <button type="submit"></button> -->
-        </form>
-      </div>
     </div>
     <div class="bottom-left">
       <div class="logo">
