@@ -25,7 +25,6 @@
       <modal v-if="showDash" id="dashModal" class="modal" >
         <div class="modal-content">
         <span class="close" @click="showDash=false">&times;</span> 
-        <h2> Your newsworthy.ml Dashboard </h2>
           <img src= "@/assets/dashboard.png"/>
           <img src= "@/assets/ourtake.png"/>
 
