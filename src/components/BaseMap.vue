@@ -79,7 +79,7 @@ export default {
           //input the file name of the data you want to display
           //articles.json has one json object for each article
           //grouped.json has one json object for each news outlet
-          data: require("./articles.json"),
+          data: require("./grouped_by_X.json"),
         });
 
         map.addLayer({
