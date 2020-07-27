@@ -168,9 +168,9 @@ export default {
         map.on("click", "covid-19", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
-          var image = e.features[0].properties.image;
-          var titles = e.features[0].properties.titles;
-          var urls = e.features[0].properties.urls;
+          var images = e.features[0].properties.image;
+          var titles = e.features[0].properties.title;
+          var urls = e.features[0].properties.url;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -179,9 +179,9 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
-          function jsonToHtml(titles, image, urls) {
+          function jsonToHtml(titles, images, urls) {
             var titles_array = titles.split(",");
-            var images_array = image.split(",");
+            var images_array = images.split(",");
             var urls_array = urls.split(",");
 
             var beginningstr =
@@ -215,8 +215,9 @@ export default {
             return beginningstr + middlestr + endstr;
           }
 
-          var htmlString = jsonToHtml(titles, image, urls);
+          var htmlString = jsonToHtml(titles, images, urls);
 
+          //this styling only applies to the covid layer, it needs to be copy/pasted to every other layer as well once you finalize the styling here
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
             .setHTML(htmlString)
@@ -254,9 +255,9 @@ export default {
         map.on("click", "politics", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
-          var image = e.features[0].properties.image;
-          var titles = e.features[0].properties.titles;
-          var urls = e.features[0].properties.urls;
+          var images = e.features[0].properties.image;
+          var titles = e.features[0].properties.title;
+          var urls = e.features[0].properties.url;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -265,9 +266,9 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
-          function jsonToHtml(titles, image, urls) {
+          function jsonToHtml(titles, images, urls) {
             var titles_array = titles.split(",");
-            var images_array = image.split(",");
+            var images_array = images.split(",");
             var urls_array = urls.split(",");
 
             var beginningstr =
@@ -301,7 +302,7 @@ export default {
             return beginningstr + middlestr + endstr;
           }
 
-          var htmlString = jsonToHtml(titles, image, urls);
+          var htmlString = jsonToHtml(titles, images, urls);
 
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
@@ -340,9 +341,9 @@ export default {
         map.on("click", "business", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
-          var image = e.features[0].properties.image;
-          var titles = e.features[0].properties.titles;
-          var urls = e.features[0].properties.urls;
+          var images = e.features[0].properties.image;
+          var titles = e.features[0].properties.title;
+          var urls = e.features[0].properties.url;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -351,9 +352,9 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
-          function jsonToHtml(titles, image, urls) {
+          function jsonToHtml(titles, images, urls) {
             var titles_array = titles.split(",");
-            var images_array = image.split(",");
+            var images_array = images.split(",");
             var urls_array = urls.split(",");
 
             var beginningstr =
@@ -387,7 +388,7 @@ export default {
             return beginningstr + middlestr + endstr;
           }
 
-          var htmlString = jsonToHtml(titles, image, urls);
+          var htmlString = jsonToHtml(titles, images, urls);
 
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
@@ -426,9 +427,9 @@ export default {
         map.on("click", "sports", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
-          var image = e.features[0].properties.image;
-          var titles = e.features[0].properties.titles;
-          var urls = e.features[0].properties.urls;
+          var images = e.features[0].properties.image;
+          var titles = e.features[0].properties.title;
+          var urls = e.features[0].properties.url;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -437,9 +438,9 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
-          function jsonToHtml(titles, image, urls) {
+          function jsonToHtml(titles, images, urls) {
             var titles_array = titles.split(",");
-            var images_array = image.split(",");
+            var images_array = images.split(",");
             var urls_array = urls.split(",");
 
             var beginningstr =
@@ -473,7 +474,7 @@ export default {
             return beginningstr + middlestr + endstr;
           }
 
-          var htmlString = jsonToHtml(titles, image, urls);
+          var htmlString = jsonToHtml(titles, images, urls);
 
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
@@ -512,9 +513,9 @@ export default {
         map.on("click", "arts & entertainment", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
-          var image = e.features[0].properties.image;
-          var titles = e.features[0].properties.titles;
-          var urls = e.features[0].properties.urls;
+          var images = e.features[0].properties.image;
+          var titles = e.features[0].properties.title;
+          var urls = e.features[0].properties.url;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -523,9 +524,9 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
-          function jsonToHtml(titles, image, urls) {
+          function jsonToHtml(titles, images, urls) {
             var titles_array = titles.split(",");
-            var images_array = image.split(",");
+            var images_array = images.split(",");
             var urls_array = urls.split(",");
 
             var beginningstr =
@@ -559,7 +560,7 @@ export default {
             return beginningstr + middlestr + endstr;
           }
 
-          var htmlString = jsonToHtml(titles, image, urls);
+          var htmlString = jsonToHtml(titles, images, urls);
 
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
@@ -598,9 +599,9 @@ export default {
         map.on("click", "science", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
-          var image = e.features[0].properties.image;
-          var titles = e.features[0].properties.titles;
-          var urls = e.features[0].properties.urls;
+          var images = e.features[0].properties.image;
+          var titles = e.features[0].properties.title;
+          var urls = e.features[0].properties.url;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -609,9 +610,9 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
-          function jsonToHtml(titles, image, urls) {
+          function jsonToHtml(titles, images, urls) {
             var titles_array = titles.split(",");
-            var images_array = image.split(",");
+            var images_array = images.split(",");
             var urls_array = urls.split(",");
 
             var beginningstr =
@@ -645,7 +646,7 @@ export default {
             return beginningstr + middlestr + endstr;
           }
 
-          var htmlString = jsonToHtml(titles, image, urls);
+          var htmlString = jsonToHtml(titles, images, urls);
 
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
@@ -684,9 +685,9 @@ export default {
         map.on("click", "lifestyle", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
-          var image = e.features[0].properties.image;
-          var titles = e.features[0].properties.titles;
-          var urls = e.features[0].properties.urls;
+          var images = e.features[0].properties.image;
+          var titles = e.features[0].properties.title;
+          var urls = e.features[0].properties.url;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -695,9 +696,9 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
-          function jsonToHtml(titles, image, urls) {
+          function jsonToHtml(titles, images, urls) {
             var titles_array = titles.split(",");
-            var images_array = image.split(",");
+            var images_array = images.split(",");
             var urls_array = urls.split(",");
 
             var beginningstr =
@@ -731,7 +732,7 @@ export default {
             return beginningstr + middlestr + endstr;
           }
 
-          var htmlString = jsonToHtml(titles, image, urls);
+          var htmlString = jsonToHtml(titles, images, urls);
 
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
@@ -770,9 +771,9 @@ export default {
         map.on("click", "local", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
-          var image = e.features[0].properties.image;
-          var titles = e.features[0].properties.titles;
-          var urls = e.features[0].properties.urls;
+          var images = e.features[0].properties.image;
+          var titles = e.features[0].properties.title;
+          var urls = e.features[0].properties.url;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -781,9 +782,9 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
-          function jsonToHtml(titles, image, urls) {
+          function jsonToHtml(titles, images, urls) {
             var titles_array = titles.split(",");
-            var images_array = image.split(",");
+            var images_array = images.split(",");
             var urls_array = urls.split(",");
 
             var beginningstr =
@@ -817,7 +818,7 @@ export default {
             return beginningstr + middlestr + endstr;
           }
 
-          var htmlString = jsonToHtml(titles, image, urls);
+          var htmlString = jsonToHtml(titles, images, urls);
 
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
@@ -856,9 +857,9 @@ export default {
         map.on("click", "crisis-updates", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
-          var image = e.features[0].properties.image;
-          var titles = e.features[0].properties.titles;
-          var urls = e.features[0].properties.urls;
+          var images = e.features[0].properties.image;
+          var titles = e.features[0].properties.title;
+          var urls = e.features[0].properties.url;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -867,9 +868,9 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
-          function jsonToHtml(titles, image, urls) {
+          function jsonToHtml(titles, images, urls) {
             var titles_array = titles.split(",");
-            var images_array = image.split(",");
+            var images_array = images.split(",");
             var urls_array = urls.split(",");
 
             var beginningstr =
@@ -903,7 +904,7 @@ export default {
             return beginningstr + middlestr + endstr;
           }
 
-          var htmlString = jsonToHtml(titles, image, urls);
+          var htmlString = jsonToHtml(titles, images, urls);
 
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
@@ -942,9 +943,9 @@ export default {
         map.on("click", "initial-layer", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
-          var image = e.features[0].properties.image;
-          var titles = e.features[0].properties.titles;
-          var urls = e.features[0].properties.urls;
+          var images = e.features[0].properties.image;
+          var titles = e.features[0].properties.title;
+          var urls = e.features[0].properties.url;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -953,9 +954,9 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
-          function jsonToHtml(titles, image, urls) {
+          function jsonToHtml(titles, images, urls) {
             var titles_array = titles.split(",");
-            var images_array = image.split(",");
+            var images_array = images.split(",");
             var urls_array = urls.split(",");
 
             var beginningstr =
@@ -989,7 +990,7 @@ export default {
             return beginningstr + middlestr + endstr;
           }
 
-          var htmlString = jsonToHtml(titles, image, urls);
+          var htmlString = jsonToHtml(titles, images, urls);
 
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
@@ -1003,13 +1004,6 @@ export default {
         // });
         // Create a popup, but don't add it to the map yet.
 
-        // var popup = new mapboxgl.Popup({
-        //   className: "hover-popup",
-        //   closeButton: false,
-        //   closeOnClick: false,
-        // });
-
-        //this function needs to be duplicated to have a copy for every named layer - politics, business, sports etc so it works on every layer
         map.on("mouseenter", "initial-layer", function (e) {
           // Change the cursor style as a UI indicator.
           map.getCanvas().style.cursor = "pointer";
