@@ -46,7 +46,7 @@ export default {
           temp.push(this.active_filters[i].realCategory);
           temp.push(this.active_filters[i].color);
           temp.push("#ccc");
-          console.log(temp);
+
           let newLayer = {
             id: this.active_filters[i].realCategory,
             type: "circle",
@@ -116,10 +116,12 @@ export default {
         // right now if multiple layers (categories) have a data point in the same location they get stacked, and if you click on the data point it opens up a pop up for every layer that has data point in that location and they stack on top of each other - this should be fixed when we're pulling different data where data points won't be overlapping (hopefully)
         map.on("click", "covid-19", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
-          var title = e.features[0].properties.title;
-          var url = e.features[0].properties.url;
           var topic = e.features[0].properties.topic;
           var image = e.features[0].properties.image;
+          var titles = e.features[0].properties.titles;
+          var urls = e.features[0].properties.urls;
+          console.log(coordinate);
+          console.log(topic);
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -151,8 +153,10 @@ export default {
 
         map.on("click", "politics", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
-          var title = e.features[0].properties.title;
-          var url = e.features[0].properties.url;
+          var topic = e.features[0].properties.topic;
+          var image = e.features[0].properties.image;
+          var titles = e.features[0].properties.titles;
+          var urls = e.features[0].properties.urls;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -180,8 +184,10 @@ export default {
         });
         map.on("click", "business", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
-          var title = e.features[0].properties.title;
-          var url = e.features[0].properties.url;
+          var topic = e.features[0].properties.topic;
+          var image = e.features[0].properties.image;
+          var titles = e.features[0].properties.titles;
+          var urls = e.features[0].properties.urls;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -209,8 +215,10 @@ export default {
         });
         map.on("click", "sports", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
-          var title = e.features[0].properties.title;
-          var url = e.features[0].properties.url;
+          var topic = e.features[0].properties.topic;
+          var image = e.features[0].properties.image;
+          var titles = e.features[0].properties.titles;
+          var urls = e.features[0].properties.urls;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -238,8 +246,10 @@ export default {
         });
         map.on("click", "arts & entertainment", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
-          var title = e.features[0].properties.title;
-          var url = e.features[0].properties.url;
+          var topic = e.features[0].properties.topic;
+          var image = e.features[0].properties.image;
+          var titles = e.features[0].properties.titles;
+          var urls = e.features[0].properties.urls;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -267,8 +277,10 @@ export default {
         });
         map.on("click", "science", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
-          var title = e.features[0].properties.title;
-          var url = e.features[0].properties.url;
+          var topic = e.features[0].properties.topic;
+          var image = e.features[0].properties.image;
+          var titles = e.features[0].properties.titles;
+          var urls = e.features[0].properties.urls;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -296,8 +308,10 @@ export default {
         });
         map.on("click", "local", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
-          var title = e.features[0].properties.title;
-          var url = e.features[0].properties.url;
+          var topic = e.features[0].properties.topic;
+          var image = e.features[0].properties.image;
+          var titles = e.features[0].properties.titles;
+          var urls = e.features[0].properties.urls;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -325,8 +339,10 @@ export default {
         });
         map.on("click", "crisi-updates", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
-          var title = e.features[0].properties.title;
-          var url = e.features[0].properties.url;
+          var topic = e.features[0].properties.topic;
+          var image = e.features[0].properties.image;
+          var titles = e.features[0].properties.titles;
+          var urls = e.features[0].properties.urls;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -354,8 +370,10 @@ export default {
         });
         map.on("click", "initial-layer", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
-          var title = e.features[0].properties.title;
-          var url = e.features[0].properties.url;
+          var topic = e.features[0].properties.topic;
+          var image = e.features[0].properties.image;
+          var titles = e.features[0].properties.titles;
+          var urls = e.features[0].properties.urls;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
