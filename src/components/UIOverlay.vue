@@ -27,22 +27,38 @@
           <h2 style="text-align: center">about newsworthy.ml</h2>
           <p>
             Hey, thanks for checking out Newsworthy! This project is the brainchild of six fellows working at
-            the Montreal-based AI4Good Lab. Following an intensive five-week curriculum of AI and machine learning,
-            we had three weeks to implement Newsworthy as a working product. We hope you enjoy exploring Newsworthy
-            as much as we enjoyed creating it!
+            the <a href="https://www.ai4goodlab.com/" target='_blank'>Montreal-based AI4Good Lab</a>. Following an intensive 
+            five-week curriculum of AI and machine learning, we had three weeks to implement Newsworthy as a 
+            working product. 
             <br />
-            <br />Now more than ever before, information literacy is crucial. Newsworthy provides analytics on users
-            reading habits and provides suggestions on how users can diversify their news intake to reduce bias, and
-            improve their information literacy. Did you know that nearly half of original news stories are first broken by
-            local news outlets? Despite this, local newspapers are being eradicated by larger national outlets. Newsworthy
-            strives to provide an equal playing field for local newspapers, so they can get the attention they deserve.
-            We had three weeks to create Newsworthy, and think that if we had four, five, gosh forbid six weeks, we could
-            do a lot more.
+            <br />More than ever before, information literacy is crucial. Newsworthy provides analytics on users
+            reading habits and provides suggestions on how users can diversify their news intake to reduce bias and
+            improve their information literacy. Furthermore, it helps to promote the importance of local journalism. 
+            Did you know that nearly half of original news stories are first broken by local news sources? Despite this, 
+            local newspapers are being eradicated by larger national outlets. Newsworthy strives to provide an equal 
+            playing field for local newspapers, so they can get the attention they deserve. 
             <br />
-            <br />Future implementations and ideas include _____ and ______.
+            <br />We only had three weeks to create Newsworthy; if we had four, five, gosh forbid six weeks, we're sure that 
+            we could do a lot more. Our ideas for future implementations on the map include a time dimension that shows how topics 
+            change over time, pulling articles from a greater number of news sources, and a recommended view of the map. We'd also 
+            like to expand the information literacy dashboard by adding a browser extension that collects more data on 
+            the user's news reading behaviour, recommending articles, including credibility and bias scores for articles, 
+            and an information literacy training module to help users improve their analysis skills. 
             <br />
-            <br />Nobody is perfect, and we are no exception! We have identified several limitations of our project.
-            (we can list these as a group and I can add it in.)
+            <br />Nobody is perfect, and we are no exception! Though our aim is to reduce bias in news dissemination through Newsworthy, 
+            we recognize that a bias-free project is impossible. For example, we chose to size the bubbles by a trending 
+            score we pulled from Google Trends but choosing a different metric to size the bubbles would yield a different 
+            visual representation and prioritize different information about news topics. Additionally, some of the tools and data we 
+            used for topic modelling and categorization have biases of their own from the developers that created them to the 
+            sites from which we pulled articles. 
+            <br />
+            <br />We faced several challenges in the development of Newsworthy. We scraped articles from a limited number of 
+            news outlets and were not able to collect as much or as high quality of metadata as we would have liked to. As well, our 
+            topics and geographic data had several inaccuracies; moving forward, we would like to make these areas more accurate. 
+            Finally, our group spans four time zones in North America and all of our collaboration happened remotely. Hopefully, 
+            we'll all be able to meet in person one day :)
+            <br />
+            <br />We hope you enjoy exploring Newsworthy as much as we enjoyed creating it!
           </p>
           <div class="logo" style="text-align:center">
             <img src="@/assets/Newsworthy.ml 3.png" />
@@ -312,5 +328,12 @@ img {
   top: 8px;
   right: 7px;
   font-size: 15px;
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+  color: #cbd5dc;
 }
 </style>
