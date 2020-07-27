@@ -16,6 +16,10 @@
         <span class="close" @click="showDash=false">&times;</span> 
         <h2> Your newsworthy.ml Dashboard </h2>
 
+
+
+
+
         </div>
       </modal>
     </div> 
