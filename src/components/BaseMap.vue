@@ -906,11 +906,4 @@ export default {
   font-size: 15px;
   font-weight: bold;
 }
-/* a {
-  font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
-  color: rgb(228, 228, 228);
-  text-align: center;
-  font-size: 13px;
-  font-weight: bold;
-} */
 </style>
