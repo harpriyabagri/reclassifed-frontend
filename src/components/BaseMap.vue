@@ -428,7 +428,7 @@ export default {
     mapboxgl.accessToken = this.accessToken;
     this.map = new mapboxgl.Map({
       container: "mapContainer",
-      style: "mapbox://styles/harpriyabagri/ckcs1ofh31ejn1iqxzmqwppj2",
+      style: "mapbox://styles/harpriyabagri/ckd3ksxv805z81lmifjlp8cu1",
       zoom: 1.3,
     });
     this.load(this.map);
@@ -489,10 +489,13 @@ export default {
   color: white;
 }
 .mapboxgl-ctrl-group:not(:empty) {
-  box-shadow: 0 3px 6px #3535353b;
+  background-color: #CBD5DC;
+  border: 1px solid #8DA9BF;
+  border-radius: 5px;
 }
 .mapboxgl-ctrl button {
   /*background-color: white; */
+  color: white;
   transition: all;
   transition-duration: 150ms;
 }
