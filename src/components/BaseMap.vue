@@ -1061,7 +1061,8 @@ export default {
   align-items: center;
 }
 .image {
-  width: 40px;
+  border: 0.1px solid #8DA9BF;
+  width: 60px;
   height: 40px;
 }
 .hover-popup .mapboxgl-popup-content {
@@ -1081,11 +1082,11 @@ export default {
 
 .click-popup .mapboxgl-popup-content {
   font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
-  background-color: #6e8494;
-  color: #cbd5dc;
+  background-color: #CBD5DC;
+  color: #3F4B55;
   padding: 10px 15px;
   border-radius: 5px;
-  border: 0.1px solid #8da9bf;
+  border: 0.1px solid #3F4B55;
   width: 300px;
 }
 .click-popup .mapboxgl-popup-content .title {
@@ -1094,15 +1095,15 @@ export default {
   /*margin: 5px 0px 15px 0px;*/
 }
 .click-popup .mapboxgl-popup-tip {
-  border-top-color: #242424;
-  color: #58585c;
+  border-top-color: #CBD5DC;
+  color: #CBD5DC;
 }
 
 .mapboxgl-popup-content a {
   font: "Avenir";
   text-decoration: none;
-  color: #cbd5dc;
-  margin: 5px 5px;
+  color: #3F4B55;
+  margin: 5px 0px 5px 10px;
 }
 
 .mapboxgl-popup-content a:hover {
@@ -1128,7 +1129,7 @@ export default {
 }
 .topic {
   font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
-  color: #cbd5dc;
+  color: #3F4B55;
   text-align: center;
   font-size: 15px;
   font-weight: bold;
