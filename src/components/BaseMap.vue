@@ -73,7 +73,7 @@ export default {
       for (let j in this.active_filters) {
         if (this.active_filters[j].include) {
           actives = true;
-        } 
+        }
       }
       if (!actives) {
         if (this.map.isStyleLoaded()) {
@@ -630,8 +630,6 @@ export default {
             )
             .addTo(map);
         });
-<<<<<<< HEAD
-=======
 
         map.on("mouseenter", "local", function (e) {
           // Change the cursor style as a UI indicator.
@@ -660,8 +658,7 @@ export default {
           map.getCanvas().style.cursor = "";
           popup.remove();
         });
-        
->>>>>>> b83801aaeae07715363374e9159b9412da15d27c
+
         map.on("click", "crisis-updates", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
@@ -723,7 +720,7 @@ export default {
           map.getCanvas().style.cursor = "";
           popup.remove();
         });
-        
+
         map.on("click", "initial-layer", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
@@ -738,21 +735,37 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
-          var titles_array = titles.split(",");
-          console.log(titles_array);
+          function jsonToHtml(titles, image, urls) {
+            var titles_array = titles.split(",");
+            var images_array = image.split(",");
+            var urls_array = urls.split(",");
 
-          // <div class='topic'>topic</div>
-          // <div class="headline-wrapper" v-for"title in titles_array">
-          //   <img class='image' src=image> 
-          //   <br> 
-          //   <a href =url target="_blank"> title</a>
-          // </div>
+            var beginningstr = "<div class='topic'>" + topic + "</div> <div class='headline-wrapper'>";
+            var middlestr = '';
+
+            for(var i = 0; i < titles_array.length; i++){
+              if(i == 0){
+                titles_array[i] = titles_array[i].replace("[", "");
+                images_array[i] = images_array[i].replace("[", "");
+                urls_array[i] = urls_array[i].replace("[", "");
+              }
+              if(i == titles_array.length - 1){
+                titles_array[i] = titles_array[i].replace("]", "");
+                images_array[i] = images_array[i].replace("]", "");
+                urls_array[i] = urls_array[i].replace("]", "");
+              }
+              middlestr = middlestr + "<img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a>";
+              console.log(middlestr);
+            }
+            var endstr = "</div>";
+            return beginningstr + middlestr + endstr;
+          }
+
+          var htmlString = jsonToHtml(titles, image, urls);
 
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
-            .setHTML(
-              "<div></div><div v-for='headline in titles_array'>" + headline + "</div></div>"
-            )
+            .setHTML(htmlString)
             .addTo(map);
         });
 
@@ -861,8 +874,8 @@ export default {
   color: white;
 }
 .mapboxgl-ctrl-group:not(:empty) {
-  background-color: #CBD5DC;
-  border: 1px solid #8DA9BF;
+  background-color: #cbd5dc;
+  border: 1px solid #8da9bf;
   border-radius: 5px;
 }
 .mapboxgl-ctrl button {
