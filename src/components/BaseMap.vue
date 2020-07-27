@@ -76,9 +76,7 @@ export default {
         } 
       }
       if (!actives) {
-        console.log('all empty')
         if (this.map.isStyleLoaded()) {
-          console.log('style loaded'); 
           this.map.addLayer({
             id: "initial-layer",
             type: "circle",
