@@ -24,7 +24,7 @@
       <modal v-if="showAbout" id="aboutModal" class="modal">
         <div class="modal-content">
           <span class="close" @click="showAbout = false">&times;</span>
-          <h2>about newsworthy.ml</h2>
+          <h2 style="text-align: center">about newsworthy.ml</h2>
           <p>
             Hey, thanks for checking out Newsworthy! This project is the brainchild of six fellows working at
             the Montreal-based AI4Good Lab. Following an intensive five-week curriculum of AI and machine learning,
@@ -44,6 +44,9 @@
             <br />Nobody is perfect, and we are no exception! We have identified several limitations of our project.
             (we can list these as a group and I can add it in.)
           </p>
+          <div class="logo" style="text-align:center">
+            <img src="@/assets/Newsworthy.ml 3.png" />
+          </div>
         </div>
       </modal>
       
@@ -239,6 +242,7 @@ export default {
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
+  border: 0.1px solid #8DA9BF;
 }
 .modal-content {
   background-color: #fefefe;
@@ -246,8 +250,8 @@ export default {
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
-  background-color: #242424;
-  color: rgb(228, 228, 228);
+  background-color: #6E8494;
+  color: #CBD5DC;
   border-radius: 8px;
 }
 .close {

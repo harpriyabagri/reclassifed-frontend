@@ -837,10 +837,14 @@ export default {
   height: 30px;
 }
 .hover-popup .mapboxgl-popup-content {
-  font-size: 14px;
-  background-color: #242424;
+  font-size: 13px;
+  font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
+  background-color: #6E8494;
   color: rgb(228, 228, 228);
   padding: 2px 8px;
+  font-weight: bold;
+  text-align: center;
+  border: 0.1px solid #8DA9BF;
 }
 .hover-popup .mapboxgl-popup-tip {
   border-top-color: transparent;
@@ -848,15 +852,16 @@ export default {
 }
 
 .click-popup .mapboxgl-popup-content {
-  font: "Avenir";
-  background-color: #242424;
-  color: rgb(228, 228, 228);
+  font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
+  background-color: #6E8494;
+  color: #CBD5DC;
   padding: 10px 15px;
   border-radius: 5px;
-  width: 100%;
+  font-weight: bold;
+  border: 0.1px solid #8DA9BF;
 }
 .click-popup .mapboxgl-popup-content .title {
-  font: "Avenir";
+  font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
   font-size: 24px;
   margin: 5px 0px 15px 0px;
 }
@@ -868,13 +873,13 @@ export default {
 .mapboxgl-popup-content a {
   font: "Avenir";
   text-decoration: none;
-  color: #b1b1b5;
-  margin: 5px 10px;
+  color: #CBD5DC;
 }
 
 .mapboxgl-popup-content a:hover {
   text-decoration: underline;
-  color: #d0d0d9;
+  /* color: #d0d0d9; */
+  color: #CBD5DC;
 }
 
 .mapboxgl-popup-close-button {
@@ -892,4 +897,18 @@ export default {
   transition: all;
   transition-duration: 150ms;
 }
+.topic {  
+  font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
+  color: #CBD5DC;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+/* a {
+  font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
+  color: rgb(228, 228, 228);
+  text-align: center;
+  font-size: 13px;
+  font-weight: bold;
+} */
 </style>
