@@ -325,7 +325,7 @@ export default {
             )
             .addTo(map);
         });
-        map.on("click", "crisi-updates", function (e) {
+        map.on("click", "crisis-updates", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var title = e.features[0].properties.title;
           var url = e.features[0].properties.url;
@@ -396,7 +396,8 @@ export default {
           closeOnClick: false,
         });
 
-        map.on("mouseenter", "layer-mypoints", function (e) {
+        //this function needs to be duplicated to have a copy for every named layer - politics, business, sports etc so it works on every layer
+        map.on("mouseenter", "initial-layer", function (e) {
           // Change the cursor style as a UI indicator.
           map.getCanvas().style.cursor = "pointer";
 
