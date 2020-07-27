@@ -139,12 +139,12 @@ export default {
                 "</div><img class='image' src=" +
                 image +
                 "><br><a href =" +
-                url +
+                urls +
                 " target=_" +
                 "blank" +
                 ">" +
                 '"' +
-                title +
+                titles +
                 '"' +
                 "</a>"
             )
@@ -168,15 +168,17 @@ export default {
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
             .setHTML(
-              "<div class=" +
-                "title" +
-                "> Some Topic </div><a href =" +
-                url +
+              "<div class=title>" +
+                topic +
+                "</div><img class='image' src=" +
+                image +
+                "><br><a href =" +
+                urls +
                 " target=_" +
                 "blank" +
                 ">" +
                 '"' +
-                title +
+                titles +
                 '"' +
                 "</a>"
             )
@@ -199,15 +201,17 @@ export default {
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
             .setHTML(
-              "<div class=" +
-                "title" +
-                "> Some Topic </div><a href =" +
-                url +
+              "<div class=title>" +
+                topic +
+                "</div><img class='image' src=" +
+                image +
+                "><br><a href =" +
+                urls +
                 " target=_" +
                 "blank" +
                 ">" +
                 '"' +
-                title +
+                titles +
                 '"' +
                 "</a>"
             )
@@ -230,15 +234,17 @@ export default {
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
             .setHTML(
-              "<div class=" +
-                "title" +
-                "> Some Topic </div><a href =" +
-                url +
+              "<div class=title>" +
+                topic +
+                "</div><img class='image' src=" +
+                image +
+                "><br><a href =" +
+                urls +
                 " target=_" +
                 "blank" +
                 ">" +
                 '"' +
-                title +
+                titles +
                 '"' +
                 "</a>"
             )
@@ -261,15 +267,17 @@ export default {
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
             .setHTML(
-              "<div class=" +
-                "title" +
-                "> Some Topic </div><a href =" +
-                url +
+              "<div class=title>" +
+                topic +
+                "</div><img class='image' src=" +
+                image +
+                "><br><a href =" +
+                urls +
                 " target=_" +
                 "blank" +
                 ">" +
                 '"' +
-                title +
+                titles +
                 '"' +
                 "</a>"
             )
@@ -292,15 +300,17 @@ export default {
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
             .setHTML(
-              "<div class=" +
-                "title" +
-                "> Some Topic </div><a href =" +
-                url +
+              "<div class=title>" +
+                topic +
+                "</div><img class='image' src=" +
+                image +
+                "><br><a href =" +
+                urls +
                 " target=_" +
                 "blank" +
                 ">" +
                 '"' +
-                title +
+                titles +
                 '"' +
                 "</a>"
             )
@@ -323,15 +333,17 @@ export default {
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
             .setHTML(
-              "<div class=" +
-                "title" +
-                "> Some Topic </div><a href =" +
-                url +
+              "<div class=title>" +
+                topic +
+                "</div><img class='image' src=" +
+                image +
+                "><br><a href =" +
+                urls +
                 " target=_" +
                 "blank" +
                 ">" +
                 '"' +
-                title +
+                titles +
                 '"' +
                 "</a>"
             )
@@ -354,15 +366,17 @@ export default {
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
             .setHTML(
-              "<div class=" +
-                "title" +
-                "> Some Topic </div><a href =" +
-                url +
+              "<div class=title>" +
+                topic +
+                "</div><img class='image' src=" +
+                image +
+                "><br><a href =" +
+                urls +
                 " target=_" +
                 "blank" +
                 ">" +
                 '"' +
-                title +
+                titles +
                 '"' +
                 "</a>"
             )
@@ -385,15 +399,17 @@ export default {
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
             .setHTML(
-              "<div class=" +
-                "title" +
-                "> Some Topic </div><a href =" +
-                url +
+              "<div class=title>" +
+                topic +
+                "</div><img class='image' src=" +
+                image +
+                "><br><a href =" +
+                urls +
                 " target=_" +
                 "blank" +
                 ">" +
                 '"' +
-                title +
+                titles +
                 '"' +
                 "</a>"
             )
