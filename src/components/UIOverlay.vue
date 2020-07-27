@@ -18,10 +18,6 @@
           <img src= "@/assets/ourtake.png" />
           
 
-
-
-
-
         </div>
       </modal>
     </div> 
@@ -49,7 +45,7 @@ export default {
   },
 };
 </script>
-s
+
 
 
 <style scoped>
