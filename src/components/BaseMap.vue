@@ -46,7 +46,7 @@ export default {
           temp.push(this.active_filters[i].realCategory);
           temp.push(this.active_filters[i].color);
           temp.push("#ccc");
-          console.log(temp);
+
           let newLayer = {
             id: this.active_filters[i].realCategory,
             type: "circle",
@@ -59,12 +59,54 @@ export default {
           if (this.map.getLayer("initial-layer")) {
             this.map.removeLayer("initial-layer");
           }
-          this.map.removeLayer(this.active_filters[i].realCategory);
+          if (this.map.getLayer(this.active_filters[i].realCategory)) {
+            this.map.removeLayer(this.active_filters[i].realCategory);
+          }
           this.map.addLayer(newLayer);
         } else {
           if (this.map.getLayer(this.active_filters[i].realCategory)) {
             this.map.removeLayer(this.active_filters[i].realCategory);
           }
+        }
+      }
+      var actives = false;
+      for (let j in this.active_filters) {
+        if (this.active_filters[j].include) {
+          actives = true;
+        }
+      }
+      if (!actives) {
+        if (this.map.isStyleLoaded()) {
+          this.map.addLayer({
+            id: "initial-layer",
+            type: "circle",
+            source: "mypoints",
+            paint: {
+              "circle-color": [
+                "match",
+                ["get", "category"],
+                "covid-19",
+                "#f34c46",
+                "politics",
+                "#fa8d4f",
+                "business",
+                "#fdd742",
+                "sports",
+                "#a3e048",
+                "arts & entertainment",
+                "#49da9a",
+                "science & tech",
+                "#50d4fe",
+                "lifestyle",
+                "#6073fd",
+                "local",
+                "#ff95d5",
+                "Crisis Updates",
+                "#000000",
+                /* other */ "#ccc",
+              ],
+            },
+          });
         }
       }
     },
@@ -79,7 +121,7 @@ export default {
           //input the file name of the data you want to display
           //articles.json has one json object for each article
           //grouped.json has one json object for each news outlet
-          data: require("./articles.json"),
+          data: require("./grouped_by_X.json"),
         });
 
         map.addLayer({
@@ -113,13 +155,19 @@ export default {
           },
         });
 
+        var popup = new mapboxgl.Popup({
+          className: "hover-popup",
+          closeButton: false,
+          closeOnClick: false,
+        });
+
         // right now if multiple layers (categories) have a data point in the same location they get stacked, and if you click on the data point it opens up a pop up for every layer that has data point in that location and they stack on top of each other - this should be fixed when we're pulling different data where data points won't be overlapping (hopefully)
         map.on("click", "covid-19", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
-          var title = e.features[0].properties.title;
-          var url = e.features[0].properties.url;
           var topic = e.features[0].properties.topic;
           var image = e.features[0].properties.image;
+          var titles = e.features[0].properties.titles;
+          var urls = e.features[0].properties.urls;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -137,268 +185,24 @@ export default {
                 "</div><img class='image' src=" +
                 image +
                 "><br><a href =" +
-                url +
+                urls +
                 " target=_" +
                 "blank" +
                 ">" +
                 '"' +
-                title +
+                titles +
                 '"' +
                 "</a>"
             )
             .addTo(map);
         });
 
-        map.on("click", "politics", function (e) {
-          var coordinates = e.features[0].geometry.coordinates.slice();
-          var title = e.features[0].properties.title;
-          var url = e.features[0].properties.url;
-
-          // Ensure that if the map is zoomed out such that multiple
-          // copies of the feature are visible, the popup appears
-          // over the copy being pointed to.
-          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-          }
-
-          new mapboxgl.Popup({ className: "click-popup" })
-            .setLngLat(coordinates)
-            .setHTML(
-              "<div class=" +
-                "title" +
-                "> Some Topic </div><a href =" +
-                url +
-                " target=_" +
-                "blank" +
-                ">" +
-                '"' +
-                title +
-                '"' +
-                "</a>"
-            )
-            .addTo(map);
-        });
-        map.on("click", "business", function (e) {
-          var coordinates = e.features[0].geometry.coordinates.slice();
-          var title = e.features[0].properties.title;
-          var url = e.features[0].properties.url;
-
-          // Ensure that if the map is zoomed out such that multiple
-          // copies of the feature are visible, the popup appears
-          // over the copy being pointed to.
-          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-          }
-
-          new mapboxgl.Popup({ className: "click-popup" })
-            .setLngLat(coordinates)
-            .setHTML(
-              "<div class=" +
-                "title" +
-                "> Some Topic </div><a href =" +
-                url +
-                " target=_" +
-                "blank" +
-                ">" +
-                '"' +
-                title +
-                '"' +
-                "</a>"
-            )
-            .addTo(map);
-        });
-        map.on("click", "sports", function (e) {
-          var coordinates = e.features[0].geometry.coordinates.slice();
-          var title = e.features[0].properties.title;
-          var url = e.features[0].properties.url;
-
-          // Ensure that if the map is zoomed out such that multiple
-          // copies of the feature are visible, the popup appears
-          // over the copy being pointed to.
-          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-          }
-
-          new mapboxgl.Popup({ className: "click-popup" })
-            .setLngLat(coordinates)
-            .setHTML(
-              "<div class=" +
-                "title" +
-                "> Some Topic </div><a href =" +
-                url +
-                " target=_" +
-                "blank" +
-                ">" +
-                '"' +
-                title +
-                '"' +
-                "</a>"
-            )
-            .addTo(map);
-        });
-        map.on("click", "arts & entertainment", function (e) {
-          var coordinates = e.features[0].geometry.coordinates.slice();
-          var title = e.features[0].properties.title;
-          var url = e.features[0].properties.url;
-
-          // Ensure that if the map is zoomed out such that multiple
-          // copies of the feature are visible, the popup appears
-          // over the copy being pointed to.
-          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-          }
-
-          new mapboxgl.Popup({ className: "click-popup" })
-            .setLngLat(coordinates)
-            .setHTML(
-              "<div class=" +
-                "title" +
-                "> Some Topic </div><a href =" +
-                url +
-                " target=_" +
-                "blank" +
-                ">" +
-                '"' +
-                title +
-                '"' +
-                "</a>"
-            )
-            .addTo(map);
-        });
-        map.on("click", "science", function (e) {
-          var coordinates = e.features[0].geometry.coordinates.slice();
-          var title = e.features[0].properties.title;
-          var url = e.features[0].properties.url;
-
-          // Ensure that if the map is zoomed out such that multiple
-          // copies of the feature are visible, the popup appears
-          // over the copy being pointed to.
-          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-          }
-
-          new mapboxgl.Popup({ className: "click-popup" })
-            .setLngLat(coordinates)
-            .setHTML(
-              "<div class=" +
-                "title" +
-                "> Some Topic </div><a href =" +
-                url +
-                " target=_" +
-                "blank" +
-                ">" +
-                '"' +
-                title +
-                '"' +
-                "</a>"
-            )
-            .addTo(map);
-        });
-        map.on("click", "local", function (e) {
-          var coordinates = e.features[0].geometry.coordinates.slice();
-          var title = e.features[0].properties.title;
-          var url = e.features[0].properties.url;
-
-          // Ensure that if the map is zoomed out such that multiple
-          // copies of the feature are visible, the popup appears
-          // over the copy being pointed to.
-          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-          }
-
-          new mapboxgl.Popup({ className: "click-popup" })
-            .setLngLat(coordinates)
-            .setHTML(
-              "<div class=" +
-                "title" +
-                "> Some Topic </div><a href =" +
-                url +
-                " target=_" +
-                "blank" +
-                ">" +
-                '"' +
-                title +
-                '"' +
-                "</a>"
-            )
-            .addTo(map);
-        });
-        map.on("click", "crisi-updates", function (e) {
-          var coordinates = e.features[0].geometry.coordinates.slice();
-          var title = e.features[0].properties.title;
-          var url = e.features[0].properties.url;
-
-          // Ensure that if the map is zoomed out such that multiple
-          // copies of the feature are visible, the popup appears
-          // over the copy being pointed to.
-          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-          }
-
-          new mapboxgl.Popup({ className: "click-popup" })
-            .setLngLat(coordinates)
-            .setHTML(
-              "<div class=" +
-                "title" +
-                "> Some Topic </div><a href =" +
-                url +
-                " target=_" +
-                "blank" +
-                ">" +
-                '"' +
-                title +
-                '"' +
-                "</a>"
-            )
-            .addTo(map);
-        });
-        map.on("click", "initial-layer", function (e) {
-          var coordinates = e.features[0].geometry.coordinates.slice();
-          var title = e.features[0].properties.title;
-          var url = e.features[0].properties.url;
-
-          // Ensure that if the map is zoomed out such that multiple
-          // copies of the feature are visible, the popup appears
-          // over the copy being pointed to.
-          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-          }
-
-          new mapboxgl.Popup({ className: "click-popup" })
-            .setLngLat(coordinates)
-            .setHTML(
-              "<div class=" +
-                "title" +
-                "> Some Topic </div><a href =" +
-                url +
-                " target=_" +
-                "blank" +
-                ">" +
-                '"' +
-                title +
-                '"' +
-                "</a>"
-            )
-            .addTo(map);
-        });
-
-        // // Change the cursor to a pointer when the mouse is over the places layer.
-        // map.on("mouseenter", "covid-19", function () {
-        //   map.getCanvas().style.cursor = "pointer";
-        // });
-        // Create a popup, but don't add it to the map yet.
-
-        var popup = new mapboxgl.Popup({
-          className: "hover-popup",
-          closeButton: false,
-          closeOnClick: false,
-        });
-
-        map.on("mouseenter", "layer-mypoints", function (e) {
+        map.on("mouseenter", "covid-19", function (e) {
           // Change the cursor style as a UI indicator.
           map.getCanvas().style.cursor = "pointer";
 
           var coordinates = e.features[0].geometry.coordinates.slice();
+          var topic = e.features[0].properties.topic;
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -411,12 +215,589 @@ export default {
           // based on the feature found.
           popup
             .setLngLat(coordinates)
-            .setHTML("<div> Some Topic </div>")
+            .setHTML("<div>" + topic + "</div>")
             .addTo(map);
         });
 
         // Change it back to a pointer when it leaves.
-        map.on("mouseleave", "layer-mypoints", function () {
+        map.on("mouseleave", "covid-19", function () {
+          map.getCanvas().style.cursor = "";
+          popup.remove();
+        });
+
+        map.on("click", "politics", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var topic = e.features[0].properties.topic;
+          var image = e.features[0].properties.image;
+          var titles = e.features[0].properties.titles;
+          var urls = e.features[0].properties.urls;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=title>" +
+                topic +
+                "</div><img class='image' src=" +
+                image +
+                "><br><a href =" +
+                urls +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                titles +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+
+        map.on("mouseenter", "politics", function (e) {
+          // Change the cursor style as a UI indicator.
+          map.getCanvas().style.cursor = "pointer";
+
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var topic = e.features[0].properties.topic;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          // Populate the popup and set its coordinates
+          // based on the feature found.
+          popup
+            .setLngLat(coordinates)
+            .setHTML("<div>" + topic + "</div>")
+            .addTo(map);
+        });
+
+        // Change it back to a pointer when it leaves.
+        map.on("mouseleave", "politics", function () {
+          map.getCanvas().style.cursor = "";
+          popup.remove();
+        });
+
+        map.on("click", "business", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var topic = e.features[0].properties.topic;
+          var image = e.features[0].properties.image;
+          var titles = e.features[0].properties.titles;
+          var urls = e.features[0].properties.urls;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=title>" +
+                topic +
+                "</div><img class='image' src=" +
+                image +
+                "><br><a href =" +
+                urls +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                titles +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+
+        map.on("mouseenter", "business", function (e) {
+          // Change the cursor style as a UI indicator.
+          map.getCanvas().style.cursor = "pointer";
+
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var topic = e.features[0].properties.topic;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          // Populate the popup and set its coordinates
+          // based on the feature found.
+          popup
+            .setLngLat(coordinates)
+            .setHTML("<div>" + topic + "</div>")
+            .addTo(map);
+        });
+
+        // Change it back to a pointer when it leaves.
+        map.on("mouseleave", "business", function () {
+          map.getCanvas().style.cursor = "";
+          popup.remove();
+        });
+
+        map.on("click", "sports", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var topic = e.features[0].properties.topic;
+          var image = e.features[0].properties.image;
+          var titles = e.features[0].properties.titles;
+          var urls = e.features[0].properties.urls;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=title>" +
+                topic +
+                "</div><img class='image' src=" +
+                image +
+                "><br><a href =" +
+                urls +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                titles +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+
+        map.on("mouseenter", "sports", function (e) {
+          // Change the cursor style as a UI indicator.
+          map.getCanvas().style.cursor = "pointer";
+
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var topic = e.features[0].properties.topic;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          // Populate the popup and set its coordinates
+          // based on the feature found.
+          popup
+            .setLngLat(coordinates)
+            .setHTML("<div>" + topic + "</div>")
+            .addTo(map);
+        });
+
+        // Change it back to a pointer when it leaves.
+        map.on("mouseleave", "sports", function () {
+          map.getCanvas().style.cursor = "";
+          popup.remove();
+        });
+
+        map.on("click", "arts & entertainment", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var topic = e.features[0].properties.topic;
+          var image = e.features[0].properties.image;
+          var titles = e.features[0].properties.titles;
+          var urls = e.features[0].properties.urls;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=title>" +
+                topic +
+                "</div><img class='image' src=" +
+                image +
+                "><br><a href =" +
+                urls +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                titles +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+
+        map.on("mouseenter", "arts & entertainment", function (e) {
+          // Change the cursor style as a UI indicator.
+          map.getCanvas().style.cursor = "pointer";
+
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var topic = e.features[0].properties.topic;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          // Populate the popup and set its coordinates
+          // based on the feature found.
+          popup
+            .setLngLat(coordinates)
+            .setHTML("<div>" + topic + "</div>")
+            .addTo(map);
+        });
+
+        // Change it back to a pointer when it leaves.
+        map.on("mouseleave", "arts & entertainment", function () {
+          map.getCanvas().style.cursor = "";
+          popup.remove();
+        });
+
+        map.on("click", "science", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var topic = e.features[0].properties.topic;
+          var image = e.features[0].properties.image;
+          var titles = e.features[0].properties.titles;
+          var urls = e.features[0].properties.urls;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=title>" +
+                topic +
+                "</div><img class='image' src=" +
+                image +
+                "><br><a href =" +
+                urls +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                titles +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+
+        map.on("mouseenter", "science", function (e) {
+          // Change the cursor style as a UI indicator.
+          map.getCanvas().style.cursor = "pointer";
+
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var topic = e.features[0].properties.topic;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          // Populate the popup and set its coordinates
+          // based on the feature found.
+          popup
+            .setLngLat(coordinates)
+            .setHTML("<div>" + topic + "</div>")
+            .addTo(map);
+        });
+
+        // Change it back to a pointer when it leaves.
+        map.on("mouseleave", "science", function () {
+          map.getCanvas().style.cursor = "";
+          popup.remove();
+        });
+
+        map.on("click", "lifestyle", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var topic = e.features[0].properties.topic;
+          var image = e.features[0].properties.image;
+          var titles = e.features[0].properties.titles;
+          var urls = e.features[0].properties.urls;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=title>" +
+                topic +
+                "</div><img class='image' src=" +
+                image +
+                "><br><a href =" +
+                urls +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                titles +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+
+        map.on("mouseenter", "lifestyle", function (e) {
+          // Change the cursor style as a UI indicator.
+          map.getCanvas().style.cursor = "pointer";
+
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var topic = e.features[0].properties.topic;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          // Populate the popup and set its coordinates
+          // based on the feature found.
+          popup
+            .setLngLat(coordinates)
+            .setHTML("<div>" + topic + "</div>")
+            .addTo(map);
+        });
+
+        // Change it back to a pointer when it leaves.
+        map.on("mouseleave", "lifestyle", function () {
+          map.getCanvas().style.cursor = "";
+          popup.remove();
+        });
+
+        map.on("click", "local", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var topic = e.features[0].properties.topic;
+          var image = e.features[0].properties.image;
+          var titles = e.features[0].properties.titles;
+          var urls = e.features[0].properties.urls;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=title>" +
+                topic +
+                "</div><img class='image' src=" +
+                image +
+                "><br><a href =" +
+                urls +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                titles +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+
+        map.on("mouseenter", "local", function (e) {
+          // Change the cursor style as a UI indicator.
+          map.getCanvas().style.cursor = "pointer";
+
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var topic = e.features[0].properties.topic;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          // Populate the popup and set its coordinates
+          // based on the feature found.
+          popup
+            .setLngLat(coordinates)
+            .setHTML("<div>" + topic + "</div>")
+            .addTo(map);
+        });
+
+        // Change it back to a pointer when it leaves.
+        map.on("mouseleave", "local", function () {
+          map.getCanvas().style.cursor = "";
+          popup.remove();
+        });
+
+        map.on("click", "crisis-updates", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var topic = e.features[0].properties.topic;
+          var image = e.features[0].properties.image;
+          var titles = e.features[0].properties.titles;
+          var urls = e.features[0].properties.urls;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<div class=title>" +
+                topic +
+                "</div><img class='image' src=" +
+                image +
+                "><br><a href =" +
+                urls +
+                " target=_" +
+                "blank" +
+                ">" +
+                '"' +
+                titles +
+                '"' +
+                "</a>"
+            )
+            .addTo(map);
+        });
+
+        map.on("mouseenter", "crisis-updates", function (e) {
+          // Change the cursor style as a UI indicator.
+          map.getCanvas().style.cursor = "pointer";
+
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var topic = e.features[0].properties.topic;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          // Populate the popup and set its coordinates
+          // based on the feature found.
+          popup
+            .setLngLat(coordinates)
+            .setHTML("<div>" + topic + "</div>")
+            .addTo(map);
+        });
+
+        // Change it back to a pointer when it leaves.
+        map.on("mouseleave", "crisis-updates", function () {
+          map.getCanvas().style.cursor = "";
+          popup.remove();
+        });
+
+        map.on("click", "initial-layer", function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var topic = e.features[0].properties.topic;
+          var image = e.features[0].properties.image;
+          var titles = e.features[0].properties.titles;
+          var urls = e.features[0].properties.urls;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          function jsonToHtml(titles, image, urls) {
+            var titles_array = titles.split(",");
+            var images_array = image.split(",");
+            var urls_array = urls.split(",");
+
+            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper'>";
+            var middlestr = '';
+
+            for(var i = 0; i < titles_array.length; i++){
+              if(i == 0){
+                titles_array[i] = titles_array[i].replace("[", "");
+                images_array[i] = images_array[i].replace("[", "");
+                urls_array[i] = urls_array[i].replace("[", "");
+              }
+              if(i == titles_array.length - 1){
+                titles_array[i] = titles_array[i].replace("]", "");
+                images_array[i] = images_array[i].replace("]", "");
+                urls_array[i] = urls_array[i].replace("]", "");
+              }
+              middlestr =  middlestr + "<div class='article'><img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a></div>";
+            }
+            var endstr = "</div>";
+            return beginningstr + middlestr + endstr;
+          }
+
+          var htmlString = jsonToHtml(titles, image, urls);
+
+          new mapboxgl.Popup({ className: "click-popup" })
+            .setLngLat(coordinates)
+            .setHTML(htmlString)
+            .addTo(map);
+        });
+
+        // // Change the cursor to a pointer when the mouse is over the places layer.
+        // map.on("mouseenter", "covid-19", function () {
+        //   map.getCanvas().style.cursor = "pointer";
+        // });
+        // Create a popup, but don't add it to the map yet.
+
+        map.on("mouseenter", "initial-layer", function (e) {
+          // Change the cursor style as a UI indicator.
+          map.getCanvas().style.cursor = "pointer";
+
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var topic = e.features[0].properties.topic;
+
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+
+          // Populate the popup and set its coordinates
+          // based on the feature found.
+          popup
+            .setLngLat(coordinates)
+            .setHTML("<div>" + topic + "</div>")
+            .addTo(map);
+        });
+
+        // Change it back to a pointer when it leaves.
+        map.on("mouseleave", "initial-layer", function () {
           map.getCanvas().style.cursor = "";
           popup.remove();
         });
@@ -443,16 +824,28 @@ export default {
   width: 100%;
   height: 100%;
 }
-.hover-popup .mapboxgl-popup-content {
-  font-size: 14px;
-  background-color: #242424;
-  color: rgb(228, 228, 228);
-  padding: 2px 8px;
+.headline-wrapper {
+  margin: 10px;;
+  float: left;
 }
-
+.article {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
 .image {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
+}
+.hover-popup .mapboxgl-popup-content {
+  font-size: 13px;
+  font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
+  background-color: #6E8494;
+  color: rgb(228, 228, 228);
+  padding: 6px 8px;
+  font-weight: bold;
+  text-align: center;
+  border: 0.1px solid #8DA9BF;
 }
 .hover-popup .mapboxgl-popup-tip {
   border-top-color: transparent;
@@ -460,14 +853,18 @@ export default {
 }
 
 .click-popup .mapboxgl-popup-content {
-  background-color: #242424;
-  color: rgb(228, 228, 228);
+  font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
+  background-color: #6E8494;
+  color: #CBD5DC;
   padding: 10px 15px;
   border-radius: 5px;
+  border: 0.1px solid #8DA9BF;
+  width: 300px;
 }
 .click-popup .mapboxgl-popup-content .title {
+  font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
   font-size: 24px;
-  margin: 5px 0px 15px 0px;
+  /*margin: 5px 0px 15px 0px;*/
 }
 .click-popup .mapboxgl-popup-tip {
   border-top-color: #242424;
@@ -475,13 +872,16 @@ export default {
 }
 
 .mapboxgl-popup-content a {
+  font: "Avenir";
   text-decoration: none;
-  color: #b1b1b5;
+  color: #CBD5DC;
+   margin: 5px 5px;
 }
 
 .mapboxgl-popup-content a:hover {
   text-decoration: underline;
-  color: #d0d0d9;
+  /* color: #d0d0d9; */
+  color: #CBD5DC;
 }
 
 .mapboxgl-popup-close-button {
@@ -489,8 +889,8 @@ export default {
   color: white;
 }
 .mapboxgl-ctrl-group:not(:empty) {
-  background-color: #CBD5DC;
-  border: 1px solid #8DA9BF;
+  background-color: #cbd5dc;
+  border: 1px solid #8da9bf;
   border-radius: 5px;
 }
 .mapboxgl-ctrl button {
@@ -498,5 +898,12 @@ export default {
   color: white;
   transition: all;
   transition-duration: 150ms;
+}
+.topic {  
+  font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
+  color: #CBD5DC;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
 }
 </style>
