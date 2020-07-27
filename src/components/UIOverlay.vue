@@ -1,13 +1,12 @@
 <template>
   <div class="UIOverlay">
     <div class="top-right">
-      
       <div class="button" id="aboutButton" @click="showAbout = true">About</div>
       <div class="button">Dashboard</div>
       <div class="search" @click="showSearch">
         <form action>
-          <span class="fa fa-search" ></span>
-          <input type="text" placeholder="Search..."/>
+          <span class="fa fa-search"></span>
+          <input type="text" placeholder="Search..." />
           <!-- <button type="submit"></button> -->
         </form>
       </div>
@@ -53,7 +52,6 @@
           </p>
         </div>
       </modal>
-      
     </div>
   </div>
 </template>
@@ -139,6 +137,7 @@ export default {
       ],
       active_filters: [0, 0, 0, 0, 0, 0, 0, 0, 0],
       showAbout: false,
+      showSearch: true,
     };
   },
   methods: {
@@ -184,10 +183,10 @@ export default {
   top: 10px;
 }
 .button {
-  border: 0.1px solid #8DA9BF;
+  border: 0.1px solid #8da9bf;
   letter-spacing: 0.4px;
-  background-color: rgba(255,255,255,0.05);
-  color: #CBD5DC;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #cbd5dc;
   box-shadow: 0 3px 6px #3535353b;
   border-radius: 5px;
   display: flex;
@@ -201,15 +200,14 @@ export default {
   transition-duration: 150ms;
 }
 .button:hover {
-  background-color: #CBD5DC;
+  background-color: #cbd5dc;
   color: #414141;
-
 }
 .category {
-  border: 0.1px solid #8DA9BF;
+  border: 0.1px solid #8da9bf;
   letter-spacing: 0.4px;
-  background-color: rgba(255,255,255,0.05);
-  color: #CBD5DC;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #cbd5dc;
   box-shadow: 0 3px 6px #3535353b;
   border-radius: 5px;
   display: flex;
@@ -224,14 +222,14 @@ export default {
   width: 80%;
 }
 .category:hover {
-  background-color: #CBD5DC;
+  background-color: #cbd5dc;
   color: #414141;
 }
 .category-title {
   opacity: 1;
 }
 .circle {
-  border: 0.1px solid #CBD5DC;
+  border: 0.1px solid #cbd5dc;
   border-radius: 50%;
   width: 15px;
   height: 15px;
@@ -269,7 +267,7 @@ export default {
   text-decoration: none;
   cursor: pointer;
 }
-input[type=text] {
+input[type="text"] {
   border: none;
   box-shadow: none;
   outline: none;
@@ -288,13 +286,13 @@ input[type=text] {
   color: #414141;
   font-size: 16px;
 }
-input[type=text]:hover {
+input[type="text"]:hover {
   cursor: pointer;
   background-color: #f2f2f2;
 }
-input[type=text]:focus {
+input[type="text"]:focus {
   outline: none;
-  border: 1px solid #8DA9BF;
+  border: 1px solid #8da9bf;
 }
 ::placeholder {
   display: none;
@@ -308,9 +306,13 @@ img {
   height: auto;
 }
 @import url("//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
-.search { position: relative; }
-.search input { text-indent: 0px;}
-.search .fa-search { 
+.search {
+  position: relative;
+}
+.search input {
+  text-indent: 0px;
+}
+.search .fa-search {
   position: absolute;
   top: 8px;
   right: 7px;

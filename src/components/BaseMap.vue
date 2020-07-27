@@ -46,7 +46,7 @@ export default {
           temp.push(this.active_filters[i].realCategory);
           temp.push(this.active_filters[i].color);
           temp.push("#ccc");
-          console.log(temp);
+          // console.log(temp);
           let newLayer = {
             id: this.active_filters[i].realCategory,
             type: "circle",
@@ -59,7 +59,9 @@ export default {
           if (this.map.getLayer("initial-layer")) {
             this.map.removeLayer("initial-layer");
           }
-          this.map.removeLayer(this.active_filters[i].realCategory);
+          if (this.map.getLayer(this.active_filters[i].realCategory)) {
+            this.map.removeLayer(this.active_filters[i].realCategory);
+          }
           this.map.addLayer(newLayer);
         } else {
           if (this.map.getLayer(this.active_filters[i].realCategory)) {
@@ -489,8 +491,8 @@ export default {
   color: white;
 }
 .mapboxgl-ctrl-group:not(:empty) {
-  background-color: #CBD5DC;
-  border: 1px solid #8DA9BF;
+  background-color: #cbd5dc;
+  border: 1px solid #8da9bf;
   border-radius: 5px;
 }
 .mapboxgl-ctrl button {
