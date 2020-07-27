@@ -1,8 +1,16 @@
 <template>
   <div class="UIOverlay">
     <div class="top-right">
+      
       <div class="button" id="aboutButton" @click="showAbout = true">About</div>
       <div class="button">Dashboard</div>
+      <div class="search" @click="showSearch">
+        <form action>
+          <span class="fa fa-search" ></span>
+          <input type="text" placeholder="Search..."/>
+          <!-- <button type="submit"></button> -->
+        </form>
+      </div>
     </div>
     <div class="bottom-left">
       <div class="logo">
@@ -45,12 +53,7 @@
           </p>
         </div>
       </modal>
-      <div class="search">
-        <form action>
-          <input type="text" placeholder="Search..." name="search" />
-          <!-- <button type="submit"></button> -->
-        </form>
-      </div>
+      
     </div>
   </div>
 </template>
@@ -253,32 +256,51 @@ export default {
   text-decoration: none;
   cursor: pointer;
 }
-input[type="text"] {
-  background: rgba(0, 0, 0, 0);
-  background-color: none;
-  color: #414141;
-  height: 30px;
-  width: 200px;
-  letter-spacing: 0.4px;
-  /* border-radius: 5px; */
-  font-size: 16px;
-  letter-spacing: 0.4px;
+input[type=text] {
+  border: none;
+  box-shadow: none;
   outline: none;
-  box-sizing: border-box;
-  font-family: "Times New Roman";
-  justify-content: flex-start;
-  padding: 0 5px;
-  border: 0;
-  outline: 0;
-  border-bottom: 1px solid #242424;
-  margin: auto;
+  letter-spacing: 0.4px;
+  background-color: transparent;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 12px;
+  user-select: none;
+  cursor: pointer;
+  transition: all;
+  transition-duration: 150ms;
+  font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
+  color: #414141;
+  font-size: 16px;
+}
+input[type=text]:hover {
+  cursor: pointer;
+  background-color: #f2f2f2;
+}
+input[type=text]:focus {
+  outline: none;
+  border: 1px solid #8DA9BF;
 }
 ::placeholder {
-  color: #b0b0b0;
-  font-family: "Times New Roman";
+  display: none;
+  font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
+  color: #414141;
+  font-size: 16px;
+  text-align: left;
 }
 img {
   width: 180px;
   height: auto;
+}
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
+.search { position: relative; }
+.search input { text-indent: 0px;}
+.search .fa-search { 
+  position: absolute;
+  top: 8px;
+  right: 7px;
+  font-size: 15px;
 }
 </style>
