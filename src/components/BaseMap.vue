@@ -841,7 +841,7 @@ export default {
   font-family: -apple-system, "Avenir", Helvetica, Arial, sans-serif;
   background-color: #6E8494;
   color: rgb(228, 228, 228);
-  padding: 2px 8px;
+  padding: 6px 8px;
   font-weight: bold;
   text-align: center;
   border: 0.1px solid #8DA9BF;
