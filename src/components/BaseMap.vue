@@ -740,7 +740,7 @@ export default {
             var images_array = image.split(",");
             var urls_array = urls.split(",");
 
-            var beginningstr = "<div class='topic'>" + topic + "</div> <div class='headline-wrapper'>";
+            var beginningstr = "<div class='topic'>" + topic + "</div><div class='headline-wrapper>";
             var middlestr = '';
 
             for(var i = 0; i < titles_array.length; i++){
@@ -754,8 +754,7 @@ export default {
                 images_array[i] = images_array[i].replace("]", "");
                 urls_array[i] = urls_array[i].replace("]", "");
               }
-              middlestr = middlestr + "<img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a>";
-              console.log(middlestr);
+              middlestr =  middlestr + "<div class='article'><img class='image' src=" + images_array[i] + "> <br> <a href=" + urls_array[i] + "target='_blank'>" + titles_array[i] + "</a></div>";
             }
             var endstr = "</div>";
             return beginningstr + middlestr + endstr;
@@ -825,16 +824,23 @@ export default {
   width: 100%;
   height: 100%;
 }
+.headline-wrapper {
+  float: left;
+}
+.article {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.image {
+  width: 30px;
+  height: 30px;
+}
 .hover-popup .mapboxgl-popup-content {
   font-size: 14px;
   background-color: #242424;
   color: rgb(228, 228, 228);
   padding: 2px 8px;
-}
-
-.image {
-  width: 50px;
-  height: 50px;
 }
 .hover-popup .mapboxgl-popup-tip {
   border-top-color: transparent;
@@ -847,6 +853,7 @@ export default {
   color: rgb(228, 228, 228);
   padding: 10px 15px;
   border-radius: 5px;
+  width: 100%;
 }
 .click-popup .mapboxgl-popup-content .title {
   font: "Avenir";
@@ -862,6 +869,7 @@ export default {
   font: "Avenir";
   text-decoration: none;
   color: #b1b1b5;
+  margin: 5px 10px;
 }
 
 .mapboxgl-popup-content a:hover {
