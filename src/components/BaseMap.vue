@@ -347,7 +347,7 @@ export default {
             )
             .addTo(map);
         });
-        map.on("click", "crisi-updates", function (e) {
+        map.on("click", "crisis-updates", function (e) {
           var coordinates = e.features[0].geometry.coordinates.slice();
           var topic = e.features[0].properties.topic;
           var image = e.features[0].properties.image;
@@ -394,22 +394,20 @@ export default {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
           }
 
+          var titles_array = titles.split(",");
+          console.log(titles_array);
+
+          // <div class='topic'>topic</div>
+          // <div class="headline-wrapper" v-for"title in titles_array">
+          //   <img class='image' src=image> 
+          //   <br> 
+          //   <a href =url target="_blank"> title</a>
+          // </div>
+
           new mapboxgl.Popup({ className: "click-popup" })
             .setLngLat(coordinates)
             .setHTML(
-              "<div class=title>" +
-                topic +
-                "</div><img class='image' src=" +
-                image +
-                "><br><a href =" +
-                urls +
-                " target=_" +
-                "blank" +
-                ">" +
-                '"' +
-                titles +
-                '"' +
-                "</a>"
+              "<div></div><div v-for='headline in titles_array'>" + headline + "</div></div>"
             )
             .addTo(map);
         });
