@@ -12,8 +12,7 @@ export default {
   },
   data() {
     return {
-      accessToken:
-        "pk.eyJ1IjoiaGFycHJpeWFiYWdyaSIsImEiOiJja2NxeHR6dWgwcjJnMnJtMXhreWN4MWoxIn0.wW12qOAMq730lfuLyXb9nw",
+      accessToken: KEY,
       filter_state: [
         { category: "covid-19", color: "#f34c46", filter: 0 },
         { category: "politics", color: "#fa8d4f", filter: 0 },
